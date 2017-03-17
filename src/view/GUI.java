@@ -45,7 +45,8 @@ public class GUI extends JFrame{
 	private FuncionSeleccion[] selectionOptions = {new Ruleta(), new TorneoDeterminista(2), new TorneoDeterminista(3), new EstocasticoUniversal()}; 
 	private FuncionCruce[] crossoverOptionsBin = {new Monopunto()}; 
 	private FuncionCruce[] crossoverOptionsReal = {new Monopunto(), new Aritmetico()}; 
-	private FuncionMutacion[] mutationOptions = {new MutaBaseABase()}; 
+	private FuncionMutacion[] mutationOptionsBin = {new MutaBaseABase()}; 
+	private FuncionMutacion[] mutationOptionsReal = {new MutaBaseABase()}; 
 	private JComboBox<String> problemCombobox;
 	
 	private GraficaPanel chartPanel;
@@ -110,7 +111,7 @@ public class GUI extends JFrame{
 		problemCombobox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(problemCombobox.getSelectedItem() == "4Xtra")	//cromosoma real
-					isCromosomaBin = true;
+					isCromosomaBin = false;
 				else												//cromosoma bin
 					isCromosomaBin = true;
 
@@ -133,7 +134,12 @@ public class GUI extends JFrame{
 						else
 							fcross = settings.getCrossoverOptionReal();
 						
-						FuncionMutacion fmut = settings.getMutationOption();
+						FuncionMutacion fmut;
+						if(isCromosomaBin)
+							fmut = settings.getMutationOptionBin();
+						else
+							fmut = settings.getMutationOptionReal();
+						
 						FuncionSeleccion fselec = settings.getSelectionOption();
 						double elite = settings.getEliteIndex()/100.0;
 						int genNum = settings.getGenerationNum();
@@ -189,12 +195,13 @@ public class GUI extends JFrame{
 			.addOption(new IntegerOption<Settings>("Generation number", "",	 "generationNum", 1,  Integer.MAX_VALUE))
 			.addOption(new ChoiceOption<Settings>("Selection", "", "selectionOption", selectionOptions))
 			.beginInner(new InnerOption<Settings,Settings>("Crossover", "", "settings", Settings.class))
-				.addInner(new ChoiceOption<Settings>("Crossover", "", "crossoverOptionBin", crossoverOptionsBin))
-				.addInner(new ChoiceOption<Settings>("Crossover", "", "crossoverOptionReal", crossoverOptionsReal))
+				.addInner(new ChoiceOption<Settings>("CrossoverB", "", "crossoverOptionBin", crossoverOptionsBin))
+				.addInner(new ChoiceOption<Settings>("CrossoverR", "", "crossoverOptionReal", crossoverOptionsReal))
 				.addInner(new DoubleOption<Settings>("Crossover %", "", "crossoverIndex", 0, 100))
 			.endInner()
 			.beginInner(new InnerOption<Settings,Settings>("Mutation", "", "settings", Settings.class))
-				.addInner(new ChoiceOption<Settings>("Mutation", "", "mutationOption", mutationOptions))
+				.addInner(new ChoiceOption<Settings>("MutationB", "", "mutationOptionBin", mutationOptionsBin))
+				.addInner(new ChoiceOption<Settings>("MutationR", "", "mutationOptionReal", mutationOptionsReal))
 				.addInner(new DoubleOption<Settings>("Mutation %", "", "mutationIndex", 0, 100))
 			.endInner()
 			.beginInner(new InnerOption<Settings,Settings>("Elite", "", "settings", Settings.class))
@@ -215,8 +222,9 @@ public class GUI extends JFrame{
 
 		private FuncionSeleccion selectionOption = new Ruleta();
 		private FuncionCruce crossoverOptionBin = new Monopunto();
-		private FuncionCruce crossoverOptionReal = new Aritmetico();
-		private FuncionMutacion mutationOption = new MutaBaseABase();
+		private FuncionCruce crossoverOptionReal = new Monopunto();
+		private FuncionMutacion mutationOptionBin = new MutaBaseABase();
+		private FuncionMutacion mutationOptionReal = new MutaBaseABase();
 		
 		public int getPopulationSize() { return populationSize; }
 		public void setPopulationSize(int populationSize) { this.populationSize = populationSize; }
@@ -235,8 +243,10 @@ public class GUI extends JFrame{
 		public void setCrossoverOptionBin(FuncionCruce crossoverOptionBin) { this.crossoverOptionBin = crossoverOptionBin; }
 		public FuncionCruce getCrossoverOptionReal() { return crossoverOptionReal; }
 		public void setCrossoverOptionReal(FuncionCruce crossoverOptionReal) { this.crossoverOptionReal = crossoverOptionReal; }
-		public FuncionMutacion getMutationOption() { return mutationOption; }
-		public void setMutationOption(FuncionMutacion mutationOption) { this.mutationOption = mutationOption; }
+		public FuncionMutacion getMutationOptionBin() { return mutationOptionBin; }
+		public void setMutationOptionBin(FuncionMutacion mutationOptionBin) { this.mutationOptionBin = mutationOptionBin; }
+		public FuncionMutacion getMutationOptionReal() { return mutationOptionReal; }
+		public void setMutationOptionReal(FuncionMutacion mutationOptionReal) { this.mutationOptionReal = mutationOptionReal; }
 		
 		public Settings getSettings() { return this; }
 		public void setSettings(Settings settings) { }
@@ -246,18 +256,30 @@ public class GUI extends JFrame{
 	private void showAcordingOperators() {
 
 		ConfigPanel<?> crossoverPanel = (ConfigPanel<?>) settingsPanel.getComponent(6);
+		ConfigPanel<?> mutationPanel = (ConfigPanel<?>) settingsPanel.getComponent(7);
+		
 		
 		if(isCromosomaBin) {	//cromosoma binario
 			crossoverPanel.getComponent(2).setVisible(false);	//oculta label crossover real
 			crossoverPanel.getComponent(3).setVisible(false);	//oculta combobox crossover real
 			crossoverPanel.getComponent(0).setVisible(true);	//muestra label crossover bin
 			crossoverPanel.getComponent(1).setVisible(true);	//muestra combobox crossover bin
+
+			mutationPanel.getComponent(2).setVisible(false);	//oculta label mutacion real
+			mutationPanel.getComponent(3).setVisible(false);	//oculta combobox mutacion real
+			mutationPanel.getComponent(0).setVisible(true);	//muestra label mutacion bin
+			mutationPanel.getComponent(1).setVisible(true);	//muestra combobox mutacion bin
 		}
-		else {	//cromosoma binario
+		else {					//cromosoma real
 			crossoverPanel.getComponent(0).setVisible(false);	//oculta label crossover bin
 			crossoverPanel.getComponent(1).setVisible(false);	//oculta combobox crossover bin
 			crossoverPanel.getComponent(2).setVisible(true);	//muestra label crossover real
 			crossoverPanel.getComponent(3).setVisible(true);	//muestra combobox crossover real
+			
+			mutationPanel.getComponent(2).setVisible(false);	//oculta label mutacion real
+			mutationPanel.getComponent(3).setVisible(false);	//oculta combobox mutacion real
+			mutationPanel.getComponent(0).setVisible(true);	//muestra label mutacion bin
+			mutationPanel.getComponent(1).setVisible(true);	//muestra combobox mutacion bin
 		}
 	}
 	
