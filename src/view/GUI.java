@@ -44,7 +44,7 @@ public class GUI extends JFrame{
 	private String[] problemOptions = {"1", "2", "3", "4", "4Xtra", "5"}; 
 	private FuncionSeleccion[] selectionOptions = {new Ruleta(), new TorneoDeterminista(2), new TorneoDeterminista(3), new EstocasticoUniversal()}; 
 	private FuncionCruce[] crossoverOptionsBin = {new Monopunto()}; 
-	private FuncionCruce[] crossoverOptionsReal = {/*new Monopunto(), */new Aritmetico()}; 
+	private FuncionCruce[] crossoverOptionsReal = {new Monopunto(), new Aritmetico()}; 
 	private FuncionMutacion[] mutationOptions = {new MutaBaseABase()}; 
 	private JComboBox<String> problemCombobox;
 	
