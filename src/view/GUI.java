@@ -109,7 +109,7 @@ public class GUI extends JFrame{
 			runButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if(settingsPanel.isAllValid()){
-						int opt = problemCombobox.getSelectedIndex();
+						String opt = (String) problemCombobox.getSelectedItem();
 						
 						FuncionCruce fcross = settings.getCrossoverOption();
 						FuncionMutacion fmut = settings.getMutationOption();
@@ -124,22 +124,22 @@ public class GUI extends JFrame{
 						chartPanel.reset();
 						
 						switch (opt) {
-							case 0:
+							case "1":
 								pf = new Problema1(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
 								break;
-							case 1:
+							case "2":
 								pf = new Problema2(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);				
 								break;
-							case 2:
+							case "3":
 								pf = new Problema3(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
 								break;
-							case 3:
+							case "4":
 								pf = new Problema4(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
 								break;
-							case 4:
+							case "4Xtra":
 								pf = new Problema4Xtra(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
 								break;
-							case 5:
+							case "5":
 								pf = new Problema5(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
 								break;
 							default:

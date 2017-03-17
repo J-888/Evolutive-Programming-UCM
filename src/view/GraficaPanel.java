@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Paint;
 
 import javax.swing.JPanel;
 
@@ -50,11 +51,18 @@ public class GraficaPanel extends JPanel{
 			false						//urls
 		);
 		
+		Color bgColor = new Color(255, 255, 255, 0);	//transparent
+		Color gridColor = new Color(80, 80, 80);
+		
 		XYPlot plot = chart.getXYPlot();
-		plot.getRendererForDataset(plot.getDataset(0)).setSeriesPaint(0, Color.red); 
-		plot.getRendererForDataset(plot.getDataset(0)).setSeriesPaint(1, Color.green); 
-		plot.getRendererForDataset(plot.getDataset(0)).setSeriesPaint(2, Color.yellow); 
-		plot.getRendererForDataset(plot.getDataset(0)).setSeriesPaint(3, Color.blue); 
+		
+		plot.setBackgroundPaint(bgColor);
+		plot.setDomainGridlinePaint(gridColor);
+		plot.setRangeGridlinePaint(gridColor);
+		plot.getRendererForDataset(plot.getDataset(0)).setSeriesPaint(0, Color.RED); 
+		plot.getRendererForDataset(plot.getDataset(0)).setSeriesPaint(1, Color.GREEN); 
+		plot.getRendererForDataset(plot.getDataset(0)).setSeriesPaint(2, Color.YELLOW); 
+		plot.getRendererForDataset(plot.getDataset(0)).setSeriesPaint(3, Color.BLUE); 
 		
 		chartPanel = new ChartPanel(chart);
 	}
