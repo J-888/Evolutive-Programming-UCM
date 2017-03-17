@@ -7,12 +7,16 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
+import geneticos.Individuo;
+
 import javax.swing.JFrame;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.BoxLayout;
 
 import operadores.cruce.Aritmetico;
@@ -48,7 +52,6 @@ public class GUI extends JFrame{
 	private FuncionMutacion[] mutationOptionsBin = {new MutaBaseABase()}; 
 	private FuncionMutacion[] mutationOptionsReal = {new MutaBaseABase()}; 
 	private JComboBox<String> problemCombobox;
-	
 	private GraficaPanel chartPanel;
 	private final ConfigPanel<Settings> settingsPanel;
 	
@@ -88,6 +91,10 @@ public class GUI extends JFrame{
 		labelComponent.setHorizontalAlignment(SwingConstants.RIGHT);
 		problemPanel.add(problemCombobox);
 				
+		JCheckBox visuals = new JCheckBox("Enable popups", true);
+		problemPanel.add(visuals);
+		
+		
 		getContentPane().add(problemPanel, BorderLayout.NORTH);
 		
 		JPanel leftPanel = new JPanel();
@@ -173,7 +180,16 @@ public class GUI extends JFrame{
 								break;
 							}
 						
-						pf.execute();
+						Individuo bestFound = pf.execute();
+						String mess = "";
+						mess += ("Mejor fitness encontrado: " + bestFound.getFitness() + "\n");
+						mess += ("Con los siguientes genes: \n");
+						for(int i = 0; i < bestFound.getFenotipo().size(); i++){
+							mess += ("Gen #" + i + ": " + bestFound.getFenotipo().get(i) + "\n");
+						}
+						System.out.println(mess);
+						if(visuals.isSelected())
+							JOptionPane.showMessageDialog(null, mess,"Información de la ejecución",JOptionPane.INFORMATION_MESSAGE);
 					}
 					else{
 						JOptionPane.showMessageDialog(settingsPanel, "fob", "PARAMETROS INCORRECTOS", JOptionPane.ERROR_MESSAGE);}

@@ -72,7 +72,7 @@ public class MutaBaseABase extends FuncionMutacion {
 	}
 
 	public String toString() {
-		return "Bit a bit";
+		return "Base a base";
 	}
 	
 }
