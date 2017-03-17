@@ -20,7 +20,7 @@ public class Problema4Xtra extends ProblemaFuncion{
 		this.funcSelec = funcSelec;
 		this.funcMuta = funcMuta;
 		this.funcCruz = funcCruz;
-		this.rangoVar = new ArrayList<Par<Double>>();
+		this.rangoVar = new ArrayList<Par<Double>>(N);
 		for(int i = 0; i < N; i++)
 			this.rangoVar.add(new Par<Double>(new Double(0.0),new Double(Math.PI)));
 		this.tolerancia = 0.001;

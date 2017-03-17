@@ -19,7 +19,7 @@ import operadores.cruce.Aritmetico;
 import operadores.cruce.FuncionCruce;
 import operadores.cruce.Monopunto;
 import operadores.mutacion.FuncionMutacion;
-import operadores.mutacion.MutaBitABit;
+import operadores.mutacion.MutaBaseABase;
 import operadores.seleccion.EstocasticoUniversal;
 import operadores.seleccion.FuncionSeleccion;
 import operadores.seleccion.Ruleta;
@@ -44,7 +44,7 @@ public class GUI extends JFrame{
 	private String[] problemOptions = {"1", "2", "3", "4", "4Xtra", "5"}; 
 	private FuncionSeleccion[] selectionOptions = {new Ruleta(), new TorneoDeterminista(2), new TorneoDeterminista(3), new EstocasticoUniversal()}; 
 	private FuncionCruce[] crossoverOptions = {new Monopunto(), new Aritmetico()}; 
-	private FuncionMutacion[] mutationOptions = {new MutaBitABit()}; 
+	private FuncionMutacion[] mutationOptions = {new MutaBaseABase()}; 
 	private JComboBox<String> problemCombobox;
 	
 	private GraficaPanel chartPanel;
@@ -210,7 +210,7 @@ public class GUI extends JFrame{
 
 		private FuncionSeleccion selectionOption = new Ruleta();
 		private FuncionCruce crossoverOption = new Monopunto();
-		private FuncionMutacion mutationOption = new MutaBitABit();
+		private FuncionMutacion mutationOption = new MutaBaseABase();
 		
 		public int getPopulationSize() { return populationSize; }
 		public void setPopulationSize(int populationSize) { this.populationSize = populationSize; }
