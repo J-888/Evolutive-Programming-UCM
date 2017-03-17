@@ -19,8 +19,7 @@ graficas de evolucion de cada funcion y conclusiones
  * Popup para cnd no se usa elite
  * Popup para sacar el mejor obtenido
  * 
- * MutaGen aparte de MutaBase (MutaGen llama a mutaBase si es binario o si tal)
- * Mutacion real
+ * 
  * 
  * 
  * 

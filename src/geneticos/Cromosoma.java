@@ -27,8 +27,11 @@ public abstract class Cromosoma {
 	public void setGenes(ArrayList<Gen> genes) {
 		this.genes = genes;
 	}
-		
-	public abstract Object mutaBase(Object base);
 	
 	public abstract Cromosoma clone();
+
+	public ArrayList<Par<Double>> getRango() {
+		return rango;
+	}
+	
 }

@@ -34,13 +34,6 @@ public class CromosomaBin extends Cromosoma {
 		}
 		
 	}
-
-	public Object mutaBase(Object base) {
-		if ((boolean)base)
-			return false;
-		else
-			return true;
-	}
 	
 	public Cromosoma clone(){
 		Cromosoma nuevo = new CromosomaBin(rango);

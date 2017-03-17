@@ -30,10 +30,6 @@ public class CromosomaReal extends Cromosoma {
 		
 	}
 
-	public Object mutaBase(Object base) {
-		return base;
-	}
-	
 	public Cromosoma clone(){
 		Cromosoma nuevo = new CromosomaReal(rango);
 		ArrayList<Gen> nuevosGenes = new ArrayList<Gen>();

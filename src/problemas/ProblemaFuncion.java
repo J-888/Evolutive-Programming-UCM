@@ -4,6 +4,8 @@ import geneticos.Individuo;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import javax.swing.JOptionPane;
+
 import operadores.cruce.FuncionCruce;
 import operadores.fitness.FuncionFitness;
 import operadores.mutacion.FuncionMutacion;
@@ -55,6 +57,9 @@ public abstract class ProblemaFuncion {
 			}
 			grafica.update(i, mejorIndividuo.getFitness(), peorIndividuo.getFitness(), pobAvgFitness, mejorAbsoluto.getFitness());
 		}
+	
+		//return mejorAbsoluto; TODO DEVOLVER Y EN LA GUI MOSTRAR SU STUFF EN UN POPUP
+		//Formato de popup para no buscar luego: JOptionPane.showMessageDialog(frame,"Eggs are not supposed to be green.","Inane warning",JOptionPane.WARNING_MESSAGE);
 	}
 
 	private void rellenarPobCruce(){ //Rellena la nueva poblacion cruzando si procede (y guardando espacio para la elite)
