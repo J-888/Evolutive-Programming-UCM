@@ -2,9 +2,7 @@ package problemas;
 
 import geneticos.CromosomaReal;
 import geneticos.Individuo;
-
 import java.util.ArrayList;
-
 import operadores.cruce.FuncionCruce;
 import operadores.fitness.FuncionFitnessP4;
 import operadores.mutacion.FuncionMutacion;

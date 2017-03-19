@@ -1,10 +1,7 @@
 package view;
 
 import java.awt.Color;
-import java.awt.Paint;
-
 import javax.swing.JPanel;
-
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;

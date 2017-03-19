@@ -1,8 +1,5 @@
 package operadores.fitness;
 
-import java.util.ArrayList;
-
-import util.Par;
 import geneticos.Individuo;
 
 public class FuncionFitnessP4 extends FuncionFitness {

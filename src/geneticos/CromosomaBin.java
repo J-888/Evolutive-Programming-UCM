@@ -1,6 +1,6 @@
 package geneticos;
-import java.util.ArrayList;
 
+import java.util.ArrayList;
 import util.Par;
 import util.Utiles;
 

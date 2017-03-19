@@ -1,11 +1,8 @@
 package problemas;
-import geneticos.Individuo;
 
+import geneticos.Individuo;
 import java.util.ArrayList;
 import java.util.Collections;
-
-import javax.swing.JOptionPane;
-
 import operadores.cruce.FuncionCruce;
 import operadores.fitness.FuncionFitness;
 import operadores.mutacion.FuncionMutacion;
@@ -43,7 +40,7 @@ public abstract class ProblemaFuncion {
 		
 		for(int i = 0; i < numGenerations; i++){
 			evalPoblacion();
-			if (i != numGenerations-1){ //No es necesario en la última generación
+			if (i != numGenerations-1){ //No es necesario en la ultima generacion
 				adaptPoblacion();
 				Collections.sort(poblacion);
 				poblacionNueva = new ArrayList<Individuo>(tamPob);			

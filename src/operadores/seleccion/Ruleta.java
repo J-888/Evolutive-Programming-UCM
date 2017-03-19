@@ -1,10 +1,8 @@
 package operadores.seleccion;
 
 import geneticos.Individuo;
-
 import java.util.ArrayList;
 import java.util.Collections;
-
 import util.Utiles;
 
 public class Ruleta extends FuncionSeleccion {

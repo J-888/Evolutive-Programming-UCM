@@ -1,8 +1,6 @@
 package operadores.fitness;
 
 import java.util.ArrayList;
-
-import util.Par;
 import geneticos.Individuo;
 
 public abstract class FuncionFitness {

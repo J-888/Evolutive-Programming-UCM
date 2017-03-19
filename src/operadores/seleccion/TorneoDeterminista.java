@@ -1,9 +1,7 @@
 package operadores.seleccion;
 
 import geneticos.Individuo;
-
 import java.util.ArrayList;
-
 import util.Utiles;
 
 public class TorneoDeterminista extends FuncionSeleccion {

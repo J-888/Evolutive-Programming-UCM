@@ -1,7 +1,6 @@
 package operadores.seleccion;
 
 import geneticos.Individuo;
-
 import java.util.ArrayList;
 
 public abstract class FuncionSeleccion {

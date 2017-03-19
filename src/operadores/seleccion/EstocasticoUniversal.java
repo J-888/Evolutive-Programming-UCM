@@ -1,10 +1,8 @@
 package operadores.seleccion;
 
 import geneticos.Individuo;
-
 import java.util.ArrayList;
 import java.util.Collections;
-
 import util.Utiles;
 
 public class EstocasticoUniversal extends FuncionSeleccion {
@@ -35,7 +33,7 @@ public class EstocasticoUniversal extends FuncionSeleccion {
 
 	@Override
 	public String toString() {
-		return "Estoc·stico Universal";
+		return "Estoc√°stico Universal";
 	}
 
 }

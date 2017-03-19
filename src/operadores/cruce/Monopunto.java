@@ -1,7 +1,6 @@
 package operadores.cruce;
 
 import java.util.ArrayList;
-
 import geneticos.Cromosoma;
 import geneticos.Gen;
 import util.Par;
@@ -65,64 +64,4 @@ public class Monopunto extends FuncionCruce{
 		return "Monopunto";
 	}
 
-	
-	//MAIN PARA PRUEBA DE CRUCES
-	
-	/*public static void main(String[] args){
-		ArrayList<Par<Double>> rangos = new ArrayList<Par<Double>>();
-		rangos.add(new Par(0,7));
-		CromosomaBin c1 = new CromosomaBin(rangos);
-		CromosomaBin c2 = new CromosomaBin(rangos);
-		
-		c1.genes = new ArrayList<Gen>();
-		c2.genes = new ArrayList<Gen>();
-		
-		ArrayList<Object> b1 = new ArrayList<Object>();
-		b1.add(true);
-		b1.add(true);
-		b1.add(true);
-		b1.add(true);
-		b1.add(true);
-		Gen ge1 = new GenBin(5);
-		ge1.bases = b1;
-		c1.genes.add(ge1);
-		
-		
-		ArrayList<Object> b11 = new ArrayList<Object>();
-		b11.add(true);
-		b11.add(true);
-		b11.add(true);
-		b11.add(true);
-		b11.add(true);
-		Gen ge11 = new GenBin(5);
-		ge11.bases = b11;
-		c1.genes.add(ge11);
-
-		
-			
-		ArrayList<Object> b2 = new ArrayList<Object>();
-		b2.add(false);
-		b2.add(false);
-		b2.add(false);
-		b2.add(false);
-		b2.add(false);
-		Gen ge2 = new GenBin(5);
-		ge2.bases = b2;
-		c2.genes.add(ge2);
-
-		
-		ArrayList<Object> b22 = new ArrayList<Object>();
-		b22.add(false);
-		b22.add(false);
-		b22.add(false);
-		b22.add(false);
-		b22.add(false);
-		Gen ge22 = new GenBin(5);
-		ge22.bases = b22;
-		c2.genes.add(ge22);
-
-		
-		
-		c1.cruce(c1, c2);
-	}*/
 }

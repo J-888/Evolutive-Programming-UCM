@@ -1,7 +1,6 @@
 package operadores.mutacion;
 
 import java.util.ArrayList;
-
 import util.Par;
 import util.Utiles;
 import geneticos.Cromosoma;

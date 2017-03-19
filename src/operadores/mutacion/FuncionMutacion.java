@@ -1,12 +1,10 @@
 package operadores.mutacion;
 
 import java.util.ArrayList;
-
 import geneticos.Individuo;
 
 public abstract class FuncionMutacion {
 	
-	//HA DE ESTAR ENTRE 0 y 1
 	protected double prob;
 	
 	public void setProb(double prob){

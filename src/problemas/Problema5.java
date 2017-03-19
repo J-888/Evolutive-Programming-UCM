@@ -2,12 +2,8 @@ package problemas;
 
 import geneticos.CromosomaBin;
 import geneticos.Individuo;
-
 import java.util.ArrayList;
-
 import operadores.cruce.FuncionCruce;
-import operadores.fitness.FuncionFitnessP1;
-import operadores.fitness.FuncionFitnessP2;
 import operadores.fitness.FuncionFitnessP5;
 import operadores.mutacion.FuncionMutacion;
 import operadores.seleccion.FuncionSeleccion;

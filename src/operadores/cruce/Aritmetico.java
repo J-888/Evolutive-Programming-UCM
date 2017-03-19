@@ -2,10 +2,8 @@ package operadores.cruce;
 
 import geneticos.Cromosoma;
 import geneticos.Gen;
-import geneticos.GenBin;
 import geneticos.GenReal;
 import util.Par;
-import util.Utiles;
 
 public class Aritmetico extends FuncionCruce {
 
@@ -17,7 +15,7 @@ public class Aritmetico extends FuncionCruce {
 			Gen gen1 = p1.getGenes().get(i);
 			Gen gen2 = p2.getGenes().get(i);
 			
-			if(gen1 instanceof GenBin){
+			/*if(gen1 instanceof GenBin){
 				for(int j = 0; j < gen1.getBases().size(); j++){
 					if(Utiles.randomDouble01() > alpha){
 						boolean base1 = (boolean) gen1.getBases().get(j);
@@ -28,7 +26,7 @@ public class Aritmetico extends FuncionCruce {
 					}
 				}
 			}
-			else if(gen1 instanceof GenReal){
+			else */if(gen1 instanceof GenReal){
 				double base1 = (double) gen1.getBases().get(0);
 				double base2 = (double) gen2.getBases().get(0);
 				

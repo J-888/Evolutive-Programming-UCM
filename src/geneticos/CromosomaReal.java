@@ -1,9 +1,7 @@
 package geneticos;
+
 import java.util.ArrayList;
-
 import util.Par;
-import util.Utiles;
-
 
 public class CromosomaReal extends Cromosoma {
 	

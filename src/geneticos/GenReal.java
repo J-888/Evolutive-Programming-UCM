@@ -1,7 +1,6 @@
 package geneticos;
 
 import java.util.ArrayList;
-
 import util.Utiles;
 
 public class GenReal extends Gen {

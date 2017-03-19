@@ -7,7 +7,6 @@ import util.Utiles;
 
 public abstract class FuncionCruce {
 
-	//HA DE ESTAR ENTRE 0 y 1
 	protected double prob;
 	
 	public void setProb(double prob){
