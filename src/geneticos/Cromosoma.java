@@ -7,8 +7,13 @@ public abstract class Cromosoma {
 
 	protected ArrayList<Gen> genes;
 	protected ArrayList<Par<Double>> rango;
+	protected TipoCromosoma tipo;
 	
 	
+	public TipoCromosoma getTipo() {
+		return tipo;
+	}
+
 	public abstract ArrayList<Double> toFenotipo();
 	
 	public int getGenLenBin(double xmin, double xmax, double tol){

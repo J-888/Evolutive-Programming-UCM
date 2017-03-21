@@ -7,7 +7,8 @@ import util.Utiles;
 
 public class CromosomaBin extends Cromosoma {
 	
-	public CromosomaBin(ArrayList<Par<Double>> rango){
+	public CromosomaBin(ArrayList<Par<Double>> rango, TipoCromosoma tipo){
+		this.tipo = tipo;
 		this.rango = rango;
 		genes = new ArrayList<Gen>(rango.size());
 	}
@@ -36,7 +37,7 @@ public class CromosomaBin extends Cromosoma {
 	}
 	
 	public Cromosoma clone(){
-		Cromosoma nuevo = new CromosomaBin(rango);
+		Cromosoma nuevo = new CromosomaBin(rango, tipo);
 		ArrayList<Gen> nuevosGenes = new ArrayList<Gen>();
 		for(int i = 0; i < genes.size(); i++){
 			nuevosGenes.add(genes.get(i).clone());

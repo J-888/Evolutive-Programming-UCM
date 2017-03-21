@@ -3,6 +3,7 @@ package operadores.cruce;
 import geneticos.Cromosoma;
 import geneticos.Gen;
 import geneticos.GenReal;
+import geneticos.TipoCromosoma;
 import util.Par;
 
 public class Aritmetico extends FuncionCruce {
@@ -26,7 +27,7 @@ public class Aritmetico extends FuncionCruce {
 					}
 				}
 			}
-			else */if(gen1 instanceof GenReal){
+			else */if(p1.getTipo() == TipoCromosoma.REAL){
 				double base1 = (double) gen1.getBases().get(0);
 				double base2 = (double) gen2.getBases().get(0);
 				
@@ -37,7 +38,7 @@ public class Aritmetico extends FuncionCruce {
 				gen2.getBases().set(0, offsp2);
 			}
 			else{
-				System.err.println("GEN NO RECONOCIDO EN CRUCE ARIMETICO");
+				System.err.println("Cruce aritmetico solo válido para cromosomas reales");
 			}	
 		}
 		

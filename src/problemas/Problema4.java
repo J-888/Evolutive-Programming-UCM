@@ -2,7 +2,10 @@ package problemas;
 
 import geneticos.CromosomaBin;
 import geneticos.Individuo;
+import geneticos.TipoCromosoma;
+
 import java.util.ArrayList;
+
 import operadores.cruce.FuncionCruce;
 import operadores.fitness.FuncionFitnessP4;
 import operadores.mutacion.FuncionMutacion;
@@ -12,9 +15,10 @@ import view.GraficaPanel;
 
 public class Problema4 extends ProblemaFuncion{
 	
-	private int N = 3;
+	private int N;
 	
-	public Problema4(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, GraficaPanel chartPanel){
+	public Problema4(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, GraficaPanel chartPanel, int n){
+		this.N = n;
 		this.funcSelec = funcSelec;
 		this.funcMuta = funcMuta;
 		this.funcCruz = funcCruz;
@@ -35,7 +39,7 @@ public class Problema4 extends ProblemaFuncion{
 	
 	public void generaPobIni() {
 		for (int i = 0; i < tamPob; i++) {
-			CromosomaBin newCromo = new CromosomaBin(rangoVar);
+			CromosomaBin newCromo = new CromosomaBin(rangoVar, TipoCromosoma.BIN);
 			newCromo.randomizeCromosome(tolerancia);
 			Individuo newInd = new Individuo(newCromo);
 			poblacion.add(newInd);		

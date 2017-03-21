@@ -4,6 +4,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -54,9 +55,9 @@ public class GUI extends JFrame{
 	private JComboBox<String> problemCombobox;
 	private GraficaPanel chartPanel;
 	private final ConfigPanel<Settings> settingsPanel;
-	
+	private JLabel n;
+	private JTextField ntf;
 	private ProblemaFuncion pf;
-	
 	private boolean isCromosomaBin = true; //true para cromosoma bin, false para cromosoma real 
 	
 	public GUI() {
@@ -90,11 +91,16 @@ public class GUI extends JFrame{
 		
 		labelComponent.setHorizontalAlignment(SwingConstants.RIGHT);
 		problemPanel.add(problemCombobox);
-				
+					
+		n = new JLabel("N:");
+		problemPanel.add(n);
+		
+		ntf = new JTextField("3");
+		problemPanel.add(ntf);
+		
 		JCheckBox visuals = new JCheckBox("Enable popups", true);
 		problemPanel.add(visuals);
-		
-		
+
 		getContentPane().add(problemPanel, BorderLayout.NORTH);
 		
 		JPanel leftPanel = new JPanel();
@@ -157,6 +163,8 @@ public class GUI extends JFrame{
 						
 						chartPanel.reset();
 						
+						int npass;
+						
 						switch (opt) {
 							case "1":
 								pf = new Problema1(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
@@ -168,10 +176,12 @@ public class GUI extends JFrame{
 								pf = new Problema3(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
 								break;
 							case "4":
-								pf = new Problema4(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
+								npass = Integer.parseInt(ntf.getText());
+								pf = new Problema4(fcross, fmut, fselec, elite, genNum, popSize, chartPanel, npass);
 								break;
 							case "4Xtra":
-								pf = new Problema4Xtra(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
+								npass = Integer.parseInt(ntf.getText());
+								pf = new Problema4Xtra(fcross, fmut, fselec, elite, genNum, popSize, chartPanel, npass);
 								break;
 							case "5":
 								pf = new Problema5(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
@@ -274,6 +284,17 @@ public class GUI extends JFrame{
 		ConfigPanel<?> crossoverPanel = (ConfigPanel<?>) settingsPanel.getComponent(6);
 		ConfigPanel<?> mutationPanel = (ConfigPanel<?>) settingsPanel.getComponent(7);
 		
+		String opt = (String) problemCombobox.getSelectedItem();
+		
+		if(opt == "4" || opt == "4Xtra"){
+			n.setVisible(true);
+			ntf.setVisible(true);
+		}
+		else{
+			n.setVisible(false);
+			ntf.setVisible(false);
+		}
+
 		
 		if(isCromosomaBin) {	//cromosoma binario
 			crossoverPanel.getComponent(2).setVisible(false);	//oculta label crossover real

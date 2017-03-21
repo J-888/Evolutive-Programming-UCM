@@ -1,6 +1,7 @@
 package operadores.mutacion;
 
 import java.util.ArrayList;
+
 import util.Par;
 import util.Utiles;
 import geneticos.Cromosoma;
@@ -8,6 +9,7 @@ import geneticos.CromosomaBin;
 import geneticos.CromosomaReal;
 import geneticos.Gen;
 import geneticos.Individuo;
+import geneticos.TipoCromosoma;
 
 public class MutaBaseABase extends FuncionMutacion {
 
@@ -15,7 +17,7 @@ public class MutaBaseABase extends FuncionMutacion {
 		
 		Cromosoma c = ind.getCromosoma();
 		
-		if(c instanceof CromosomaBin){
+		if(c.getTipo() == TipoCromosoma.BIN){
 			for(int i = 0; i < c.getGenes().size(); i++){
 				Gen g = c.getGenes().get(i);
 				ArrayList<Object> bases = g.getBases();
@@ -34,7 +36,7 @@ public class MutaBaseABase extends FuncionMutacion {
 				}
 			}
 		}
-		else if (c instanceof CromosomaReal){
+		else if (c.getTipo() == TipoCromosoma.REAL){
 			double ALPHA = 0.2;
 			
 			for(int i = 0; i < c.getGenes().size(); i++){

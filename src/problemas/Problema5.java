@@ -2,7 +2,10 @@ package problemas;
 
 import geneticos.CromosomaBin;
 import geneticos.Individuo;
+import geneticos.TipoCromosoma;
+
 import java.util.ArrayList;
+
 import operadores.cruce.FuncionCruce;
 import operadores.fitness.FuncionFitnessP5;
 import operadores.mutacion.FuncionMutacion;
@@ -33,7 +36,7 @@ public class Problema5 extends ProblemaFuncion{
 	
 	public void generaPobIni() {
 		for (int i = 0; i < tamPob; i++) {
-			CromosomaBin newCromo = new CromosomaBin(rangoVar);
+			CromosomaBin newCromo = new CromosomaBin(rangoVar, TipoCromosoma.BIN);
 			newCromo.randomizeCromosome(tolerancia);
 			Individuo newInd = new Individuo(newCromo);
 			poblacion.add(newInd);		
