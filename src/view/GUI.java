@@ -131,10 +131,7 @@ public class GUI extends JFrame{
 				showAcordingOperators();	//update config panel
 			}
 		});
-		
-			JButton resetButton = new JButton("Reset fields");
-			controlsPanel.add(resetButton);
-			
+					
 			JButton runButton = new JButton("Run");
 			runButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -162,6 +159,9 @@ public class GUI extends JFrame{
 						fmut.setProb(settings.getMutationIndex()/100.0);
 						
 						chartPanel.reset();
+						
+						if(popSize*elite < 1 && elite != 0)
+							JOptionPane.showMessageDialog(null, "Población / elite < 1 individuo!","Ojo!!!",JOptionPane.WARNING_MESSAGE);
 						
 						int npass;
 						
