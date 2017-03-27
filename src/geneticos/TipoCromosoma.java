@@ -1,5 +1,5 @@
 package geneticos;
 
 public enum TipoCromosoma {
-	BIN, REAL
+	BIN, REAL, PERMINT
 }

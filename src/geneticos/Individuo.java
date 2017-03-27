@@ -7,7 +7,7 @@ public class Individuo implements Comparable<Individuo> {
 	private Cromosoma cromosoma;
 	private double fitness;
 	private double fitnessAdaptado;
-	private ArrayList<Double> fenotipo;
+	private ArrayList<?> fenotipo;
 	
 	public Individuo(Cromosoma c){
 		cromosoma = c;
@@ -26,7 +26,7 @@ public class Individuo implements Comparable<Individuo> {
 		this.fitness = fitness;
 	}
 
-	public ArrayList<Double> getFenotipo() {
+	public ArrayList<?> getFenotipo() {
 		return fenotipo;
 	}
 

@@ -14,7 +14,7 @@ public abstract class Cromosoma {
 		return tipo;
 	}
 
-	public abstract ArrayList<Double> toFenotipo();
+	public abstract ArrayList<?> toFenotipo();
 	
 	public int getGenLenBin(double xmin, double xmax, double tol){
 		double parentesis = ((xmax-xmin)/tol)+1;

@@ -2,11 +2,11 @@ package operadores.fitness;
 
 import geneticos.Individuo;
 
-public class FuncionFitnessP3 extends FuncionFitness {
+public class FitnessPr1Func3 extends FuncionFitness {
 
 	public void evaluate(Individuo ind) {
-		double x = ind.getFenotipo().get(0);
-		double y = ind.getFenotipo().get(1);
+		double x = (double) ind.getFenotipo().get(0);
+		double y = (double) ind.getFenotipo().get(1);
 
 		double parentesis1 = 4*(Math.PI)*x;
 		double parentesis2 = 20*(Math.PI)*y;

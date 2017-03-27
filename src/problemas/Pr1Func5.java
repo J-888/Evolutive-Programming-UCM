@@ -7,23 +7,23 @@ import geneticos.TipoCromosoma;
 import java.util.ArrayList;
 
 import operadores.cruce.FuncionCruce;
-import operadores.fitness.FuncionFitnessP3;
+import operadores.fitness.FitnessPr1Func5;
 import operadores.mutacion.FuncionMutacion;
 import operadores.seleccion.FuncionSeleccion;
 import util.Par;
 import view.GraficaPanel;
 
-public class Problema3 extends ProblemaFuncion{
+public class Pr1Func5 extends ProblemaFuncion{
 		
-	public Problema3(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, GraficaPanel chartPanel){
+	public Pr1Func5(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, GraficaPanel chartPanel){
 		this.funcSelec = funcSelec;
 		this.funcMuta = funcMuta;
 		this.funcCruz = funcCruz;
 		this.rangoVar = new ArrayList<Par<Double>>();
-		this.rangoVar.add(new Par<Double>(new Double(-3.0),new Double(12.1)));
-		this.rangoVar.add(new Par<Double>(new Double(4.1),new Double(5.8)));
+		this.rangoVar.add(new Par<Double>(new Double(-10.0),new Double(10.0)));
+		this.rangoVar.add(new Par<Double>(new Double(-10.0),new Double(10.0)));
 		this.tolerancia = 0.001;
-		this.funcFit = new FuncionFitnessP3();
+		this.funcFit = new FitnessPr1Func5();
 		this.tamPob = tamPob;
 		this.numGenerations = numGenerations;
 		this.tamElite = (int)Math.floor(elite0to1 * tamPob);	
@@ -31,7 +31,7 @@ public class Problema3 extends ProblemaFuncion{
 		this.puntuaciones = new ArrayList<Double>(tamPob);
 		this.punts_acum = new ArrayList<Double>(tamPob);
 		this.grafica = chartPanel;
-		this.minimizacion = false;
+		this.minimizacion = true;
 	}
 	
 	public void generaPobIni() {

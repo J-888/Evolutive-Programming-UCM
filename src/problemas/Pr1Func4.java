@@ -7,22 +7,26 @@ import geneticos.TipoCromosoma;
 import java.util.ArrayList;
 
 import operadores.cruce.FuncionCruce;
-import operadores.fitness.FuncionFitnessP1;
+import operadores.fitness.FitnessPr1Func4;
 import operadores.mutacion.FuncionMutacion;
 import operadores.seleccion.FuncionSeleccion;
 import util.Par;
 import view.GraficaPanel;
 
-public class Problema1 extends ProblemaFuncion{
-		
-	public Problema1(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, GraficaPanel chartPanel){
+public class Pr1Func4 extends ProblemaFuncion{
+	
+	private int N;
+	
+	public Pr1Func4(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, GraficaPanel chartPanel, int n){
+		this.N = n;
 		this.funcSelec = funcSelec;
 		this.funcMuta = funcMuta;
 		this.funcCruz = funcCruz;
 		this.rangoVar = new ArrayList<Par<Double>>();
-		this.rangoVar.add(new Par<Double>(new Double(-250),new Double(250)));
+		for(int i = 0; i < N; i++)
+			this.rangoVar.add(new Par<Double>(new Double(0.0),new Double(Math.PI)));
 		this.tolerancia = 0.001;
-		this.funcFit = new FuncionFitnessP1();
+		this.funcFit = new FitnessPr1Func4();
 		this.tamPob = tamPob;
 		this.numGenerations = numGenerations;
 		this.tamElite = (int)Math.floor(elite0to1 * tamPob);	

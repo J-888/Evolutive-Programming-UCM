@@ -29,12 +29,12 @@ import operadores.seleccion.EstocasticoUniversal;
 import operadores.seleccion.FuncionSeleccion;
 import operadores.seleccion.Ruleta;
 import operadores.seleccion.TorneoDeterminista;
-import problemas.Problema1;
-import problemas.Problema2;
-import problemas.Problema3;
-import problemas.Problema4;
-import problemas.Problema4Xtra;
-import problemas.Problema5;
+import problemas.Pr1Func1;
+import problemas.Pr1Func2;
+import problemas.Pr1Func3;
+import problemas.Pr1Func4;
+import problemas.Pr1Func4Xtra;
+import problemas.Pr1Func5;
 import problemas.ProblemaFuncion;
 import view.ConfigPanel.ChoiceOption;
 import view.ConfigPanel.DoubleOption;
@@ -167,24 +167,24 @@ public class GUI extends JFrame{
 						
 						switch (opt) {
 							case "1":
-								pf = new Problema1(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
+								pf = new Pr1Func1(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
 								break;
 							case "2":
-								pf = new Problema2(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);				
+								pf = new Pr1Func2(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);				
 								break;
 							case "3":
-								pf = new Problema3(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
+								pf = new Pr1Func3(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
 								break;
 							case "4":
 								npass = Integer.parseInt(ntf.getText());
-								pf = new Problema4(fcross, fmut, fselec, elite, genNum, popSize, chartPanel, npass);
+								pf = new Pr1Func4(fcross, fmut, fselec, elite, genNum, popSize, chartPanel, npass);
 								break;
 							case "4Xtra":
 								npass = Integer.parseInt(ntf.getText());
-								pf = new Problema4Xtra(fcross, fmut, fselec, elite, genNum, popSize, chartPanel, npass);
+								pf = new Pr1Func4Xtra(fcross, fmut, fselec, elite, genNum, popSize, chartPanel, npass);
 								break;
 							case "5":
-								pf = new Problema5(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
+								pf = new Pr1Func5(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
 								break;
 							default:
 								break;
