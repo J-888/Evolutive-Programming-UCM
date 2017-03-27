@@ -3,23 +3,25 @@ package datos;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 
 public class DatosMatrices {
 	
-	public static ArrayList<ArrayList<Integer>> matrix1; 
-	public static ArrayList<ArrayList<Integer>> flujos1; 
+	public static final List<List<Integer>> matrix1; 
+	public static final List<List<Integer>> flujos1; 
 
-	public static ArrayList<ArrayList<Integer>> matrix2;
-	public static ArrayList<ArrayList<Integer>> flujos2; 
+	public static final List<List<Integer>> matrix2;
+	public static final List<List<Integer>> flujos2; 
 	
-	public static ArrayList<ArrayList<Integer>> matrix3;
-	public static ArrayList<ArrayList<Integer>> flujos3; 
+	public static final List<List<Integer>> matrix3;
+	public static final List<List<Integer>> flujos3; 
 	
-	public static ArrayList<ArrayList<Integer>> matrix4;
-	public static ArrayList<ArrayList<Integer>> flujos4; 
+	public static final List<List<Integer>> matrix4;
+	public static final List<List<Integer>> flujos4; 
 	
-	public static void leeMatrices(){
+	static {
 		//Leer matrices
 		Scanner scanner = null;
 		int dim;
@@ -30,8 +32,8 @@ public class DatosMatrices {
 			System.err.println("No existe el archivo ajuste.txt");
 		}
 		dim = scanner.nextInt();
-		matrix1 = leeMatriz(scanner, dim);
-		flujos1 = leeMatriz(scanner, dim);
+		matrix1 = Collections.unmodifiableList(leeMatriz(scanner, dim));
+		flujos1 = Collections.unmodifiableList(leeMatriz(scanner, dim));
 	
 		try {
 			scanner = new Scanner(new File("src/datos/datos12.txt"));
@@ -39,8 +41,8 @@ public class DatosMatrices {
 			System.err.println("No existe el archivo datos12.txt");
 		}
 		dim = scanner.nextInt();
-		matrix2 = leeMatriz(scanner, dim);
-		flujos2 = leeMatriz(scanner, dim);
+		matrix2 = Collections.unmodifiableList(leeMatriz(scanner, dim));
+		flujos2 = Collections.unmodifiableList(leeMatriz(scanner, dim));
 		
 		try {
 			scanner = new Scanner(new File("src/datos/datos15.txt"));
@@ -48,8 +50,8 @@ public class DatosMatrices {
 			System.err.println("No existe el archivo datos15.txt");
 		}
 		dim = scanner.nextInt();
-		matrix3 = leeMatriz(scanner, dim);
-		flujos3 = leeMatriz(scanner, dim);
+		matrix3 = Collections.unmodifiableList(leeMatriz(scanner, dim));
+		flujos3 = Collections.unmodifiableList(leeMatriz(scanner, dim));
 		
 		try {
 			scanner = new Scanner(new File("src/datos/datos30.txt"));
@@ -57,19 +59,18 @@ public class DatosMatrices {
 			System.err.println("No existe el archivo datos30.txt");
 		}
 		dim = scanner.nextInt();
-		matrix4 = leeMatriz(scanner, dim);
-		flujos4 = leeMatriz(scanner, dim);
-		
+		matrix4 = Collections.unmodifiableList(leeMatriz(scanner, dim));
+		flujos4 = Collections.unmodifiableList(leeMatriz(scanner, dim));
 	}
 	
-	private static ArrayList<ArrayList<Integer>> leeMatriz(Scanner scanner, int n){
-		ArrayList<ArrayList<Integer>> matrix = new ArrayList<ArrayList<Integer>>(n);
+	private static List<List<Integer>> leeMatriz(Scanner scanner, int n){
+		List<List<Integer>> matrix = new ArrayList<List<Integer>>(n);
 		for (int i = 0; i < n; i++) {
-			ArrayList<Integer> temp = new ArrayList<Integer>(n);
+			List<Integer> temp = new ArrayList<Integer>(n);
 			for (int j = 0; j < n; j++) {
 				temp.add(scanner.nextInt());
 			}
-			matrix.add(temp);
+			matrix.add(Collections.unmodifiableList(temp));
 		}
 		return matrix;
 	}
