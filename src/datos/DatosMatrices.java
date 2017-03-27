@@ -30,8 +30,8 @@ public class DatosMatrices {
 			System.err.println("No existe el archivo ajuste.txt");
 		}
 		dim = scanner.nextInt();
-		leeMatriz(scanner, matrix1, dim);
-		leeMatriz(scanner, flujos1, dim);
+		matrix1 = leeMatriz(scanner, dim);
+		flujos1 = leeMatriz(scanner, dim);
 	
 		try {
 			scanner = new Scanner(new File("src/datos/datos12.txt"));
@@ -39,8 +39,8 @@ public class DatosMatrices {
 			System.err.println("No existe el archivo datos12.txt");
 		}
 		dim = scanner.nextInt();
-		leeMatriz(scanner, matrix2, dim);
-		leeMatriz(scanner, flujos2, dim);
+		matrix2 = leeMatriz(scanner, dim);
+		flujos2 = leeMatriz(scanner, dim);
 		
 		try {
 			scanner = new Scanner(new File("src/datos/datos15.txt"));
@@ -48,8 +48,8 @@ public class DatosMatrices {
 			System.err.println("No existe el archivo datos15.txt");
 		}
 		dim = scanner.nextInt();
-		leeMatriz(scanner, matrix3, dim);
-		leeMatriz(scanner, flujos3, dim);
+		matrix3 = leeMatriz(scanner, dim);
+		flujos3 = leeMatriz(scanner, dim);
 		
 		try {
 			scanner = new Scanner(new File("src/datos/datos30.txt"));
@@ -57,13 +57,13 @@ public class DatosMatrices {
 			System.err.println("No existe el archivo datos30.txt");
 		}
 		dim = scanner.nextInt();
-		leeMatriz(scanner, matrix4, dim);
-		leeMatriz(scanner, flujos4, dim);
+		matrix4 = leeMatriz(scanner, dim);
+		flujos4 = leeMatriz(scanner, dim);
 		
 	}
 	
-	private static void leeMatriz(Scanner scanner, ArrayList<ArrayList<Integer>> matrix, int n){
-		matrix = new ArrayList<ArrayList<Integer>>(n);
+	private static ArrayList<ArrayList<Integer>> leeMatriz(Scanner scanner, int n){
+		ArrayList<ArrayList<Integer>> matrix = new ArrayList<ArrayList<Integer>>(n);
 		for (int i = 0; i < n; i++) {
 			ArrayList<Integer> temp = new ArrayList<Integer>(n);
 			for (int j = 0; j < n; j++) {
@@ -71,6 +71,7 @@ public class DatosMatrices {
 			}
 			matrix.add(temp);
 		}
+		return matrix;
 	}
 	
 	public static Double getMatrixDim(int cual){
