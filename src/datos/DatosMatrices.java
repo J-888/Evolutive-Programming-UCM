@@ -75,19 +75,49 @@ public class DatosMatrices {
 		return matrix;
 	}
 	
-	public static Double getMatrixDim(int cual){
-		if (cual == 1)
-			return (double)matrix1.size();
-		else if (cual == 2)
-			return (double)matrix2.size();
-		else if (cual == 3)
-			return (double)matrix3.size();
-		else if (cual == 4)
-			return (double)matrix4.size();
+	public static int getMatrixDim(String cual){
+		if (cual == "ajuste")
+			return matrix1.size();
+		else if (cual == "datos12")
+			return matrix2.size();
+		else if (cual == "datos15")
+			return matrix3.size();
+		else if (cual == "datos30")
+			return matrix4.size();
 		else {
-			System.err.println("fob (matrices)");
-			return null;
+			System.err.println("fob (matrices n)");
+			return (Integer) null;
 		}
 	}
 		
+	public static List<List<Integer>> getMatrizDist(String matName){
+		if(matName == "ajuste")
+			return matrix1;
+		else if(matName == "datos12")
+			return matrix2;
+		else if(matName == "datos15")
+			return matrix3;
+		else if(matName == "datos30")
+			return matrix4;
+		else{
+			System.err.println("fob no existe dicha matriz de dists");
+			return null;
+		}
+	}
+	
+	public static List<List<Integer>> getMatrizFlux(String matName){
+		if(matName == "ajuste")
+			return flujos1;
+		else if(matName == "datos12")
+			return flujos2;
+		else if(matName == "datos15")
+			return flujos3;
+		else if(matName == "datos30")
+			return flujos4;
+		else{
+			System.err.println("fob no existe dicha matriz de fluho");
+			return null;
+		}
+	}
+	
 }

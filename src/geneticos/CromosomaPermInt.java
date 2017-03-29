@@ -37,6 +37,7 @@ public class CromosomaPermInt extends Cromosoma {
 			GenInt nuevoGen = new GenInt(rango.get(0).getN1(), rango.get(0).getN2(),tolerancia);
 			nuevoGen.instanceBases();
 			nuevoGen.getBases().add(genePool.get(i));
+			genes.add(nuevoGen);
 		}
 		
 	}

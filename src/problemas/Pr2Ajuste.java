@@ -20,8 +20,8 @@ public class Pr2Ajuste extends ProblemaFuncion {
 		this.funcMuta = funcMuta;
 		this.funcCruz = funcCruz;
 		this.rangoVar = new ArrayList<Par<Double>>();
-		this.rangoVar.add(new Par<Double>(DatosMatrices.getMatrixDim(1) , DatosMatrices.getMatrixDim(1)));
-		this.funcFit = new FitnessPr2();
+		this.rangoVar.add(new Par<Double>((double)DatosMatrices.getMatrixDim("ajuste") , (double)DatosMatrices.getMatrixDim("ajuste")));
+		this.funcFit = new FitnessPr2("ajuste");
 		this.tamPob = tamPob;
 		this.numGenerations = numGenerations;
 		this.tamElite = (int)Math.floor(elite0to1 * tamPob);	

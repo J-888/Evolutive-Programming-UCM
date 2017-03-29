@@ -29,13 +29,7 @@ import operadores.seleccion.EstocasticoUniversal;
 import operadores.seleccion.FuncionSeleccion;
 import operadores.seleccion.Ruleta;
 import operadores.seleccion.TorneoDeterminista;
-import problemas.Pr1Func1;
-import problemas.Pr1Func2;
-import problemas.Pr1Func3;
-import problemas.Pr1Func4;
-import problemas.Pr1Func4Xtra;
-import problemas.Pr1Func5;
-import problemas.ProblemaFuncion;
+import problemas.*;
 import view.ConfigPanel.ChoiceOption;
 import view.ConfigPanel.DoubleOption;
 import view.ConfigPanel.InnerOption;
@@ -46,7 +40,7 @@ import java.awt.event.ActionEvent;
 
 public class GUI extends JFrame{
 
-	private String[] problemOptions = {"1", "2", "3", "4", "4Xtra", "5"}; 
+	private String[] problemOptions = {"Pr1.1", "Pr1.2", "Pr1.3", "Pr1.4", "Pr1.4Xtra", "Pr1.5", "Pr2.Ajuste", "Pr2.Datos12", "Pr2.Datos15", "Pr2.Datos30"}; 
 	private FuncionSeleccion[] selectionOptions = {new Ruleta(), new TorneoDeterminista(2), new TorneoDeterminista(3), new EstocasticoUniversal()}; 
 	private FuncionCruce[] crossoverOptionsBin = {new Monopunto()}; 
 	private FuncionCruce[] crossoverOptionsReal = {new Monopunto(), new Aritmetico()}; 
@@ -123,7 +117,7 @@ public class GUI extends JFrame{
 		
 		problemCombobox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(problemCombobox.getSelectedItem() == "4Xtra")	//cromosoma real
+				if(problemCombobox.getSelectedItem() == "Pr1.4Xtra")	//cromosoma real
 					isCromosomaBin = false;
 				else												//cromosoma bin
 					isCromosomaBin = true;
@@ -166,26 +160,38 @@ public class GUI extends JFrame{
 						int npass;
 						
 						switch (opt) {
-							case "1":
+							case "Pr1.1":
 								pf = new Pr1Func1(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
 								break;
-							case "2":
+							case "Pr1.2":
 								pf = new Pr1Func2(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);				
 								break;
-							case "3":
+							case "Pr1.3":
 								pf = new Pr1Func3(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
 								break;
-							case "4":
+							case "Pr1.4":
 								npass = Integer.parseInt(ntf.getText());
 								pf = new Pr1Func4(fcross, fmut, fselec, elite, genNum, popSize, chartPanel, npass);
 								break;
-							case "4Xtra":
+							case "Pr1.4Xtra":
 								npass = Integer.parseInt(ntf.getText());
 								pf = new Pr1Func4Xtra(fcross, fmut, fselec, elite, genNum, popSize, chartPanel, npass);
 								break;
-							case "5":
+							case "Pr1.5":
 								pf = new Pr1Func5(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
 								break;
+							case "Pr2.Ajuste":
+								pf = new Pr2Ajuste(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
+								break;
+							/*case "Pr2.Datos12":
+								pf = new Pr2Datos12(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
+								break;
+							case "Pr2.Datos15":
+								pf = new Pr2Datos15(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
+								break;
+							case "Pr2.Datos30":
+								pf = new Pr2Datos30(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
+								break;*/
 							default:
 								break;
 							}
@@ -286,7 +292,7 @@ public class GUI extends JFrame{
 		
 		String opt = (String) problemCombobox.getSelectedItem();
 		
-		if(opt == "4" || opt == "4Xtra"){
+		if(opt == "Pr1.4" || opt == "Pr1.4Xtra"){
 			n.setVisible(true);
 			ntf.setVisible(true);
 		}
