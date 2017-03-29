@@ -27,7 +27,7 @@ public class DatosMatrices {
 		int dim;
 		
 		try {
-			scanner = new Scanner(new File("src/datos/ajuste.txt"));
+			scanner = new Scanner(new File("data/ajuste.txt"));
 		} catch (FileNotFoundException e) {
 			System.err.println("No existe el archivo ajuste.txt");
 		}
@@ -36,7 +36,7 @@ public class DatosMatrices {
 		flujos1 = Collections.unmodifiableList(leeMatriz(scanner, dim));
 	
 		try {
-			scanner = new Scanner(new File("src/datos/datos12.txt"));
+			scanner = new Scanner(new File("data/datos12.txt"));
 		} catch (FileNotFoundException e) {
 			System.err.println("No existe el archivo datos12.txt");
 		}
@@ -45,7 +45,7 @@ public class DatosMatrices {
 		flujos2 = Collections.unmodifiableList(leeMatriz(scanner, dim));
 		
 		try {
-			scanner = new Scanner(new File("src/datos/datos15.txt"));
+			scanner = new Scanner(new File("data/datos15.txt"));
 		} catch (FileNotFoundException e) {
 			System.err.println("No existe el archivo datos15.txt");
 		}
@@ -54,7 +54,7 @@ public class DatosMatrices {
 		flujos3 = Collections.unmodifiableList(leeMatriz(scanner, dim));
 		
 		try {
-			scanner = new Scanner(new File("src/datos/datos30.txt"));
+			scanner = new Scanner(new File("data/datos30.txt"));
 		} catch (FileNotFoundException e) {
 			System.err.println("No existe el archivo datos30.txt");
 		}
