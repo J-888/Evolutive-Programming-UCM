@@ -52,7 +52,8 @@ public abstract class ProblemaFuncion {
 				insertElite();
 				poblacion = poblacionNueva;
 			}
-			grafica.update(i, mejorIndividuo.getFitness(), peorIndividuo.getFitness(), pobAvgFitness, mejorAbsoluto.getFitness());
+			if(grafica != null)
+				grafica.update(i, mejorIndividuo.getFitness(), peorIndividuo.getFitness(), pobAvgFitness, mejorAbsoluto.getFitness());
 		}
 	
 		return mejorAbsoluto;
