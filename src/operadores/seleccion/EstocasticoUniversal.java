@@ -14,7 +14,7 @@ public class EstocasticoUniversal extends FuncionSeleccion {
 	@Override
 	public Individuo select(ArrayList<Individuo> orderedPob, ArrayList<Double> punts_acum) {
 		if(firstExec){
-			despMarca = 1/orderedPob.size();
+			despMarca = 1/(double)orderedPob.size();
 			firstExec = false;
 		}
 		else{
