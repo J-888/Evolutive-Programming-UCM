@@ -35,7 +35,7 @@ public class Pr2Ajuste extends ProblemaFuncion {
 	
 	public void generaPobIni() {
 		for (int i = 0; i < tamPob; i++) {
-			CromosomaPermInt newCromo = new CromosomaPermInt(rangoVar, TipoCromosoma.BIN);
+			CromosomaPermInt newCromo = new CromosomaPermInt(rangoVar, TipoCromosoma.PERMINT);
 			newCromo.randomizeCromosome(tolerancia);
 			Individuo newInd = new Individuo(newCromo);
 			poblacion.add(newInd);		

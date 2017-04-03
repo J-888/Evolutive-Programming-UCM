@@ -67,8 +67,10 @@ public class MutaBaseABase extends FuncionMutacion {
 				}
 			}
 		}
-		else
-			System.err.println("CROMOSOMA DE TIPO DESCONOCIDO EN MUTACION BASE A BASE");
+		else{
+			if(prob > 0)
+				System.err.println("CROMOSOMA DE TIPO DESCONOCIDO EN MUTACION BASE A BASE");
+		}
 	
 	}
 

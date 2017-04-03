@@ -53,4 +53,21 @@ public class CromosomaPermInt extends Cromosoma {
 		return nuevo;
 	}
 	
+	public boolean esValido(){
+		boolean ret = true;
+		for(int i = 0; i < genes.size(); i++){
+			for(int j = 0; j < genes.size(); j++){
+				if (i != j){
+					if(genes.get(i).getBases().get(0) == genes.get(j).getBases().get(0)){
+						System.err.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+						ret = false;
+					}
+				}
+			}
+		}
+		
+		
+		return ret;
+	}
+	
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import geneticos.Cromosoma;
 import geneticos.Gen;
+import geneticos.GenInt;
 import util.Par;
 import util.Utiles;
 
@@ -22,9 +23,9 @@ public class PMX extends FuncionCruce {
 		
 		int pCorte1, pCorte2 = -1;
 		int tamCrom = p1.getGenes().size();
-		pCorte1 = Utiles.randomIntNO()%tamCrom;
+		pCorte1 = Utiles.randomIntNO()%(tamCrom+1);
 		while(pCorte2 == -1 || pCorte2 == pCorte1)
-			pCorte2 = Utiles.randomIntNO()%tamCrom;
+			pCorte2 = Utiles.randomIntNO()%(tamCrom+1);
 		
 		if(pCorte1 > pCorte2){
 			int t = pCorte2;
@@ -34,9 +35,9 @@ public class PMX extends FuncionCruce {
 		
 		//Swapping entre los puntos de cruce
 		for(int i = pCorte1; i < pCorte2; i++){
-			Gen t = h1.getGenes().get(i);
-			h1.getGenes().set(i, h2.getGenes().get(i));
-			h2.getGenes().set(i, t);
+			Gen t = h1.getGenes().get(i).clone();
+			h1.getGenes().set(i, h2.getGenes().get(i).clone());
+			h2.getGenes().set(i, t.clone());
 		}
 		
 		//Pre punto de cruce 1
@@ -44,12 +45,12 @@ public class PMX extends FuncionCruce {
 			//Hijo1
 			int posFind = searchInArrayList(genesH1, pCorte1, pCorte2, genesH1.get(i));
 			if(posFind != -1)
-				genesH1.set(i, genesP1.get(posFind));
+				genesH1.set(i, genesP1.get(posFind).clone());
 			
 			//Hijo2
 			posFind = searchInArrayList(genesH2, pCorte1, pCorte2, genesH2.get(i));
 			if(posFind != -1)
-				genesH2.set(i, genesP2.get(posFind));
+				genesH2.set(i, genesP2.get(posFind).clone());
 		}
 		
 		//Tras punto de cruce 2
@@ -57,21 +58,21 @@ public class PMX extends FuncionCruce {
 			//Hijo1
 			int posFind = searchInArrayList(genesH1, pCorte1, pCorte2, genesH1.get(i));
 			if(posFind != -1)
-				genesH1.set(i, genesP1.get(posFind));
+				genesH1.set(i, genesP1.get(posFind).clone());
 			
 			//Hijo2
 			posFind = searchInArrayList(genesH2, pCorte1, pCorte2, genesH2.get(i));
 			if(posFind != -1)
-				genesH2.set(i, genesP2.get(posFind));
+				genesH2.set(i, genesP2.get(posFind).clone());
 		}
 		
 		return new Par<Cromosoma>(h1,h2);
 		
 	}
 	
-	<E> int searchInArrayList(ArrayList<E> array, int start, int end, E target){
+	int searchInArrayList(ArrayList<Gen> array, int start, int end, Gen target){
 		for(int i = start; i < end; i++)
-			if(array.get(i) == target)
+			if(array.get(i).getBases().get(0) == target.getBases().get(0))
 				return i;
 		return -1;
 	}
