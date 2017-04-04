@@ -26,7 +26,8 @@ import operadores.cruce.FuncionCruce;
 import operadores.cruce.Monopunto;
 import operadores.cruce.PMX;
 import operadores.mutacion.FuncionMutacion;
-import operadores.mutacion.MutaBaseABase;
+import operadores.mutacion.BaseABase;
+import operadores.mutacion.Inversion;
 import operadores.seleccion.EstocasticoUniversal;
 import operadores.seleccion.FuncionSeleccion;
 import operadores.seleccion.Ruleta;
@@ -42,14 +43,14 @@ import java.awt.event.ActionEvent;
 
 public class GUI extends JFrame{
 
-	private String[] problemOptions = {"Pr1.1", "Pr1.2", "Pr1.3", "Pr1.4", "Pr1.4Xtra", "Pr1.5", "Pr2.Ajuste", "Pr2.Datos12", "Pr2.Datos15", "Pr2.Datos30"}; 
+	private String[] problemOptions = {"Pr1.1", "Pr1.2", "Pr1.3", "Pr1.4", "Pr1.4Xtra", "Pr1.5", "Pr2.Ajuste", "Pr2.Datos12", "Pr2.Datos15", "Pr2.Datos30", "Pr2.tai256c"}; 
 	private FuncionSeleccion[] selectionOptions = {new Ruleta(), new TorneoDeterminista(2), new TorneoDeterminista(3), new EstocasticoUniversal()}; 
 	private FuncionCruce[] crossoverOptionsBin = {new Monopunto()}; 
 	private FuncionCruce[] crossoverOptionsReal = {new Monopunto(), new Aritmetico()};
 	private FuncionCruce[] crossoverOptionsPermInt = {new PMX()};
-	private FuncionMutacion[] mutationOptionsBin = {new MutaBaseABase()}; 
-	private FuncionMutacion[] mutationOptionsReal = {new MutaBaseABase()}; 
-	private FuncionMutacion[] mutationOptionsPermInt = {new MutaBaseABase()}; 
+	private FuncionMutacion[] mutationOptionsBin = {new BaseABase()}; 
+	private FuncionMutacion[] mutationOptionsReal = {new BaseABase()}; 
+	private FuncionMutacion[] mutationOptionsPermInt = {new Inversion()}; 
 	private JComboBox<String> problemCombobox;
 	private GraficaPanel chartPanel;
 	private final ConfigPanel<Settings> settingsPanel;
@@ -192,7 +193,7 @@ public class GUI extends JFrame{
 							case "Pr2.Ajuste":
 								pf = new Pr2Ajuste(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
 								break;
-							/*case "Pr2.Datos12":
+							case "Pr2.Datos12":
 								pf = new Pr2Datos12(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
 								break;
 							case "Pr2.Datos15":
@@ -200,7 +201,10 @@ public class GUI extends JFrame{
 								break;
 							case "Pr2.Datos30":
 								pf = new Pr2Datos30(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
-								break;*/
+								break;
+							case "Pr2.tai256c":
+								pf = new Pr2tai256c(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
+								break;
 							default:
 								break;
 							}
@@ -267,9 +271,9 @@ public class GUI extends JFrame{
 		private FuncionCruce crossoverOptionBin = new Monopunto();
 		private FuncionCruce crossoverOptionReal = new Monopunto();
 		private FuncionCruce crossoverOptionPermInt = new PMX();
-		private FuncionMutacion mutationOptionBin = new MutaBaseABase();
-		private FuncionMutacion mutationOptionReal = new MutaBaseABase();
-		private FuncionMutacion mutationOptionPermInt = new MutaBaseABase();
+		private FuncionMutacion mutationOptionBin = new BaseABase();
+		private FuncionMutacion mutationOptionReal = new BaseABase();
+		private FuncionMutacion mutationOptionPermInt = new Inversion();
 		
 		public int getPopulationSize() { return populationSize; }
 		public void setPopulationSize(int populationSize) { this.populationSize = populationSize; }

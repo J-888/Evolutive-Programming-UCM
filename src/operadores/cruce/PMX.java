@@ -35,35 +35,61 @@ public class PMX extends FuncionCruce {
 		
 		//Swapping entre los puntos de cruce
 		for(int i = pCorte1; i < pCorte2; i++){
-			Gen t = h1.getGenes().get(i).clone();
-			h1.getGenes().set(i, h2.getGenes().get(i).clone());
-			h2.getGenes().set(i, t.clone());
+			int t = (int) h1.getGenes().get(i).getBases().get(0);
+			h1.getGenes().get(i).getBases().set(0, h2.getGenes().get(i).getBases().get(0));
+			h2.getGenes().get(i).getBases().set(0, t);
 		}
 		
+		boolean hijoOK;
+		int posFind;
 		//Pre punto de cruce 1
 		for(int i = 0; i < pCorte1; i++){
 			//Hijo1
-			int posFind = searchInArrayList(genesH1, pCorte1, pCorte2, genesH1.get(i));
-			if(posFind != -1)
-				genesH1.set(i, genesP1.get(posFind).clone());
+			hijoOK = false;
+			
+			while(!hijoOK){	
+				posFind = searchInArrayList(genesH1, pCorte1, pCorte2, genesH1.get(i));
+				if(posFind != -1)
+					genesH1.get(i).getBases().set(0, genesP1.get(posFind).getBases().get(0));
+				else 
+					hijoOK = true;
+			}
 			
 			//Hijo2
-			posFind = searchInArrayList(genesH2, pCorte1, pCorte2, genesH2.get(i));
-			if(posFind != -1)
-				genesH2.set(i, genesP2.get(posFind).clone());
+			hijoOK = false;
+
+			while(!hijoOK){	
+				posFind = searchInArrayList(genesH2, pCorte1, pCorte2, genesH2.get(i));
+				if(posFind != -1)
+					genesH2.get(i).getBases().set(0, genesP2.get(posFind).getBases().get(0));
+				else 
+					hijoOK = true;
+			}
 		}
 		
 		//Tras punto de cruce 2
 		for(int i = pCorte2; i < tamCrom; i++){
 			//Hijo1
-			int posFind = searchInArrayList(genesH1, pCorte1, pCorte2, genesH1.get(i));
-			if(posFind != -1)
-				genesH1.set(i, genesP1.get(posFind).clone());
+			hijoOK = false;
+			
+			while(!hijoOK){	
+				posFind = searchInArrayList(genesH1, pCorte1, pCorte2, genesH1.get(i));
+				if(posFind != -1)
+					genesH1.get(i).getBases().set(0, genesP1.get(posFind).getBases().get(0));
+				else 
+					hijoOK = true;
+			}
 			
 			//Hijo2
-			posFind = searchInArrayList(genesH2, pCorte1, pCorte2, genesH2.get(i));
-			if(posFind != -1)
-				genesH2.set(i, genesP2.get(posFind).clone());
+			hijoOK = false;
+
+			while(!hijoOK){	
+				posFind = searchInArrayList(genesH2, pCorte1, pCorte2, genesH2.get(i));
+				if(posFind != -1)
+					genesH2.get(i).getBases().set(0, genesP2.get(posFind).getBases().get(0));
+				else 
+					hijoOK = true;
+			}
 		}
 		
 		return new Par<Cromosoma>(h1,h2);

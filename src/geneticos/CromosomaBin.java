@@ -38,7 +38,7 @@ public class CromosomaBin extends Cromosoma {
 	
 	public Cromosoma clone(){
 		Cromosoma nuevo = new CromosomaBin(rango, tipo);
-		ArrayList<Gen> nuevosGenes = new ArrayList<Gen>();
+		ArrayList<Gen> nuevosGenes = new ArrayList<Gen>(this.genes.size());
 		for(int i = 0; i < genes.size(); i++){
 			nuevosGenes.add(genes.get(i).clone());
 		}

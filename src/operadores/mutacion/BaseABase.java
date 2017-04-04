@@ -11,7 +11,7 @@ import geneticos.Gen;
 import geneticos.Individuo;
 import geneticos.TipoCromosoma;
 
-public class MutaBaseABase extends FuncionMutacion {
+public class BaseABase extends FuncionMutacion {
 
 	public void mutarInd(Individuo ind){
 		
@@ -69,7 +69,7 @@ public class MutaBaseABase extends FuncionMutacion {
 		}
 		else{
 			if(prob > 0)
-				System.err.println("CROMOSOMA DE TIPO DESCONOCIDO EN MUTACION BASE A BASE");
+				System.err.println("CROMOSOMA DE TIPO DESCONOCIDO O NO VALIDO EN MUTACION BASE A BASE");
 		}
 	
 	}

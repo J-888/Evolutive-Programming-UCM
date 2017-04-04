@@ -35,7 +35,7 @@ public class FitnessPr2 extends FuncionFitness {
 			}
 		}
 		
-		ind.setFitness(trafico);
+		ind.setFitness(trafico*2); //*2 por ser los flujos en ambos sentidos
 	}
 	
 }

@@ -2,6 +2,8 @@ package util;
 
 import java.util.Random;
 
+import view.GUI;
+
 public class Utiles {
 
 	public static int randomIntNO(){
@@ -12,6 +14,11 @@ public class Utiles {
 	public static double randomDouble01(){
 		Random rn = new Random();
 		return rn.nextDouble();
+	}
+	
+	public static double randomDoubleGauss0Mean(){
+		Random rn = new Random();
+		return rn.nextGaussian();
 	}
 	
 	public static int bin_dec(String n){
@@ -41,6 +48,5 @@ public class Utiles {
 	public static char flipBinary(char c) { 
 		return (c == '0')? '1': '0';
 	}
-	   
 	
 }
