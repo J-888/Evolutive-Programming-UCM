@@ -4,6 +4,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -210,15 +212,28 @@ public class GUI extends JFrame{
 							}
 						
 						Individuo bestFound = pf.execute();
+						String messIntro = "";
 						String mess = "";
-						mess += ("Mejor fitness encontrado: " + bestFound.getFitness() + "\n");
-						mess += ("Con los siguientes genes: \n");
+						messIntro += ("Mejor fitness encontrado: " + bestFound.getFitness() + "\n");
+						messIntro += ("Con los siguientes genes: \n");
 						for(int i = 0; i < bestFound.getFenotipo().size(); i++){
 							mess += ("Gen #" + i + ": " + bestFound.getFenotipo().get(i) + "\n");
 						}
-						System.out.println(mess);
+						System.out.println(messIntro + mess);
+						
+						JPanel popUp = new JPanel();
+						popUp.setLayout(new BoxLayout(popUp, BoxLayout.Y_AXIS));
+						JLabel popUpLabel1 = new JLabel("Mejor fitness encontrado: " + bestFound.getFitness());
+						JLabel popUpLabel2 = new JLabel( "Con los siguientes genes:");
+						popUp.add(popUpLabel1);
+						popUp.add(popUpLabel2);
+						int linesToDisplay = Math.min(4, bestFound.getFenotipo().size()) + 1;
+						JTextArea popUpTextArea = new JTextArea(mess.substring(0, mess.length()-1), linesToDisplay, 2);
+						popUpTextArea.setEditable(false);
+						JScrollPane popUpScroll = new JScrollPane(popUpTextArea);
+						popUp.add(popUpScroll);
 						if(visuals.isSelected())
-							JOptionPane.showMessageDialog(null, mess,"Información de la ejecución",JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(null, popUp,"Información de la ejecución",JOptionPane.INFORMATION_MESSAGE);
 					}
 					else{
 						JOptionPane.showMessageDialog(settingsPanel, "fob", "PARAMETROS INCORRECTOS", JOptionPane.ERROR_MESSAGE);}

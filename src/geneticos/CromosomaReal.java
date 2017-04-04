@@ -12,7 +12,7 @@ public class CromosomaReal extends Cromosoma {
 	}
 
 	public ArrayList<Double> toFenotipo() {
-		ArrayList<Double> fen = new ArrayList<Double>();
+		ArrayList<Double> fen = new ArrayList<Double>(genes.size());
 		for (int i = 0; i < genes.size(); i++) 
 			fen.add((double) genes.get(i).bases.get(0));
 		
