@@ -4,8 +4,6 @@ import geneticos.CromosomaBin;
 import geneticos.Individuo;
 import geneticos.TipoCromosoma;
 
-import java.util.ArrayList;
-
 import operadores.cruce.FuncionCruce;
 import operadores.fitness.FitnessPr1Func5;
 import operadores.mutacion.FuncionMutacion;
@@ -16,21 +14,12 @@ import view.GraficaPanel;
 public class Pr1Func5 extends ProblemaFuncion{
 		
 	public Pr1Func5(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, GraficaPanel chartPanel){
-		this.funcSelec = funcSelec;
-		this.funcMuta = funcMuta;
-		this.funcCruz = funcCruz;
-		this.rangoVar = new ArrayList<Par<Double>>();
-		this.rangoVar.add(new Par<Double>(new Double(-10.0),new Double(10.0)));
+		super(funcCruz, funcMuta, funcSelec, elite0to1, numGenerations, tamPob, 2, chartPanel);
+		
+		this.rangoVar.add(new Par<Double>(new Double(-10.0),new Double(10.0))); //reminder to update rangoSize on super constructor 
 		this.rangoVar.add(new Par<Double>(new Double(-10.0),new Double(10.0)));
 		this.tolerancia = 0.001;
 		this.funcFit = new FitnessPr1Func5();
-		this.tamPob = tamPob;
-		this.numGenerations = numGenerations;
-		this.tamElite = (int)Math.floor(elite0to1 * tamPob);	
-		this.poblacion = new ArrayList<Individuo>(tamPob);
-		this.puntuaciones = new ArrayList<Double>(tamPob);
-		this.punts_acum = new ArrayList<Double>(tamPob);
-		this.grafica = chartPanel;
 		this.minimizacion = true;
 	}
 	

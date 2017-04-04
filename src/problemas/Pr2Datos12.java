@@ -1,7 +1,5 @@
 package problemas;
 
-import java.util.ArrayList;
-
 import datos.DatosMatrices;
 import operadores.cruce.FuncionCruce;
 import operadores.fitness.FitnessPr2;
@@ -16,19 +14,10 @@ import geneticos.TipoCromosoma;
 public class Pr2Datos12 extends ProblemaFuncion {
 	
 	public Pr2Datos12(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, GraficaPanel chartPanel){
-		this.funcSelec = funcSelec;
-		this.funcMuta = funcMuta;
-		this.funcCruz = funcCruz;
-		this.rangoVar = new ArrayList<Par<Double>>();
-		this.rangoVar.add(new Par<Double>((double)DatosMatrices.getMatrixDim("datos12") , (double)DatosMatrices.getMatrixDim("datos12")));
+		super(funcCruz, funcMuta, funcSelec, elite0to1, numGenerations, tamPob, 1, chartPanel);
+		
+		this.rangoVar.add(new Par<Double>((double)DatosMatrices.getMatrixDim("datos12") , (double)DatosMatrices.getMatrixDim("datos12"))); //reminder to update rangoSize on super constructor 
 		this.funcFit = new FitnessPr2("datos12");
-		this.tamPob = tamPob;
-		this.numGenerations = numGenerations;
-		this.tamElite = (int)Math.floor(elite0to1 * tamPob);	
-		this.poblacion = new ArrayList<Individuo>(tamPob);
-		this.puntuaciones = new ArrayList<Double>(tamPob);
-		this.punts_acum = new ArrayList<Double>(tamPob);
-		this.grafica = chartPanel;
 		this.minimizacion = true;
 	}
 	

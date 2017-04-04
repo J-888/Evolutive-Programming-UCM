@@ -32,6 +32,23 @@ public abstract class ProblemaFuncion {
 	protected GraficaPanel grafica;
 	protected boolean minimizacion;
 	
+	public ProblemaFuncion(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, int rangoSize, GraficaPanel chartPanel) {
+		this.funcSelec = funcSelec;
+		this.funcMuta = funcMuta;
+		this.funcCruz = funcCruz;
+
+		this.tamPob = tamPob;
+		this.numGenerations = numGenerations;
+		this.tamElite = (int)Math.floor(elite0to1 * tamPob);
+
+		this.rangoVar = new ArrayList<Par<Double>>(rangoSize);
+		this.poblacion = new ArrayList<Individuo>(tamPob);
+		this.puntuaciones = new ArrayList<Double>(tamPob);
+		this.punts_acum = new ArrayList<Double>(tamPob);
+
+		this.grafica = chartPanel;
+	}
+
 	public abstract void generaPobIni();
 	
 	public Individuo execute(){

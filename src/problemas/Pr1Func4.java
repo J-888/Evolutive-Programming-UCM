@@ -18,22 +18,14 @@ public class Pr1Func4 extends ProblemaFuncion{
 	private int N;
 	
 	public Pr1Func4(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, GraficaPanel chartPanel, int n){
+		super(funcCruz, funcMuta, funcSelec, elite0to1, numGenerations, tamPob, n, chartPanel);
+		
 		this.N = n;
-		this.funcSelec = funcSelec;
-		this.funcMuta = funcMuta;
-		this.funcCruz = funcCruz;
 		this.rangoVar = new ArrayList<Par<Double>>();
 		for(int i = 0; i < N; i++)
-			this.rangoVar.add(new Par<Double>(new Double(0.0),new Double(Math.PI)));
+			this.rangoVar.add(new Par<Double>(new Double(0.0),new Double(Math.PI))); //reminder to update rangoSize on super constructor 
 		this.tolerancia = 0.001;
 		this.funcFit = new FitnessPr1Func4();
-		this.tamPob = tamPob;
-		this.numGenerations = numGenerations;
-		this.tamElite = (int)Math.floor(elite0to1 * tamPob);	
-		this.poblacion = new ArrayList<Individuo>(tamPob);
-		this.puntuaciones = new ArrayList<Double>(tamPob);
-		this.punts_acum = new ArrayList<Double>(tamPob);
-		this.grafica = chartPanel;
 		this.minimizacion = true;
 	}
 	
