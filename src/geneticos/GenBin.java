@@ -36,7 +36,7 @@ public class GenBin extends Gen {
 	}
 	
 	public Gen clone(){
-		ArrayList<Object> nuevasBases = new ArrayList<Object>();
+		ArrayList<Object> nuevasBases = new ArrayList<Object>(longitud);
 		Gen nuevGen = new GenBin(longitud);
 		for(int i = 0; i < longitud; i++){
 			if((boolean)bases.get(i) == true)

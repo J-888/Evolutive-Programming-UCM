@@ -28,7 +28,7 @@ public class GenReal extends Gen {
 	}
 	
 	public Gen clone(){
-		ArrayList<Object> nuevasBases = new ArrayList<Object>();
+		ArrayList<Object> nuevasBases = new ArrayList<Object>(1);
 		Gen nuevGen = new GenReal(rangIni, rangFin, tolerancia);
 		nuevasBases.add(Double.valueOf((Double) bases.get(0)));
 		nuevGen.setBases(nuevasBases);	

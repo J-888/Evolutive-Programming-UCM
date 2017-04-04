@@ -29,7 +29,7 @@ public class GenInt extends Gen{
 	}
 
 	public Gen clone() {
-		ArrayList<Object> nuevasBases = new ArrayList<Object>();
+		ArrayList<Object> nuevasBases = new ArrayList<Object>(1);
 		Gen nuevGen = new GenInt(rangIni, rangFin, tolerancia);
 		nuevasBases.add(Integer.valueOf((Integer) bases.get(0)));
 		nuevGen.setBases(nuevasBases);	
