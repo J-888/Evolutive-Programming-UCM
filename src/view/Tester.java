@@ -4,7 +4,9 @@ import geneticos.Individuo;
 import operadores.cruce.Aritmetico;
 import operadores.cruce.FuncionCruce;
 import operadores.cruce.Monopunto;
+import operadores.cruce.PMX;
 import operadores.mutacion.FuncionMutacion;
+import operadores.mutacion.Inversion;
 import operadores.mutacion.BaseABase;
 import operadores.seleccion.EstocasticoUniversal;
 import operadores.seleccion.FuncionSeleccion;
@@ -17,6 +19,10 @@ import problemas.Pr1Func4;
 import problemas.Pr1Func4Xtra;
 import problemas.Pr1Func5;
 import problemas.Pr2Ajuste;
+import problemas.Pr2Datos12;
+import problemas.Pr2Datos15;
+import problemas.Pr2Datos30;
+import problemas.Pr2tai256c;
 import problemas.ProblemaFuncion;
 
 public class Tester {
@@ -47,9 +53,11 @@ public class Tester {
 		FuncionSeleccion[] selections = {new Ruleta(), new TorneoDeterminista(2), new TorneoDeterminista(3), new EstocasticoUniversal()};
 		FuncionCruce[] crossoversBin = {new Monopunto()};
 		FuncionCruce[] crossoversReal = {new Monopunto(), new Aritmetico()};
+		FuncionCruce[] crossoversPermInt = {new PMX()};
 		double[] crossoverPercentages = {0, 0.10, 0.15, 0.20, 0.30, 0.40, 0.50, 0.60};
 		FuncionMutacion[] mutationsBin = {new BaseABase()};
 		FuncionMutacion[] mutationsReal = {new BaseABase()};
+		FuncionMutacion[] mutationsPermInt = {new Inversion()};
 		double[] mutationPercentages = {0.02, 0.05, 0.10, 0.15, 0.20, 0.30};
 		double elite = 0;
 		int genNum = 15;
@@ -62,6 +70,11 @@ public class Tester {
 		//Tester t = new Tester("Pr1.4", 3, selections, crossoversBin, crossoverPercentages, mutationsBin, mutationPercentages, elite, genNum, popSize, executions, true);
 		//Tester t = new Tester("Pr1.4Xtra", 3, selections, crossoversReal, crossoverPercentages, mutationsReal, mutationPercentages, elite, genNum, popSize, executions, true);
 		//Tester t = new Tester("Pr1.5", selections, crossoversBin, crossoverPercentages, mutationsBin, mutationPercentages, elite, genNum, popSize, executions, true);
+		//Tester t = new Tester("Pr2.Ajuste", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true);
+		//Tester t = new Tester("Pr2.Datos12", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true);
+		//Tester t = new Tester("Pr2.Datos15", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true);
+		//Tester t = new Tester("Pr2.Datos13", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true);
+		//Tester t = new Tester("Pr2.tai256c", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true);
 		
 		t.run();
 	}
@@ -71,14 +84,16 @@ public class Tester {
 		FuncionSeleccion[] selections = {new Ruleta(), new TorneoDeterminista(2), new TorneoDeterminista(3), new EstocasticoUniversal()};
 		FuncionCruce[] crossoversBin = {new Monopunto()};
 		FuncionCruce[] crossoversReal = {new Monopunto(), new Aritmetico()};
+		FuncionCruce[] crossoversPermInt = {new PMX()};
 		double[] crossoverPercentages = {0, 0.5, 0.10, 0.15, 0.20, 0.25, 0.30, 0.30, 0.40, 0.45, 0.50, 0.55, 0.60};
 		FuncionMutacion[] mutationsBin = {new BaseABase()};
 		FuncionMutacion[] mutationsReal = {new BaseABase()};
+		FuncionMutacion[] mutationsPermInt = {new Inversion()};
 		double[] mutationPercentages = {0.02, 0.05, 0.10, 0.15, 0.20, 0.30, 0.35, 0.40};
 		double elite = 0;
 		int genNum = 15;
 		int popSize = 50;
-		int executions = 50;
+		int executions = 250;
 		
 		Tester t = new Tester("Pr1.1", selections, crossoversBin, crossoverPercentages, mutationsBin, mutationPercentages, elite, genNum, popSize, executions, true);
 		//Tester t = new Tester("Pr1.2", selections, crossoversBin, crossoverPercentages, mutationsBin, mutationPercentages, elite, genNum, popSize, executions, true);
@@ -86,6 +101,11 @@ public class Tester {
 		//Tester t = new Tester("Pr1.4", 3, selections, crossoversBin, crossoverPercentages, mutationsBin, mutationPercentages, elite, genNum, popSize, executions, true);
 		//Tester t = new Tester("Pr1.4Xtra", 3, selections, crossoversReal, crossoverPercentages, mutationsReal, mutationPercentages, elite, genNum, popSize, executions, true);
 		//Tester t = new Tester("Pr1.5", selections, crossoversBin, crossoverPercentages, mutationsBin, mutationPercentages, elite, genNum, popSize, executions, true);
+		//Tester t = new Tester("Pr2.Ajuste", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true);
+		//Tester t = new Tester("Pr2.Datos12", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true);
+		//Tester t = new Tester("Pr2.Datos15", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true);
+		//Tester t = new Tester("Pr2.Datos13", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true);
+		//Tester t = new Tester("Pr2.tai256c", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true);
 		
 		t.run();
 	}
@@ -159,7 +179,7 @@ public class Tester {
 		case "Pr2.Ajuste":
 			pf = new Pr2Ajuste(fcross, fmut, fselec, elite, genNum, popSize, null);
 			break;
-		/*case "Pr2.Datos12":
+		case "Pr2.Datos12":
 			pf = new Pr2Datos12(fcross, fmut, fselec, elite, genNum, popSize, null);
 			break;
 		case "Pr2.Datos15":
@@ -167,7 +187,10 @@ public class Tester {
 			break;
 		case "Pr2.Datos30":
 			pf = new Pr2Datos30(fcross, fmut, fselec, elite, genNum, popSize, null);
-			break;*/
+			break;
+		case "Pr2.tai256c":
+			pf = new Pr2tai256c(fcross, fmut, fselec, elite, genNum, popSize, null);
+			break;
 		default:
 			break;
 		}
