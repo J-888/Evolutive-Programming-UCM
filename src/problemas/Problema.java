@@ -37,6 +37,7 @@ public abstract class Problema extends SwingWorker<Individuo, String>{
 	protected double pobAvgFitness;
 	protected GUI gui;
 	protected boolean minimizacion;
+	protected boolean stop;
 	
 	public Problema(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, int rangoSize, JFrame gui) {
 		this.funcSelec = funcSelec;
@@ -53,6 +54,7 @@ public abstract class Problema extends SwingWorker<Individuo, String>{
 		this.punts_acum = new ArrayList<Double>(tamPob);
 
 		this.gui = (GUI)gui;
+		this.stop = false;
 	}
 
 	public abstract void generaPobIni();
@@ -63,7 +65,7 @@ public abstract class Problema extends SwingWorker<Individuo, String>{
 		generaPobIni();
 		initGraphInds();
 		
-		for(int i = 0; i < numGenerations; i++){
+		for(int i = 0; i < numGenerations && !stop; i++){
 			evalPoblacion();
 			if (i != numGenerations-1){ //No es necesario en la ultima generacion
 				adaptPoblacion();
@@ -165,5 +167,9 @@ public abstract class Problema extends SwingWorker<Individuo, String>{
     
 	protected void done() {
 		this.gui.onExecutionDone(this.mejorAbsoluto);
+	}
+	
+	public void stopProblemExecution() {
+		this.stop = true;
    }
 }

@@ -65,6 +65,7 @@ public class GUI extends JFrame{
 	private TipoCromosoma tipoCromosoma = TipoCromosoma.BIN; 
 	JCheckBox visuals;
 	JButton runButton;
+	JButton stopButton;
 	
 	public GUI() {
 		
@@ -140,95 +141,108 @@ public class GUI extends JFrame{
 			}
 		});
 					
-			runButton = new JButton("Run");
-			runButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					if(settingsPanel.isAllValid()){
-						runButton.setEnabled(false);
-						String opt = (String) problemCombobox.getSelectedItem();
-						
-						FuncionCruce fcross;
-						FuncionMutacion fmut;
-						if(tipoCromosoma == TipoCromosoma.REAL){
-							fcross = settings.getCrossoverOptionReal();
-							fmut = settings.getMutationOptionReal();
-						}
-						else if (tipoCromosoma == TipoCromosoma.PERMINT){
-							fcross = settings.getCrossoverOptionPermInt();
-							fmut = settings.getMutationOptionPermInt();
-						}
-						else{
-							fcross = settings.getCrossoverOptionBin();
-							fmut = settings.getMutationOptionBin();
-						}
-						
-						FuncionSeleccion fselec = settings.getSelectionOption();
-						double elite = settings.getEliteIndex()/100.0;
-						int genNum = settings.getGenerationNum();
-						int popSize = settings.getPopulationSize();
-						
-						fcross.setProb(settings.getCrossoverIndex()/100.0);
-						fmut.setProb(settings.getMutationIndex()/100.0);
-						
-						chartPanel.reset();
-						
-						if(popSize*elite < 1 && elite != 0)
-							JOptionPane.showMessageDialog(null, "Población / elite < 1 individuo!","Ojo!!!",JOptionPane.WARNING_MESSAGE);
-						
-						int npass;
-						
-						switch (opt) {
-							case "Pr1.1":
-								pf = new Pr1Func1(fcross, fmut, fselec, elite, genNum, popSize, gui);
-								break;
-							case "Pr1.2":
-								pf = new Pr1Func2(fcross, fmut, fselec, elite, genNum, popSize, gui);				
-								break;
-							case "Pr1.3":
-								pf = new Pr1Func3(fcross, fmut, fselec, elite, genNum, popSize, gui);
-								break;
-							case "Pr1.4":
-								npass = Integer.parseInt(ntf.getText());
-								pf = new Pr1Func4(fcross, fmut, fselec, elite, genNum, popSize, gui, npass);
-								break;
-							case "Pr1.4Xtra":
-								npass = Integer.parseInt(ntf.getText());
-								pf = new Pr1Func4Xtra(fcross, fmut, fselec, elite, genNum, popSize, gui, npass);
-								break;
-							case "Pr1.5":
-								pf = new Pr1Func5(fcross, fmut, fselec, elite, genNum, popSize, gui);
-								break;
-							case "Pr2.Ajuste":
-								pf = new Pr2Ajuste(fcross, fmut, fselec, elite, genNum, popSize, gui);
-								break;
-							case "Pr2.Datos12":
-								pf = new Pr2Datos12(fcross, fmut, fselec, elite, genNum, popSize, gui);
-								break;
-							case "Pr2.Datos15":
-								pf = new Pr2Datos15(fcross, fmut, fselec, elite, genNum, popSize, gui);
-								break;
-							case "Pr2.Datos30":
-								pf = new Pr2Datos30(fcross, fmut, fselec, elite, genNum, popSize, gui);
-								break;
-							case "Pr2.tai256c":
-								pf = new Pr2tai256c(fcross, fmut, fselec, elite, genNum, popSize, gui);
-								break;
-							default:
-								break;
-							}
-						
-						optimo = pf.getOptimo();
-						pf.execute();
-						
+		runButton = new JButton("Run");
+		runButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(settingsPanel.isAllValid()){
+					runButton.setEnabled(false);
+					String opt = (String) problemCombobox.getSelectedItem();
+					
+					FuncionCruce fcross;
+					FuncionMutacion fmut;
+					if(tipoCromosoma == TipoCromosoma.REAL){
+						fcross = settings.getCrossoverOptionReal();
+						fmut = settings.getMutationOptionReal();
+					}
+					else if (tipoCromosoma == TipoCromosoma.PERMINT){
+						fcross = settings.getCrossoverOptionPermInt();
+						fmut = settings.getMutationOptionPermInt();
 					}
 					else{
-						JOptionPane.showMessageDialog(settingsPanel, "fob", "PARAMETROS INCORRECTOS", JOptionPane.ERROR_MESSAGE);}
+						fcross = settings.getCrossoverOptionBin();
+						fmut = settings.getMutationOptionBin();
 					}
-				});
+					
+					FuncionSeleccion fselec = settings.getSelectionOption();
+					double elite = settings.getEliteIndex()/100.0;
+					int genNum = settings.getGenerationNum();
+					int popSize = settings.getPopulationSize();
+					
+					fcross.setProb(settings.getCrossoverIndex()/100.0);
+					fmut.setProb(settings.getMutationIndex()/100.0);
+					
+					chartPanel.reset();
+					
+					if(popSize*elite < 1 && elite != 0)
+						JOptionPane.showMessageDialog(null, "Población / elite < 1 individuo!","Ojo!!!",JOptionPane.WARNING_MESSAGE);
+					
+					int npass;
+					
+					switch (opt) {
+						case "Pr1.1":
+							pf = new Pr1Func1(fcross, fmut, fselec, elite, genNum, popSize, gui);
+							break;
+						case "Pr1.2":
+							pf = new Pr1Func2(fcross, fmut, fselec, elite, genNum, popSize, gui);				
+							break;
+						case "Pr1.3":
+							pf = new Pr1Func3(fcross, fmut, fselec, elite, genNum, popSize, gui);
+							break;
+						case "Pr1.4":
+							npass = Integer.parseInt(ntf.getText());
+							pf = new Pr1Func4(fcross, fmut, fselec, elite, genNum, popSize, gui, npass);
+							break;
+						case "Pr1.4Xtra":
+							npass = Integer.parseInt(ntf.getText());
+							pf = new Pr1Func4Xtra(fcross, fmut, fselec, elite, genNum, popSize, gui, npass);
+							break;
+						case "Pr1.5":
+							pf = new Pr1Func5(fcross, fmut, fselec, elite, genNum, popSize, gui);
+							break;
+						case "Pr2.Ajuste":
+							pf = new Pr2Ajuste(fcross, fmut, fselec, elite, genNum, popSize, gui);
+							break;
+						case "Pr2.Datos12":
+							pf = new Pr2Datos12(fcross, fmut, fselec, elite, genNum, popSize, gui);
+							break;
+						case "Pr2.Datos15":
+							pf = new Pr2Datos15(fcross, fmut, fselec, elite, genNum, popSize, gui);
+							break;
+						case "Pr2.Datos30":
+							pf = new Pr2Datos30(fcross, fmut, fselec, elite, genNum, popSize, gui);
+							break;
+						case "Pr2.tai256c":
+							pf = new Pr2tai256c(fcross, fmut, fselec, elite, genNum, popSize, gui);
+							break;
+						default:
+							break;
+						}
+					
+					optimo = pf.getOptimo();
+					pf.execute();
+					stopButton.setEnabled(true);
+					
+				}
+				else{
+					JOptionPane.showMessageDialog(settingsPanel, "fob", "PARAMETROS INCORRECTOS", JOptionPane.ERROR_MESSAGE);}
+				}
+			});
 			
 			runButton.setActionCommand("Run");
 			controlsPanel.add(runButton);
 			
+			stopButton = new JButton("Stop");
+			stopButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					stopButton.setEnabled(false);
+					pf.stopProblemExecution();
+				}
+			});
+			
+			stopButton.setActionCommand("Stop");
+			stopButton.setEnabled(false);
+			controlsPanel.add(stopButton);
+						
 		
 	}
 	
@@ -262,6 +276,8 @@ public class GUI extends JFrame{
 		if(visuals.isSelected())
 			JOptionPane.showMessageDialog(null, popUp,"Información de la ejecución",JOptionPane.INFORMATION_MESSAGE);
 		
+
+		stopButton.setEnabled(false);
 		runButton.setEnabled(true);
 	}
 	
