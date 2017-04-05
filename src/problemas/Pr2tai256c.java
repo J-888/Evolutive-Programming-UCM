@@ -1,5 +1,7 @@
 package problemas;
 
+import javax.swing.JFrame;
+
 import datos.DatosMatrices;
 import operadores.cruce.FuncionCruce;
 import operadores.fitness.FitnessPr2;
@@ -13,8 +15,8 @@ import geneticos.TipoCromosoma;
 
 public class Pr2tai256c extends ProblemaFuncion {
 	
-	public Pr2tai256c(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, GraficaPanel chartPanel){
-		super(funcCruz, funcMuta, funcSelec, elite0to1, numGenerations, tamPob, 1, chartPanel);
+	public Pr2tai256c(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, JFrame gui){
+		super(funcCruz, funcMuta, funcSelec, elite0to1, numGenerations, tamPob, 1, gui);
 		
 		this.rangoVar.add(new Par<Double>((double)DatosMatrices.getMatrixDim("tai256c") , (double)DatosMatrices.getMatrixDim("tai256c"))); //reminder to update rangoSize on super constructor s
 		this.funcFit = new FitnessPr2("tai256c");

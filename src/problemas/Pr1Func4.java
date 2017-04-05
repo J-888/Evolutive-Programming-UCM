@@ -6,6 +6,8 @@ import geneticos.TipoCromosoma;
 
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+
 import operadores.cruce.FuncionCruce;
 import operadores.fitness.FitnessPr1Func4;
 import operadores.mutacion.FuncionMutacion;
@@ -17,8 +19,8 @@ public class Pr1Func4 extends ProblemaFuncion{
 	
 	private int N;
 	
-	public Pr1Func4(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, GraficaPanel chartPanel, int n){
-		super(funcCruz, funcMuta, funcSelec, elite0to1, numGenerations, tamPob, n, chartPanel);
+	public Pr1Func4(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, JFrame gui, int n){
+		super(funcCruz, funcMuta, funcSelec, elite0to1, numGenerations, tamPob, n, gui);
 		
 		this.N = n;
 		this.rangoVar = new ArrayList<Par<Double>>();

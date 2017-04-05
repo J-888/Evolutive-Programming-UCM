@@ -197,7 +197,7 @@ public class Tester {
 
 		double avgFitness = 0;
 		for (int i = 0; i < executions; i++) {
-			Individuo bestFound = pf.execute();
+			Individuo bestFound = pf.executeProblem();
 			avgFitness += bestFound.getFitness();
 		}
 		avgFitness = avgFitness/executions;

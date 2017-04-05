@@ -1,5 +1,7 @@
 package problemas;
 
+import javax.swing.JFrame;
+
 import geneticos.CromosomaBin;
 import geneticos.Individuo;
 import geneticos.TipoCromosoma;
@@ -13,8 +15,8 @@ import view.GraficaPanel;
 
 public class Pr1Func3 extends ProblemaFuncion{
 		
-	public Pr1Func3(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, GraficaPanel chartPanel){
-		super(funcCruz, funcMuta, funcSelec, elite0to1, numGenerations, tamPob, 2, chartPanel);
+	public Pr1Func3(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, JFrame gui){
+		super(funcCruz, funcMuta, funcSelec, elite0to1, numGenerations, tamPob, 2, gui);
 		
 		this.rangoVar.add(new Par<Double>(new Double(-3.0),new Double(12.1))); //reminder to update rangoSize on super constructor 
 		this.rangoVar.add(new Par<Double>(new Double(4.1),new Double(5.8)));

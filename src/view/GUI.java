@@ -41,10 +41,12 @@ import view.ConfigPanel.InnerOption;
 import view.ConfigPanel.IntegerOption;
 
 import java.awt.event.ActionListener;
+import java.util.concurrent.ExecutionException;
 import java.awt.event.ActionEvent;
 
 public class GUI extends JFrame{
 
+	private JFrame gui = this;
 	private String[] problemOptions = {"Pr1.1", "Pr1.2", "Pr1.3", "Pr1.4", "Pr1.4Xtra", "Pr1.5", "Pr2.Ajuste", "Pr2.Datos12", "Pr2.Datos15", "Pr2.Datos30", "Pr2.tai256c"}; 
 	private FuncionSeleccion[] selectionOptions = {new Ruleta(), new TorneoDeterminista(2), new TorneoDeterminista(3), new EstocasticoUniversal()}; 
 	private FuncionCruce[] crossoverOptionsBin = {new Monopunto()}; 
@@ -60,6 +62,8 @@ public class GUI extends JFrame{
 	private JTextField ntf;
 	private ProblemaFuncion pf;
 	private TipoCromosoma tipoCromosoma = TipoCromosoma.BIN; 
+	JCheckBox visuals;
+	JButton runButton;
 	
 	public GUI() {
 		
@@ -99,7 +103,7 @@ public class GUI extends JFrame{
 		ntf = new JTextField("3");
 		problemPanel.add(ntf);
 		
-		JCheckBox visuals = new JCheckBox("Enable popups", true);
+		visuals = new JCheckBox("Enable popups", true);
 		problemPanel.add(visuals);
 
 		getContentPane().add(problemPanel, BorderLayout.NORTH);
@@ -135,10 +139,11 @@ public class GUI extends JFrame{
 			}
 		});
 					
-			JButton runButton = new JButton("Run");
+			runButton = new JButton("Run");
 			runButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if(settingsPanel.isAllValid()){
+						runButton.setEnabled(false);
 						String opt = (String) problemCombobox.getSelectedItem();
 						
 						FuncionCruce fcross;
@@ -173,67 +178,46 @@ public class GUI extends JFrame{
 						
 						switch (opt) {
 							case "Pr1.1":
-								pf = new Pr1Func1(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
+								pf = new Pr1Func1(fcross, fmut, fselec, elite, genNum, popSize, gui);
 								break;
 							case "Pr1.2":
-								pf = new Pr1Func2(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);				
+								pf = new Pr1Func2(fcross, fmut, fselec, elite, genNum, popSize, gui);				
 								break;
 							case "Pr1.3":
-								pf = new Pr1Func3(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
+								pf = new Pr1Func3(fcross, fmut, fselec, elite, genNum, popSize, gui);
 								break;
 							case "Pr1.4":
 								npass = Integer.parseInt(ntf.getText());
-								pf = new Pr1Func4(fcross, fmut, fselec, elite, genNum, popSize, chartPanel, npass);
+								pf = new Pr1Func4(fcross, fmut, fselec, elite, genNum, popSize, gui, npass);
 								break;
 							case "Pr1.4Xtra":
 								npass = Integer.parseInt(ntf.getText());
-								pf = new Pr1Func4Xtra(fcross, fmut, fselec, elite, genNum, popSize, chartPanel, npass);
+								pf = new Pr1Func4Xtra(fcross, fmut, fselec, elite, genNum, popSize, gui, npass);
 								break;
 							case "Pr1.5":
-								pf = new Pr1Func5(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
+								pf = new Pr1Func5(fcross, fmut, fselec, elite, genNum, popSize, gui);
 								break;
 							case "Pr2.Ajuste":
-								pf = new Pr2Ajuste(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
+								pf = new Pr2Ajuste(fcross, fmut, fselec, elite, genNum, popSize, gui);
 								break;
 							case "Pr2.Datos12":
-								pf = new Pr2Datos12(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
+								pf = new Pr2Datos12(fcross, fmut, fselec, elite, genNum, popSize, gui);
 								break;
 							case "Pr2.Datos15":
-								pf = new Pr2Datos15(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
+								pf = new Pr2Datos15(fcross, fmut, fselec, elite, genNum, popSize, gui);
 								break;
 							case "Pr2.Datos30":
-								pf = new Pr2Datos30(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
+								pf = new Pr2Datos30(fcross, fmut, fselec, elite, genNum, popSize, gui);
 								break;
 							case "Pr2.tai256c":
-								pf = new Pr2tai256c(fcross, fmut, fselec, elite, genNum, popSize, chartPanel);
+								pf = new Pr2tai256c(fcross, fmut, fselec, elite, genNum, popSize, gui);
 								break;
 							default:
 								break;
 							}
 						
-						Individuo bestFound = pf.execute();
-						String messIntro = "";
-						String mess = "";
-						messIntro += ("Mejor fitness encontrado: " + bestFound.getFitness() + "\n");
-						messIntro += ("Con los siguientes genes: \n");
-						for(int i = 0; i < bestFound.getFenotipo().size(); i++){
-							mess += ("Gen #" + i + ": " + bestFound.getFenotipo().get(i) + "\n");
-						}
-						System.out.println(messIntro + mess);
+						pf.execute();
 						
-						JPanel popUp = new JPanel();
-						popUp.setLayout(new BoxLayout(popUp, BoxLayout.Y_AXIS));
-						JLabel popUpLabel1 = new JLabel("Mejor fitness encontrado: " + bestFound.getFitness());
-						JLabel popUpLabel2 = new JLabel( "Con los siguientes genes:");
-						popUp.add(popUpLabel1);
-						popUp.add(popUpLabel2);
-						int linesToDisplay = Math.min(4, bestFound.getFenotipo().size()) + 1;
-						JTextArea popUpTextArea = new JTextArea(mess.substring(0, mess.length()-1), linesToDisplay, 2);
-						popUpTextArea.setEditable(false);
-						JScrollPane popUpScroll = new JScrollPane(popUpTextArea);
-						popUp.add(popUpScroll);
-						if(visuals.isSelected())
-							JOptionPane.showMessageDialog(null, popUp,"Información de la ejecución",JOptionPane.INFORMATION_MESSAGE);
 					}
 					else{
 						JOptionPane.showMessageDialog(settingsPanel, "fob", "PARAMETROS INCORRECTOS", JOptionPane.ERROR_MESSAGE);}
@@ -244,6 +228,33 @@ public class GUI extends JFrame{
 			controlsPanel.add(runButton);
 			
 		
+	}
+	
+	public void onExecutionDone(Individuo bestFound) {
+		String messIntro = "";
+		String mess = "";
+		messIntro += ("Mejor fitness encontrado: " + bestFound.getFitness() + "\n");
+		messIntro += ("Con los siguientes genes: \n");
+		for(int i = 0; i < bestFound.getFenotipo().size(); i++){
+			mess += ("Gen #" + i + ": " + bestFound.getFenotipo().get(i) + "\n");
+		}
+		System.out.println(messIntro + mess);
+		
+		JPanel popUp = new JPanel();
+		popUp.setLayout(new BoxLayout(popUp, BoxLayout.Y_AXIS));
+		JLabel popUpLabel1 = new JLabel("Mejor fitness encontrado: " + bestFound.getFitness());
+		JLabel popUpLabel2 = new JLabel( "Con los siguientes genes:");
+		popUp.add(popUpLabel1);
+		popUp.add(popUpLabel2);
+		int linesToDisplay = Math.min(4, bestFound.getFenotipo().size()) + 1;
+		JTextArea popUpTextArea = new JTextArea(mess.substring(0, mess.length()-1), linesToDisplay, 2);
+		popUpTextArea.setEditable(false);
+		JScrollPane popUpScroll = new JScrollPane(popUpTextArea);
+		popUp.add(popUpScroll);
+		if(visuals.isSelected())
+			JOptionPane.showMessageDialog(null, popUp,"Información de la ejecución",JOptionPane.INFORMATION_MESSAGE);
+		
+		runButton.setEnabled(true);
 	}
 	
 	public ConfigPanel<Settings> createSettingsPanelNested() {
@@ -385,6 +396,10 @@ public class GUI extends JFrame{
 			mutationPanel.getComponent(4).setVisible(false);	//oculta label mutacion permint
 			mutationPanel.getComponent(5).setVisible(false);	//oculta combobox mutacion permint
 		}
+	}
+
+	public GraficaPanel getChartPanel() {
+		return chartPanel;
 	}
 	
 }

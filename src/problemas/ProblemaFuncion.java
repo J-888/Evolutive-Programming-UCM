@@ -3,14 +3,19 @@ package problemas;
 import geneticos.Individuo;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import javax.swing.JFrame;
+import javax.swing.SwingWorker;
+
 import operadores.cruce.FuncionCruce;
 import operadores.fitness.FuncionFitness;
 import operadores.mutacion.FuncionMutacion;
 import operadores.seleccion.FuncionSeleccion;
 import util.Par;
+import view.GUI;
 import view.GraficaPanel;
 
-public abstract class ProblemaFuncion {
+public abstract class ProblemaFuncion extends SwingWorker<Individuo, String>{
 
 	protected ArrayList<Individuo> poblacion;
 	protected ArrayList<Individuo> poblacionNueva;
@@ -29,10 +34,10 @@ public abstract class ProblemaFuncion {
 	protected Individuo mejorAbsoluto;
 	protected Individuo peorIndividuo;
 	protected double pobAvgFitness;
-	protected GraficaPanel grafica;
+	protected GUI gui;
 	protected boolean minimizacion;
 	
-	public ProblemaFuncion(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, int rangoSize, GraficaPanel chartPanel) {
+	public ProblemaFuncion(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, int rangoSize, JFrame gui) {
 		this.funcSelec = funcSelec;
 		this.funcMuta = funcMuta;
 		this.funcCruz = funcCruz;
@@ -46,12 +51,12 @@ public abstract class ProblemaFuncion {
 		this.puntuaciones = new ArrayList<Double>(tamPob);
 		this.punts_acum = new ArrayList<Double>(tamPob);
 
-		this.grafica = chartPanel;
+		this.gui = (GUI)gui;
 	}
 
 	public abstract void generaPobIni();
 	
-	public Individuo execute(){
+	public Individuo executeProblem(){
 		generaPobIni();
 		initGraphInds();
 		
@@ -69,8 +74,8 @@ public abstract class ProblemaFuncion {
 				insertElite();
 				poblacion = poblacionNueva;
 			}
-			if(grafica != null)
-				grafica.update(i, mejorIndividuo.getFitness(), peorIndividuo.getFitness(), pobAvgFitness, mejorAbsoluto.getFitness());
+			if(gui != null)
+				gui.getChartPanel().update(i, mejorIndividuo.getFitness(), peorIndividuo.getFitness(), pobAvgFitness, mejorAbsoluto.getFitness());
 		}
 	
 		return mejorAbsoluto;
@@ -149,4 +154,13 @@ public abstract class ProblemaFuncion {
 	public void setFuncSelec(FuncionSeleccion funcSelec) {
 		this.funcSelec = funcSelec;
 	}
+	
+	protected Individuo doInBackground() throws Exception {
+		executeProblem();
+		return null;
+	}    @Override
+    
+	protected void done() {
+		this.gui.onExecutionDone(this.mejorAbsoluto);
+   }
 }
