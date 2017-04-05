@@ -4,6 +4,7 @@ import java.awt.Color;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYSeries;
@@ -60,6 +61,11 @@ public class GraficaPanel extends JPanel{
 		plot.getRendererForDataset(plot.getDataset(0)).setSeriesPaint(1, Color.GREEN); 
 		plot.getRendererForDataset(plot.getDataset(0)).setSeriesPaint(2, Color.YELLOW); 
 		plot.getRendererForDataset(plot.getDataset(0)).setSeriesPaint(3, Color.BLUE); 
+		
+
+		NumberAxis yAxis = (NumberAxis) plot.getRangeAxis();
+		yAxis.setAutoRangeIncludesZero(false);
+		yAxis.setAutoRange(true);
 		
 		chartPanel = new ChartPanel(chart);
 	}
