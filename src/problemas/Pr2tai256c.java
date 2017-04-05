@@ -13,7 +13,7 @@ import geneticos.CromosomaPermInt;
 import geneticos.Individuo;
 import geneticos.TipoCromosoma;
 
-public class Pr2tai256c extends ProblemaFuncion {
+public class Pr2tai256c extends Problema {
 	
 	public Pr2tai256c(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, JFrame gui){
 		super(funcCruz, funcMuta, funcSelec, elite0to1, numGenerations, tamPob, 1, gui);
@@ -33,4 +33,7 @@ public class Pr2tai256c extends ProblemaFuncion {
 		}
 	}
 
+	public Double getOptimo(){
+		return 44759294.0;
+	}
 }

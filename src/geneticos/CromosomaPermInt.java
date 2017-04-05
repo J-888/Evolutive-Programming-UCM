@@ -58,7 +58,7 @@ public class CromosomaPermInt extends Cromosoma {
 		for(int i = 0; i < genes.size(); i++){
 			for(int j = 0; j < genes.size(); j++){
 				if (i != j){
-					if(genes.get(i).getBases().get(0) == genes.get(j).getBases().get(0)){
+					if(genes.get(i).getBases().get(0).equals(genes.get(j).getBases().get(0))){
 						System.err.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 						ret = false;
 					}

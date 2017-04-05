@@ -60,7 +60,8 @@ public class GUI extends JFrame{
 	private final ConfigPanel<Settings> settingsPanel;
 	private JLabel n;
 	private JTextField ntf;
-	private ProblemaFuncion pf;
+	private Problema pf;
+	private double optimo;
 	private TipoCromosoma tipoCromosoma = TipoCromosoma.BIN; 
 	JCheckBox visuals;
 	JButton runButton;
@@ -216,6 +217,7 @@ public class GUI extends JFrame{
 								break;
 							}
 						
+						optimo = pf.getOptimo();
 						pf.execute();
 						
 					}
@@ -233,6 +235,7 @@ public class GUI extends JFrame{
 	public void onExecutionDone(Individuo bestFound) {
 		String messIntro = "";
 		String mess = "";
+		messIntro += ("Fitness óptimo del problema: " + optimo + "\n");
 		messIntro += ("Mejor fitness encontrado: " + bestFound.getFitness() + "\n");
 		messIntro += ("Con los siguientes genes: \n");
 		for(int i = 0; i < bestFound.getFenotipo().size(); i++){
@@ -242,8 +245,10 @@ public class GUI extends JFrame{
 		
 		JPanel popUp = new JPanel();
 		popUp.setLayout(new BoxLayout(popUp, BoxLayout.Y_AXIS));
+		JLabel popUpLabel0 = new JLabel("Fitness óptimo del problema: " + optimo);
 		JLabel popUpLabel1 = new JLabel("Mejor fitness encontrado: " + bestFound.getFitness());
 		JLabel popUpLabel2 = new JLabel( "Con los siguientes genes:");
+		popUp.add(popUpLabel0);
 		popUp.add(popUpLabel1);
 		popUp.add(popUpLabel2);
 		int linesToDisplay = Math.min(4, bestFound.getFenotipo().size()) + 1;

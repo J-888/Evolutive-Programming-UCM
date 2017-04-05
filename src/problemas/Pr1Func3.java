@@ -13,7 +13,7 @@ import operadores.seleccion.FuncionSeleccion;
 import util.Par;
 import view.GraficaPanel;
 
-public class Pr1Func3 extends ProblemaFuncion{
+public class Pr1Func3 extends Problema{
 		
 	public Pr1Func3(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, JFrame gui){
 		super(funcCruz, funcMuta, funcSelec, elite0to1, numGenerations, tamPob, 2, gui);
@@ -32,5 +32,9 @@ public class Pr1Func3 extends ProblemaFuncion{
 			Individuo newInd = new Individuo(newCromo);
 			poblacion.add(newInd);		
 		}
+	}
+	
+	public Double getOptimo(){
+		return 38.809;
 	}
 }

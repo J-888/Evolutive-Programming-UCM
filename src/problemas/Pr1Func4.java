@@ -15,7 +15,7 @@ import operadores.seleccion.FuncionSeleccion;
 import util.Par;
 import view.GraficaPanel;
 
-public class Pr1Func4 extends ProblemaFuncion{
+public class Pr1Func4 extends Problema{
 	
 	private int N;
 	
@@ -38,5 +38,9 @@ public class Pr1Func4 extends ProblemaFuncion{
 			Individuo newInd = new Individuo(newCromo);
 			poblacion.add(newInd);		
 		}
+	}
+	
+	public Double getOptimo(){
+		return null;
 	}
 }

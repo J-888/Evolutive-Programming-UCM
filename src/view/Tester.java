@@ -23,7 +23,7 @@ import problemas.Pr2Datos12;
 import problemas.Pr2Datos15;
 import problemas.Pr2Datos30;
 import problemas.Pr2tai256c;
-import problemas.ProblemaFuncion;
+import problemas.Problema;
 
 public class Tester {
 	
@@ -155,7 +155,7 @@ public class Tester {
 
 	private void run(FuncionSeleccion fselec, FuncionCruce fcross, double pcross, FuncionMutacion fmut, double pmut) {
 		
-		ProblemaFuncion pf = null;
+		Problema pf = null;
 		
 		switch (problem) {
 		case "Pr1.1":

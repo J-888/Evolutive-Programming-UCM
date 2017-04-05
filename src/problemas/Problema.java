@@ -1,5 +1,6 @@
 package problemas;
 
+import geneticos.CromosomaPermInt;
 import geneticos.Individuo;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,7 +16,7 @@ import util.Par;
 import view.GUI;
 import view.GraficaPanel;
 
-public abstract class ProblemaFuncion extends SwingWorker<Individuo, String>{
+public abstract class Problema extends SwingWorker<Individuo, String>{
 
 	protected ArrayList<Individuo> poblacion;
 	protected ArrayList<Individuo> poblacionNueva;
@@ -37,7 +38,7 @@ public abstract class ProblemaFuncion extends SwingWorker<Individuo, String>{
 	protected GUI gui;
 	protected boolean minimizacion;
 	
-	public ProblemaFuncion(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, int rangoSize, JFrame gui) {
+	public Problema(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, int rangoSize, JFrame gui) {
 		this.funcSelec = funcSelec;
 		this.funcMuta = funcMuta;
 		this.funcCruz = funcCruz;
@@ -55,6 +56,8 @@ public abstract class ProblemaFuncion extends SwingWorker<Individuo, String>{
 	}
 
 	public abstract void generaPobIni();
+	
+	public abstract Double getOptimo();
 	
 	public Individuo executeProblem(){
 		generaPobIni();

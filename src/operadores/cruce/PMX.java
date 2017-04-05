@@ -22,7 +22,7 @@ public class PMX extends FuncionCruce {
 		ArrayList<Gen> genesP2 = p2.getGenes();
 		
 		int pCorte1, pCorte2 = -1;
-		int tamCrom = p1.getGenes().size();
+		int tamCrom = genesP1.size();
 		pCorte1 = Utiles.randomIntNO()%(tamCrom+1);
 		while(pCorte2 == -1 || pCorte2 == pCorte1)
 			pCorte2 = Utiles.randomIntNO()%(tamCrom+1);
@@ -32,12 +32,12 @@ public class PMX extends FuncionCruce {
 			pCorte2 = pCorte1;
 			pCorte1 = t;
 		}
-		
+
 		//Swapping entre los puntos de cruce
 		for(int i = pCorte1; i < pCorte2; i++){
-			int t = (int) h1.getGenes().get(i).getBases().get(0);
-			h1.getGenes().get(i).getBases().set(0, h2.getGenes().get(i).getBases().get(0));
-			h2.getGenes().get(i).getBases().set(0, t);
+			Object t = genesH1.get(i).getBases().get(0);
+			genesH1.get(i).getBases().set(0, genesH2.get(i).getBases().get(0));
+			genesH2.get(i).getBases().set(0, t);
 		}
 		
 		boolean hijoOK;
@@ -98,7 +98,7 @@ public class PMX extends FuncionCruce {
 	
 	int searchInArrayList(ArrayList<Gen> array, int start, int end, Gen target){
 		for(int i = start; i < end; i++)
-			if(array.get(i).getBases().get(0) == target.getBases().get(0))
+			if(array.get(i).getBases().get(0).equals(target.getBases().get(0)))
 				return i;
 		return -1;
 	}
