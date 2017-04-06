@@ -60,7 +60,7 @@ public class Utiles {
 		ArrayList<Integer> codeList = new ArrayList<>(size);
 		Par<Double> rango = ((GenInt) original.get(0)).getRango();
 		
-		for (int i = 0; i < rango.getN2(); i++) {
+		for (int i = 0; i < size; i++) {
 			codeList.add(i);
 		}
 		
@@ -77,13 +77,37 @@ public class Utiles {
 		return encoded; 
 	}
 	
+	public static ArrayList<Gen> decodeOrdinal(ArrayList<Gen> encoded) {
+		int size = encoded.size();
+		ArrayList<Gen> decoded = new ArrayList<>(size);
+		ArrayList<Integer> codeList = new ArrayList<>(size);
+		Par<Double> rango = ((GenInt) encoded.get(0)).getRango();
+		
+		for (int i = 0; i < size; i++) {
+			codeList.add(i);
+		}
+		
+		for (int i = 0; i < size; i++) {
+			GenInt nuevoGen = new GenInt(rango.getN1(), rango.getN2());
+			nuevoGen.instanceBases();
+			int location = ((int) encoded.get(i).getBases().get(0)) % size;
+			int value = codeList.get(location);
+			codeList.remove(location);
+			nuevoGen.getBases().add(value);
+			
+			decoded.add(nuevoGen);
+		}
+		
+		return decoded; 
+	}
+	
 	public static void main(String[] args) {	
 		ArrayList<Par<Double>> rangs = new ArrayList<>();
 		rangs.add(new Par<Double>(10.0, 10.0));
 		CromosomaPermInt origCromo = new CromosomaPermInt(rangs, TipoCromosoma.PERMINT);
 		origCromo.randomizeCromosome(0);
 
-		origCromo.getGenes().get(0).getBases().set(0, 0);
+		/*origCromo.getGenes().get(0).getBases().set(0, 0);
 		origCromo.getGenes().get(1).getBases().set(0, 4);
 		origCromo.getGenes().get(2).getBases().set(0, 5);
 		origCromo.getGenes().get(3).getBases().set(0, 2);
@@ -92,11 +116,26 @@ public class Utiles {
 		origCromo.getGenes().get(6).getBases().set(0, 7);
 		origCromo.getGenes().get(7).getBases().set(0, 6);
 		origCromo.getGenes().get(8).getBases().set(0, 9);
-		origCromo.getGenes().get(9).getBases().set(0, 3);
+		origCromo.getGenes().get(9).getBases().set(0, 3);*/
+		
+		origCromo.getGenes().get(0).getBases().set(0, 0);
+		origCromo.getGenes().get(1).getBases().set(0, 1);
+		origCromo.getGenes().get(2).getBases().set(0, 2);
+		origCromo.getGenes().get(3).getBases().set(0, 3);
+		origCromo.getGenes().get(4).getBases().set(0, 4);
+		origCromo.getGenes().get(5).getBases().set(0, 5);
+		origCromo.getGenes().get(6).getBases().set(0, 6);
+		origCromo.getGenes().get(7).getBases().set(0, 7);
+		origCromo.getGenes().get(8).getBases().set(0, 8);
+		origCromo.getGenes().get(9).getBases().set(0, 9);
 		
 		CromosomaPermInt newCromo1 = new CromosomaPermInt(rangs, TipoCromosoma.PERMINT);
 		newCromo1.setGenes(Utiles.encodeOrdinal(origCromo.getGenes()));
-		System.out.println("ya");
+		System.out.println("ya1");
+		
+		CromosomaPermInt newCromo2 = new CromosomaPermInt(rangs, TipoCromosoma.PERMINT);
+		newCromo2.setGenes(Utiles.decodeOrdinal(newCromo1.getGenes()));
+		System.out.println("ya2");
 	}
 	
 }
