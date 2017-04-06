@@ -24,7 +24,7 @@ public class CromosomaPermInt extends Cromosoma {
 	}
 
 	public void randomizeCromosome(double tolerancia) {
-		/* la tolerancia no se usa en este cromosoma, el rango(0) contiene el numero de centros */
+		/* el rango(0) contiene el numero de centros */
 		ArrayList<Integer> genePool = new ArrayList<Integer>(genes.size());
 		
 		for(int i = 0; i < rango.get(0).getN1(); i++){
@@ -34,7 +34,7 @@ public class CromosomaPermInt extends Cromosoma {
 		Collections.shuffle(genePool);
 		
 		for(int i = 0; i < rango.get(0).getN1(); i++){
-			GenInt nuevoGen = new GenInt(rango.get(0).getN1(), rango.get(0).getN2(),tolerancia);
+			GenInt nuevoGen = new GenInt(rango.get(0).getN1(), rango.get(0).getN2());
 			nuevoGen.instanceBases();
 			nuevoGen.getBases().add(genePool.get(i));
 			genes.add(nuevoGen);
