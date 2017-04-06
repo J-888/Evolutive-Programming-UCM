@@ -2,7 +2,10 @@ package operadores.cruce;
 
 import java.util.ArrayList;
 import geneticos.Cromosoma;
+import geneticos.CromosomaPermInt;
+import geneticos.CromosomaReal;
 import geneticos.Gen;
+import geneticos.TipoCromosoma;
 import util.Par;
 import util.Utiles;
 
@@ -12,6 +15,11 @@ public class Monopunto extends FuncionCruce{
 		int totalLenght = 0;
 		ArrayList<Gen> genesp1 = p1.getGenes();
 		ArrayList<Gen> genesp2 = p2.getGenes();
+		
+		if(p1.getTipo() == TipoCromosoma.PERMINT || p2.getTipo() == TipoCromosoma.PERMINT) {	//redundante: los dos cromosomas siempre seran del mismo tipo
+			genesp1 = Utiles.encodeOrdinal(genesp1);
+			genesp2 = Utiles.encodeOrdinal(genesp2);
+		}
 		
 		for (int i = 0; i < genesp1.size(); i++) {
 			totalLenght += genesp1.get(i).getBases().size();
@@ -54,6 +62,11 @@ public class Monopunto extends FuncionCruce{
 				stop = true;
 			}
 			currentBase += genesp1.get(j).getBases().size();
+		}
+		
+		if(p1.getTipo() == TipoCromosoma.PERMINT || p2.getTipo() == TipoCromosoma.PERMINT) {	//redundante: los dos cromosomas siempre seran del mismo tipo
+			p1.setGenes(Utiles.decodeOrdinal(genesp1));
+			p2.setGenes(Utiles.decodeOrdinal(genesp2));
 		}
 		
 		return new Par<Cromosoma>(p1.clone(),p2.clone());
