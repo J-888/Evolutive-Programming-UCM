@@ -5,7 +5,7 @@ import java.util.Collections;
 
 import util.Par;
 
-public class CromosomaPermInt extends Cromosoma {
+public class CromosomaPermInt extends Cromosoma implements Comparable{
 
 	public CromosomaPermInt (ArrayList<Par<Double>> rango, TipoCromosoma tipo){
 		this.tipo = tipo;
@@ -69,5 +69,28 @@ public class CromosomaPermInt extends Cromosoma {
 		
 		return ret;
 	}
-	
+
+	@Override
+	public int compareTo(Object o) {
+		CromosomaPermInt otro = (CromosomaPermInt)o;
+		
+		int i = 0;
+		int ret = 0;
+		boolean finished = false;
+		while(i < this.rango.get(0).getN1() && !finished){
+			if((int)this.getGenes().get(i).getBases().get(0) < (int)otro.getGenes().get(i).getBases().get(0)){
+				finished = true;
+				ret = -1;
+			}
+			else if((int)this.getGenes().get(i).getBases().get(0) > (int)otro.getGenes().get(i).getBases().get(0)){
+				finished = true;
+				ret = 1;
+			}
+			
+			i++;
+		}
+		
+		return ret;
+	}
+
 }

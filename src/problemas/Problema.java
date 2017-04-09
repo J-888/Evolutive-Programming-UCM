@@ -171,5 +171,14 @@ public abstract class Problema extends SwingWorker<Individuo, String>{
 	
 	public void stopProblemExecution() {
 		this.stop = true;
-   }
+	}
+	
+	public boolean singularFact(int tamPobTwo, int cromPosibles, int rangoRestante){	
+		if(cromPosibles > tamPobTwo)//Si ya hay mas posibles que el doble de la población, true
+			return true;
+		else if(rangoRestante == 0) //Si llegamos al tam max de crom y no hay mas del doble de la población, false
+			return false;
+		else //Si no, ampliamos el num de croms posibles con lo que da el rango restante y reevaluamos
+			return singularFact(tamPobTwo, cromPosibles*=rangoRestante, rangoRestante-1);
+	}
 }
