@@ -2,6 +2,7 @@ package geneticos;
 
 import java.util.ArrayList;
 
+import util.Par;
 import util.Utiles;
 
 public class GenInt extends Gen{
@@ -10,10 +11,9 @@ public class GenInt extends Gen{
 	private double rangFin;
 	private double tolerancia;
 	
-	public GenInt(Double rangIni, Double rangFin, double tolerancia) {
+	public GenInt(Double rangIni, Double rangFin) {
 		this.rangIni = rangIni;
 		this.rangFin = rangFin;
-		this.tolerancia = tolerancia;
 	}
 	
 	public void instanceBases(){
@@ -30,7 +30,7 @@ public class GenInt extends Gen{
 
 	public Gen clone() {
 		ArrayList<Object> nuevasBases = new ArrayList<Object>(1);
-		Gen nuevGen = new GenInt(rangIni, rangFin, tolerancia);
+		Gen nuevGen = new GenInt(rangIni, rangFin);
 		nuevasBases.add(Integer.valueOf((Integer) bases.get(0)));
 		nuevGen.setBases(nuevasBases);	
 		return nuevGen;
@@ -38,7 +38,10 @@ public class GenInt extends Gen{
 
 	public String toString() {
 		return Integer.toString((int) bases.get(0));
-
+	}
+	
+	public Par<Double> getRango(){
+		return new Par<Double>(rangIni, rangFin);
 	}
 
 }
