@@ -28,6 +28,8 @@ import operadores.cruce.FuncionCruce;
 import operadores.cruce.Monopunto;
 import operadores.cruce.PMX;
 import operadores.mutacion.FuncionMutacion;
+import operadores.mutacion.Intercambio;
+import operadores.mutacion.IntercambioAgresivo;
 import operadores.mutacion.BaseABase;
 import operadores.mutacion.Inversion;
 import operadores.seleccion.EstocasticoUniversal;
@@ -54,7 +56,7 @@ public class GUI extends JFrame{
 	private FuncionCruce[] crossoverOptionsPermInt = {new PMX()};
 	private FuncionMutacion[] mutationOptionsBin = {new BaseABase()}; 
 	private FuncionMutacion[] mutationOptionsReal = {new BaseABase()}; 
-	private FuncionMutacion[] mutationOptionsPermInt = {new Inversion()}; 
+	private FuncionMutacion[] mutationOptionsPermInt = {new Inversion(), new Intercambio(), new IntercambioAgresivo()}; 
 	private JComboBox<String> problemCombobox;
 	private GraficaPanel chartPanel;
 	private final ConfigPanel<Settings> settingsPanel;
