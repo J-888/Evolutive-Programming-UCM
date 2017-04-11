@@ -96,7 +96,7 @@ public class PMX extends FuncionCruce {
 		
 	}
 	
-	int searchInArrayList(ArrayList<Gen> array, int start, int end, Gen target){
+	private int searchInArrayList(ArrayList<Gen> array, int start, int end, Gen target){
 		for(int i = start; i < end; i++)
 			if(array.get(i).getBases().get(0).equals(target.getBases().get(0)))
 				return i;
