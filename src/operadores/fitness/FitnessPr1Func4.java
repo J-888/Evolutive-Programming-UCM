@@ -4,6 +4,10 @@ import geneticos.Individuo;
 
 public class FitnessPr1Func4 extends FuncionFitness {
 
+	public FitnessPr1Func4(boolean isMinimizacion) {
+		super(isMinimizacion);
+	}
+
 	public void evaluate(Individuo ind) {
 		double resfor = 0;
 		for(int i = 1; i <= ind.getFenotipo().size(); i++){

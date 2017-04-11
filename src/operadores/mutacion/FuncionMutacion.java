@@ -6,6 +6,7 @@ import geneticos.Individuo;
 public abstract class FuncionMutacion {
 	
 	protected double prob;
+	protected FuncionMutacion fitness;
 	
 	public void setProb(double prob){
 		this.prob = prob;
@@ -17,6 +18,10 @@ public abstract class FuncionMutacion {
 			mutarInd(ind);
 			ind.updateFenotipo();
 		}
+	}
+
+	public void setFuncionFitness(FuncionMutacion fitness) {
+		this.fitness = fitness;
 	}
 	
 	public abstract void mutarInd(Individuo ind);

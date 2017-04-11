@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import geneticos.Individuo;
 
 public abstract class FuncionFitness {
+	
+	private boolean isMinimizacion;
+	
+	public FuncionFitness(boolean isMinimizacion) {
+		this.isMinimizacion = isMinimizacion;
+	}
 
-	public abstract void evaluate(Individuo ind);	
-
-	public ArrayList<Individuo> evaluate(ArrayList<Individuo> poblacion, boolean minimizacion) {
+	public ArrayList<Individuo> evaluate(ArrayList<Individuo> poblacion) {
 		double avgFitness = 0;
 		
 		Individuo cero = poblacion.get(0);
@@ -16,7 +20,7 @@ public abstract class FuncionFitness {
 		Individuo peor = cero;
 		avgFitness += cero.getFitness();
 		
-		if(minimizacion){
+		if(this.isMinimizacion){
 			for (int i = 1; i < poblacion.size(); i++) {
 				Individuo eval = poblacion.get(i);
 				evaluate(eval);
@@ -51,17 +55,20 @@ public abstract class FuncionFitness {
 		return ret;
 	}
 		
-	public void adapt(ArrayList<Individuo> poblacion, double fitPeor, boolean minimizacion){
+	public void adapt(ArrayList<Individuo> poblacion, double fitPeor){
 		for(int i = 0; i < poblacion.size(); i++){
-			adaptInd(poblacion.get(i), fitPeor, minimizacion);
+			adaptInd(poblacion.get(i), fitPeor);
 		}
 	}
 	
-	public void adaptInd(Individuo ind, double fitPeor, boolean minimizacion){
-		if(minimizacion)
+	public void adaptInd(Individuo ind, double fitPeor){
+		if(this.isMinimizacion)
 			ind.setFitnessAdaptado(fitPeor - ind.getFitness());
 		else
 			ind.setFitnessAdaptado(ind.getFitness() - fitPeor);
 	}
+
+	public abstract void evaluate(Individuo ind);	
+
 
 }

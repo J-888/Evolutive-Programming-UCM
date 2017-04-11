@@ -103,7 +103,7 @@ public abstract class Problema extends SwingWorker<Individuo, String>{
 	}
 	
 	private void evalPoblacion(){
-		ArrayList<Individuo> mejorPeorAvg = funcFit.evaluate(poblacion, minimizacion);
+		ArrayList<Individuo> mejorPeorAvg = funcFit.evaluate(poblacion);
 		actualizarGraphInds(mejorPeorAvg);
 	}
 	
@@ -137,7 +137,7 @@ public abstract class Problema extends SwingWorker<Individuo, String>{
 	}
 	
 	private void adaptPoblacion(){
-		funcFit.adapt(poblacion, peorIndividuo.getFitness(), minimizacion);
+		funcFit.adapt(poblacion, peorIndividuo.getFitness());
 	}
 	
 	private void setRangoVar(ArrayList<Par<Double>> rangoVar) {

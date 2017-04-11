@@ -15,9 +15,9 @@ public class FitnessPr2 extends FuncionFitness {
 	private List<List<Integer>> matDists;
 	private List<List<Integer>> matFluxs;
 	private int n;
-
-	
-	public FitnessPr2 (String fn){
+		
+	public FitnessPr2 (String fn, boolean isMinimizacion){
+		super(isMinimizacion);
 		this.fileName = fn;
 		matDists = DatosMatrices.getMatrizDist(fileName);
 		matFluxs = DatosMatrices.getMatrizFlux(fileName);
