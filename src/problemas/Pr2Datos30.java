@@ -21,10 +21,10 @@ public class Pr2Datos30 extends Problema {
 		super(funcCruz, funcMuta, funcSelec, elite0to1, numGenerations, tamPob, 1, gui);
 		
 		this.rangoVar.add(new Par<Double>((double)DatosMatrices.getMatrixDim("datos30") , (double)DatosMatrices.getMatrixDim("datos30"))); //reminder to update rangoSize on super constructor s
-		this.funcFit = new FitnessPr2("datos30");
 		this.minimizacion = true;
+		this.funcFit = new FitnessPr2("datos30", this.minimizacion);
+		this.funcMuta.setFuncionFitness(this.funcFit);
 	}
-	
 	
 	public void generaPobIni() {
 		boolean elemsSingulares;

@@ -27,8 +27,9 @@ public class Pr1Func4Xtra extends Problema{
 		for(int i = 0; i < N; i++)
 			this.rangoVar.add(new Par<Double>(new Double(0.0),new Double(Math.PI))); //reminder to update rangoSize on super constructor 
 		this.tolerancia = 0.001;
-		this.funcFit = new FitnessPr1Func4();
 		this.minimizacion = true;
+		this.funcFit = new FitnessPr1Func4(this.minimizacion);
+		this.funcMuta.setFuncionFitness(this.funcFit);
 	}
 	
 	public void generaPobIni() {
