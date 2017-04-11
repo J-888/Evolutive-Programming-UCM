@@ -22,6 +22,7 @@ public class Pr1Func1 extends Problema{
 		this.tolerancia = 0.001;
 		this.minimizacion = true;
 		this.funcFit = new FitnessPr1Func1(this.minimizacion);	
+		this.funcMuta.setFuncionFitness(this.funcFit);
 	}
 	
 	public void generaPobIni() {

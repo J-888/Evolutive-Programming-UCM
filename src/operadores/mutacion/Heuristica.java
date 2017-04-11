@@ -42,8 +42,7 @@ public class Heuristica extends FuncionMutacion {
 			ArrayList<ArrayList<Integer>> permutations = generatePermutations(posibleBases);
 			ArrayList<Individuo> individuos = generateIndividuo(mutationLocations, permutations, ind);
 
-			ind = individuos.get(Utiles.randomIntNO()%(individuos.size()));				//usa un individuo aleatorio
-			//ind = this.fitness.evaluate(individuos, minimizacion).get(0);				//usa el mejor individuo
+			ind = this.funFit.evaluate(individuos).get(0);				//usa el mejor individuo
 			
 		}
 		else{

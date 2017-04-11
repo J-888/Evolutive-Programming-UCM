@@ -161,9 +161,14 @@ public abstract class Problema extends SwingWorker<Individuo, String>{
 	}
 	
 	protected Individuo doInBackground() throws Exception {
-		executeProblem();
+		try {
+			executeProblem();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.in.read();
+		}
 		return null;
-	}    @Override
+	}
     
 	protected void done() {
 		this.gui.onExecutionDone(this.mejorAbsoluto);

@@ -23,6 +23,7 @@ public class Pr2Ajuste extends Problema {
 		this.rangoVar.add(new Par<Double>((double)DatosMatrices.getMatrixDim("ajuste") , (double)DatosMatrices.getMatrixDim("ajuste"))); //reminder to update rangoSize on super constructor 
 		this.minimizacion = true;
 		this.funcFit = new FitnessPr2("ajuste", this.minimizacion);
+		this.funcMuta.setFuncionFitness(this.funcFit);
 	}
 	
 	

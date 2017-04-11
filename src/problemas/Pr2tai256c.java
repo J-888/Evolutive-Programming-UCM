@@ -23,6 +23,7 @@ public class Pr2tai256c extends Problema {
 		this.rangoVar.add(new Par<Double>((double)DatosMatrices.getMatrixDim("tai256c") , (double)DatosMatrices.getMatrixDim("tai256c"))); //reminder to update rangoSize on super constructor s
 		this.minimizacion = true;
 		this.funcFit = new FitnessPr2("tai256c", this.minimizacion);
+		this.funcMuta.setFuncionFitness(this.funcFit);
 	}
 	
 	
