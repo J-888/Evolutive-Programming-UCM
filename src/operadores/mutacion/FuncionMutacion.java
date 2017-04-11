@@ -2,11 +2,12 @@ package operadores.mutacion;
 
 import java.util.ArrayList;
 import geneticos.Individuo;
+import operadores.fitness.FuncionFitness;
 
 public abstract class FuncionMutacion {
 	
 	protected double prob;
-	protected FuncionMutacion fitness;
+	protected FuncionFitness funFit;
 	
 	public void setProb(double prob){
 		this.prob = prob;
@@ -20,8 +21,8 @@ public abstract class FuncionMutacion {
 		}
 	}
 
-	public void setFuncionFitness(FuncionMutacion fitness) {
-		this.fitness = fitness;
+	public void setFuncionFitness(FuncionFitness fitness) {
+		this.funFit = fitness;
 	}
 	
 	public abstract void mutarInd(Individuo ind);
