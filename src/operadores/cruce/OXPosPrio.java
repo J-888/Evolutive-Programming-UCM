@@ -16,7 +16,7 @@ public class OXPosPrio extends FuncionCruce {
 		
 		Cromosoma h1 = p1.clone();
 		Cromosoma h2 = p2.clone();
-		try{
+
 		ArrayList<Gen> genesH1 = h1.getGenes();
 		ArrayList<Gen> genesH2 = h2.getGenes();
 		
@@ -110,10 +110,6 @@ public class OXPosPrio extends FuncionCruce {
 				posInsert++;
 			}
 		}
-		}catch(Exception e){
-			e.printStackTrace();
-			}
-		
 		
 		return new Par<Cromosoma>(h1,h2);
 	}
