@@ -220,6 +220,7 @@ public class GUI extends JFrame{
 							break;
 						case "Pr2.tai100a":
 							pf = new Pr2tai100a(fcross, fmut, fselec, elite, genNum, popSize, gui);
+							break;
 						case "Pr2.tai256c":
 							pf = new Pr2tai256c(fcross, fmut, fselec, elite, genNum, popSize, gui);
 							break;
