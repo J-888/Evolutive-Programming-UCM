@@ -54,7 +54,7 @@ import java.awt.event.ActionEvent;
 public class GUI extends JFrame{
 
 	private JFrame gui = this;
-	private String[] problemOptions = {"Pr1.1", "Pr1.2", "Pr1.3", "Pr1.4", "Pr1.4Xtra", "Pr1.5", "Pr2.Ajuste", "Pr2.Datos12", "Pr2.Datos15", "Pr2.Datos30", "Pr2.tai256c"}; 
+	private String[] problemOptions = {"Pr1.1", "Pr1.2", "Pr1.3", "Pr1.4", "Pr1.4Xtra", "Pr1.5", "Pr2.Ajuste", "Pr2.Datos12", "Pr2.Datos15", "Pr2.Datos30", "Pr2.tai100a", "Pr2.tai256c"}; 
 	private FuncionSeleccion[] selectionOptions = {new Ruleta(), new TorneoDeterminista(2), new TorneoDeterminista(3), new EstocasticoUniversal()}; 
 	private FuncionCruce[] crossoverOptionsBin = {new Monopunto()}; 
 	private FuncionCruce[] crossoverOptionsReal = {new Monopunto(), new Aritmetico()};
@@ -218,6 +218,8 @@ public class GUI extends JFrame{
 						case "Pr2.Datos30":
 							pf = new Pr2Datos30(fcross, fmut, fselec, elite, genNum, popSize, gui);
 							break;
+						case "Pr2.tai100a":
+							pf = new Pr2tai100a(fcross, fmut, fselec, elite, genNum, popSize, gui);
 						case "Pr2.tai256c":
 							pf = new Pr2tai256c(fcross, fmut, fselec, elite, genNum, popSize, gui);
 							break;

@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-public class DatosMatrices {
+public class DatosMatrices { 
 	
 	public static final List<List<Integer>> matrix1; 
 	public static final List<List<Integer>> flujos1; 
@@ -23,6 +23,9 @@ public class DatosMatrices {
 	
 	public static final List<List<Integer>> matrix5;
 	public static final List<List<Integer>> flujos5; 
+	
+	public static final List<List<Integer>> matrix6;
+	public static final List<List<Integer>> flujos6; 
 	
 	static {
 		//Leer matrices
@@ -73,6 +76,15 @@ public class DatosMatrices {
 		dim = scanner.nextInt();
 		matrix5 = Collections.unmodifiableList(leeMatriz(scanner, dim));
 		flujos5 = Collections.unmodifiableList(leeMatriz(scanner, dim));
+		
+		try {
+			scanner = new Scanner(new File("data/tai100a.txt"));
+		} catch (FileNotFoundException e) {
+			System.err.println("No existe el archivo tai100a.txt");
+		}
+		dim = scanner.nextInt();
+		matrix6 = Collections.unmodifiableList(leeMatriz(scanner, dim));
+		flujos6 = Collections.unmodifiableList(leeMatriz(scanner, dim));
 	}
 	
 	private static List<List<Integer>> leeMatriz(Scanner scanner, int n){
@@ -98,6 +110,8 @@ public class DatosMatrices {
 			return matrix4.size();
 		else if (cual == "tai256c")
 			return matrix5.size();
+		else if (cual == "tai100a")
+			return matrix6.size();
 		else {
 			System.err.println("fob (matrices n)");
 			return (Integer) null;
@@ -115,6 +129,8 @@ public class DatosMatrices {
 			return matrix4;
 		else if(matName == "tai256c")
 			return matrix5;
+		else if(matName == "tai100a")
+			return matrix6;
 		else{
 			System.err.println("fob no existe dicha matriz de dists");
 			return null;
@@ -132,6 +148,8 @@ public class DatosMatrices {
 			return flujos4;
 		else if(matName == "tai256c")
 			return flujos5;
+		else if(matName == "tai100a")
+			return flujos6;
 		else{
 			System.err.println("fob no existe dicha matriz de fluho");
 			return null;
