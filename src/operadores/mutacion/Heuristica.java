@@ -47,7 +47,7 @@ public class Heuristica extends FuncionMutacion {
 		}
 		else{
 			if(prob > 0)
-				System.err.println("CROMOSOMA DE TIPO DESCONOCIDO O NO VALIDO EN MUTACION POR INTERCAMBIO");
+				System.err.println("CROMOSOMA DE TIPO DESCONOCIDO O NO VALIDO EN MUTACION HEURISTICA");
 		}
 	}
 
