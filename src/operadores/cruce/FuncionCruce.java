@@ -21,6 +21,7 @@ public abstract class FuncionCruce {
 			Par<Cromosoma> newCroms = cruceCromosomas(padre1.getCromosoma(),padre2.getCromosoma());
 			Individuo hijo1 = new Individuo(newCroms.getN1());
 			Individuo hijo2 = new Individuo(newCroms.getN2());
+			//Al crear hijo1 y hijo2 se actualiza su fenotipo
 			
 			return new Par<Individuo>(hijo1, hijo2);
 		}

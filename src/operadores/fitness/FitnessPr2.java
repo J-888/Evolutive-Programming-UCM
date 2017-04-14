@@ -28,9 +28,9 @@ public class FitnessPr2 extends FuncionFitness {
 		double trafico = 0;
 		
 		for(int i = 0; i < n-1; i++){
-			int gen = (int) ind.getCromosoma().getGenes().get(i).getBases().get(0);	
+			int gen = (int) ind.getFenotipo().get(i);	
 			for(int j = i+1; j < n; j++){
-				int genSig = (int) ind.getCromosoma().getGenes().get(j).getBases().get(0);	
+				int genSig = (int) ind.getFenotipo().get(j);	
 				trafico += matDists.get(i).get(j)*matFluxs.get(gen).get(genSig);
 			}
 		}
