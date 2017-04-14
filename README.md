@@ -10,3 +10,6 @@ Proyecto universitario para la asignatura Programación Evolutiva, realizado dur
 * ## Práctica 1
   * ### [Enunciado](docs/Práctica1.pdf)
   * ### [Memoria](docs/Memoria1.pdf)
+  
+* ## Práctica 2
+  * ### [Enunciado](docs/Práctica2.pdf)
