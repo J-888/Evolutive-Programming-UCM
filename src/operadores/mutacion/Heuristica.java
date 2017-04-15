@@ -40,7 +40,7 @@ public class Heuristica extends FuncionMutacion {
 			}
 			
 			ArrayList<ArrayList<Integer>> permutations = generatePermutations(posibleBases);
-			ArrayList<Individuo> individuos = generateIndividuo(mutationLocations, permutations, ind);
+			ArrayList<Individuo> individuos = generateIndividuos(mutationLocations, permutations, ind);
 
 			ind.getCromosoma().setGenes(this.funFit.evaluate(individuos).get(0).getCromosoma().getGenes());	 //Inserta al original los genes del mejor individuo obtenido
 
@@ -72,7 +72,7 @@ public class Heuristica extends FuncionMutacion {
 		}
 	}
 	
-	private ArrayList<Individuo> generateIndividuo(ArrayList<Integer> mutationLocations, ArrayList<ArrayList<Integer>> permutations, Individuo orig) {
+	private ArrayList<Individuo> generateIndividuos(ArrayList<Integer> mutationLocations, ArrayList<ArrayList<Integer>> permutations, Individuo orig) {
 		ArrayList<Individuo> result = new ArrayList<>(nPermutations);
 		
 		for (int i = 0; i < permutations.size(); i++) {	//crea nPermutations Individuos
@@ -82,6 +82,7 @@ public class Heuristica extends FuncionMutacion {
 				int value = permutations.get(i).get(j);
 				ind.getCromosoma().getGenes().get(location).getBases().set(0, value);
 			}
+			ind.updateFenotipo();
 			result.add(ind);
 		}
 		
