@@ -10,5 +10,4 @@ public class Main {
 		p.setVisible(true);	
 	}
 	
-	//TODO: Quitar clones innecesarios en las funciones de cruce. Ya se pasan los padres clonados.
 }

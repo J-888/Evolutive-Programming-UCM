@@ -63,6 +63,7 @@ public class GUI extends JFrame{
 	private FuncionMutacion[] mutationOptionsReal = {new BaseABase()}; 
 	private FuncionMutacion[] mutationOptionsPermInt = {new Inversion(), new Intercambio(), new IntercambioAgresivo(), new Insercion(), new Heuristica(3)}; 
 	private JComboBox<String> problemCombobox;
+	private JComboBox<String> contractividadCombobox; 
 	private GraficaPanel chartPanel;
 	private final ConfigPanel<Settings> settingsPanel;
 	private JLabel n;
@@ -115,6 +116,13 @@ public class GUI extends JFrame{
 		visuals = new JCheckBox("Enable popups", true);
 		problemPanel.add(visuals);
 
+		JPanel contractividadPanel = new JPanel();
+		JLabel contractividadLabel = new JLabel("Contractividad");
+		contractividadPanel.add(contractividadLabel);
+		contractividadCombobox = new JComboBox<String>(new String[]{"No", "Actualizando población", "Sin actualizar población"});
+		contractividadPanel.add(contractividadCombobox);
+		problemPanel.add(contractividadPanel);
+		
 		getContentPane().add(problemPanel, BorderLayout.NORTH);
 		
 		JPanel leftPanel = new JPanel();
@@ -153,6 +161,7 @@ public class GUI extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				if(settingsPanel.isAllValid()){
 					runButton.setEnabled(false);
+					contractividadCombobox.setEnabled(false); 
 					String opt = (String) problemCombobox.getSelectedItem();
 					
 					FuncionCruce fcross;
@@ -289,6 +298,7 @@ public class GUI extends JFrame{
 
 		stopButton.setEnabled(false);
 		runButton.setEnabled(true);
+		contractividadCombobox.setEnabled(true); 
 	}
 	
 	public ConfigPanel<Settings> createSettingsPanelNested() {
@@ -434,6 +444,10 @@ public class GUI extends JFrame{
 
 	public GraficaPanel getChartPanel() {
 		return chartPanel;
+	}
+	
+	public String getContractividad() {
+		return (String) this.contractividadCombobox.getSelectedItem();
 	}
 	
 }

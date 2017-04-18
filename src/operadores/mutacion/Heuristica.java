@@ -91,7 +91,7 @@ public class Heuristica extends FuncionMutacion {
 
 	@Override
 	public String toString() {
-		return "Heurística";
+		 return "Heurística (" + nBases + ")";
 	}
 
 }
