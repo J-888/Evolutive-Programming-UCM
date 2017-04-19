@@ -28,10 +28,10 @@ public class Utiles {
 	
 	public static double randomDoubleGaussLOffside(double minIncludedVal, double maxIncludedVal){
 		Random rn = new Random();
-		double rnVal = Double.NEGATIVE_INFINIY;
+		double rnVal = Double.NEGATIVE_INFINITY;
 		while(rnVal < -1 || rnVal > 1)	//15,866% chances it is too low and 15,866% it is too big
 			rnVal = rn.nextGaussian();
-		rnVal = (rnVal/2.0 + 0.5) * (maxIncludedVal - minIncludedVal)	//scale range
+		rnVal = (rnVal/2.0 + 0.5) * (maxIncludedVal - minIncludedVal);	//scale range
 		rnVal += minIncludedVal;	//desp range
 		
 		return rnVal;
@@ -39,10 +39,10 @@ public class Utiles {
 	
 	public static double randomDoubleGaussSOffside(double minIncludedVal, double maxIncludedVal){
 		Random rn = new Random();
-		double rnVal = Double.NEGATIVE_INFINIY;
+		double rnVal = Double.NEGATIVE_INFINITY;
 		while(rnVal < -2 || rnVal > 2)	//2,275% chances it is  too low and 2,275% chances it too big
 			rnVal = rn.nextGaussian();
-		rnVal = (rnVal/4.0 + 0.5) * (maxIncludedVal - minIncludedVal)	//scale range
+		rnVal = (rnVal/4.0 + 0.5) * (maxIncludedVal - minIncludedVal);	//scale range
 		rnVal += minIncludedVal;	//desp range
 		
 		return rnVal;
