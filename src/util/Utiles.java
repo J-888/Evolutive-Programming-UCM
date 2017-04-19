@@ -48,6 +48,14 @@ public class Utiles {
 		return rnVal;
 	}
 	
+	public static double randomDoubleGaussLOff01(){
+		return Utiles.randomDoubleGaussLOffside(0, 1);
+	}
+	
+	public static double randomDoubleGaussSOff01(){
+		return Utiles.randomDoubleGaussSOffside(0, 1);
+	}
+	
 	public static int bin_dec(String n){
 		//n = grayToBinary(n); 	//descomentar para emplear codificacion binaria de grey
 		return Integer.parseInt(n, 2);
