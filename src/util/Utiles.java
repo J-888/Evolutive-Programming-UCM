@@ -21,9 +21,31 @@ public class Utiles {
 		return rn.nextDouble();
 	}
 	
-	public static double randomDoubleGauss0Mean(){
+	public static double randomDoubleGauss0Mean(){	//check at http://homepage.stat.uiowa.edu/~mbognar/applets/normal.html
 		Random rn = new Random();
 		return rn.nextGaussian();
+	}
+	
+	public static double randomDoubleGaussLOffside(double minIncludedVal, double maxIncludedVal){
+		Random rn = new Random();
+		double rnVal = Double.NEGATIVE_INFINIY;
+		while(rnVal < -1 || rnVal > 1)	//15,866% chances it is too low and 15,866% it is too big
+			rnVal = rn.nextGaussian();
+		rnVal = (rnVal/2.0 + 0.5) * (maxIncludedVal - minIncludedVal)	//scale range
+		rnVal += minIncludedVal;	//desp range
+		
+		return rnVal;
+	}
+	
+	public static double randomDoubleGaussSOffside(double minIncludedVal, double maxIncludedVal){
+		Random rn = new Random();
+		double rnVal = Double.NEGATIVE_INFINIY;
+		while(rnVal < -2 || rnVal > 2)	//2,275% chances it is  too low and 2,275% chances it too big
+			rnVal = rn.nextGaussian();
+		rnVal = (rnVal/4.0 + 0.5) * (maxIncludedVal - minIncludedVal)	//scale range
+		rnVal += minIncludedVal;	//desp range
+		
+		return rnVal;
 	}
 	
 	public static int bin_dec(String n){
