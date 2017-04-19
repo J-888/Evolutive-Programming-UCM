@@ -60,7 +60,7 @@ public class GUI extends JFrame{
 	private FuncionSeleccion[] selectionOptions = {new Ruleta(), new TorneoDeterminista(2), new TorneoDeterminista(3), new EstocasticoUniversal()}; 
 	private FuncionCruce[] crossoverOptionsBin = {new Monopunto()}; 
 	private FuncionCruce[] crossoverOptionsReal = {new Monopunto(), new Aritmetico()};
-	private FuncionCruce[] crossoverOptionsPermInt = {new PMX(), new Monopunto(), new OX(), new OXPosPrio(), new OXOrdenPrio(),new CX(), new ERX()};
+	private FuncionCruce[] crossoverOptionsPermInt = {new PMX(), new OX(), new OXPosPrio(), new OXOrdenPrio(), new CX(), new ERX(), new Monopunto()};
 	private FuncionMutacion[] mutationOptionsBin = {new BaseABase()}; 
 	private FuncionMutacion[] mutationOptionsReal = {new BaseABase()}; 
 	private FuncionMutacion[] mutationOptionsPermInt = {new Inversion(), new Intercambio(), new IntercambioAgresivo(), new Insercion(), new Heuristica(3)}; 
