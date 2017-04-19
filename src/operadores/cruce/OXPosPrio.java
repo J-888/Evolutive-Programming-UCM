@@ -30,6 +30,9 @@ public class OXPosPrio extends FuncionCruce {
 		else if(probIntercambio > 0.9)
 			probIntercambio = 0.9;
 		
+		//probIntercambio = Utiles.randomDoubleGaussSOff01();
+		//probIntercambio = Utiles.randomDoubleGaussLOff01();
+		
 		TreeSet<Integer> gensH1Interc = new TreeSet<Integer>();
 		TreeSet<Integer> gensH2Interc = new TreeSet<Integer>();
 		
