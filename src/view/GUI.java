@@ -117,6 +117,7 @@ public class GUI extends JFrame{
 		problemPanel.add(labelComponent);
 		
 		problemCombobox = new JComboBox(problemOptions);
+		problemCombobox.setMaximumRowCount(20);
 		
 		labelComponent.setHorizontalAlignment(SwingConstants.RIGHT);
 		problemPanel.add(problemCombobox);
