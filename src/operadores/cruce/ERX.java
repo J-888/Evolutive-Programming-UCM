@@ -63,8 +63,10 @@ public class ERX extends FuncionCruce {
 		
 		LinkedHashSet<Integer> childBases1 = new LinkedHashSet<Integer>(tamCrom);
 		LinkedHashSet<Integer> childBases2 = new LinkedHashSet<Integer>(tamCrom);
-		generateChild(childBases1, initial1, tamCrom);
-		generateChild(childBases2, initial2, tamCrom);
+		childBases1.add(initial1);
+		childBases2.add(initial2);
+		generateChild(childBases1, initial1, tamCrom - 1);
+		generateChild(childBases2, initial2, tamCrom - 1);
 		
 		Iterator<Integer> it1 = childBases1.iterator();
 		Iterator<Integer> it2 = childBases1.iterator();
@@ -108,10 +110,14 @@ public class ERX extends FuncionCruce {
 					childBases.add(neightbour);
 					if(generateChild(childBases, neightbour, basesLeft-1))
 						return true;	//execution complete
+					else
+						childBases.remove(neightbour);
 				}
 			}
+			return false;	//backtrack
 		}
-		return false;	//backtrack
+		else
+			return true;	//execution complete
 	}
 	
 	@Override
