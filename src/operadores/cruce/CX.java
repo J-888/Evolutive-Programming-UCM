@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import geneticos.Cromosoma;
 import util.Par;
+import util.Utiles;
 
 public class CX extends FuncionCruce {
 
@@ -26,7 +27,7 @@ public class CX extends FuncionCruce {
 			currentCycleChildren = !currentCycleChildren;
 		}
 		
-		return exchangeBases(exchangeBases, exchangeNum, p1, p2);
+		return Utiles.exchangeBases(exchangeBases, exchangeNum, p1, p2);
 	}
 	
 	private int findCycle(int startIndex, ArrayList<Boolean> exchangeBases, ArrayList<Integer> remainingLocations, boolean currentCycleChildren, Cromosoma p1, Cromosoma p2) {
@@ -53,27 +54,6 @@ public class CX extends FuncionCruce {
 				return location;
 		}
 		return -1;
-	}
-
-	private Par<Cromosoma> exchangeBases(ArrayList<Boolean> exchangeBases, int exchangeNum, Cromosoma p1, Cromosoma p2){
-		Cromosoma h1 = p1.clone();
-		Cromosoma h2 = p2.clone();
-		boolean exchangeOn = exchangeNum*2 <= exchangeBases.size();	//comprueba que requiere menos cambios, intercambiar todos los genes con exchangeBases true o false
-		int index = 0;
-		for (int i = 0; i < p1.getGenes().size(); i++) {
-			for (int j = 0; j < p1.getGenes().get(i).getBases().size(); j++) {
-				if(exchangeBases.get(index) == exchangeOn) {
-					Object aux1 = h1.getGenes().get(i).getBases().get(j);
-					Object aux2 = h2.getGenes().get(i).getBases().get(j);
-					h1.getGenes().get(i).getBases().set(j, aux2);
-					h2.getGenes().get(i).getBases().set(j, aux1);
-					/*h1.getGenes().get(i).getBases().set(j, p2.getGenes().get(i).getBases().get(j));
-					h2.getGenes().get(i).getBases().set(j, p1.getGenes().get(i).getBases().get(j));*/
-				}
-				index++;
-			}
-		}
-		return new Par<Cromosoma>(h1, h2);
 	}
 	
 	@Override
