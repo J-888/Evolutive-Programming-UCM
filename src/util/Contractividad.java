@@ -106,18 +106,6 @@ public class Contractividad {
 			else
 				return nuevaPob.getPobAvgFitness() > poblacionPrevia.getPobAvgFitness();
 		}
-		
-		// CODIGO ROTO, USA FITNESS ADAPTADO QUE HAY QUE ARREGLAR
-		/*if(nuevaPob.getMejorAbsoluto().getFitnessAdaptado() > poblacionPrevia.getMejorAbsoluto().getFitnessAdaptado())
-			return true;
-		else{
-			if(minimizacion){
-				return nuevaPob.getPobAvgFitness() < poblacionPrevia.getPobAvgFitness();
-			}
-			else{
-				return nuevaPob.getPobAvgFitness() > poblacionPrevia.getPobAvgFitness();
-			}
-		}*/
 			
 	}
 	

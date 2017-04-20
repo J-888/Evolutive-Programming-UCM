@@ -17,10 +17,12 @@ import geneticos.TipoCromosoma;
 import javax.swing.JFrame;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 
 import operadores.cruce.Aritmetico;
@@ -69,13 +71,16 @@ public class GUI extends JFrame{
 	private GraficaPanel chartPanel;
 	private final ConfigPanel<Settings> settingsPanel;
 	private JLabel n;
+	private JPanel tricksPanel;
 	private JTextField ntf;
+	private JCheckBox invEspecialCheckBox;
+	private JTextArea genesTextArea;
 	private Problema pf;
 	private Double optimo;
 	private TipoCromosoma tipoCromosoma = TipoCromosoma.BIN; 
-	JCheckBox visuals;
-	JButton runButton;
-	JButton stopButton;
+	private JCheckBox visuals;
+	private JButton runButton;
+	private JButton stopButton;
 	
 	public GUI() {
 		
@@ -92,8 +97,13 @@ public class GUI extends JFrame{
 		
 		/*CHART*/
 		chartPanel = new GraficaPanel();
-			
-		getContentPane().add(chartPanel, BorderLayout.CENTER);
+		
+		JPanel chartYGenes = new JPanel();
+		
+		chartYGenes.setLayout(new BorderLayout());
+		chartYGenes.add(chartPanel, BorderLayout.CENTER);
+		
+		getContentPane().add(chartYGenes, BorderLayout.CENTER);
 		
 		JLabel labelComponent;
 		
@@ -117,13 +127,6 @@ public class GUI extends JFrame{
 		
 		visuals = new JCheckBox("Enable popups", true);
 		problemPanel.add(visuals);
-
-		JPanel contractividadPanel = new JPanel();
-		JLabel contractividadLabel = new JLabel("Contractividad");
-		contractividadPanel.add(contractividadLabel);
-		contractividadCombobox = new JComboBox<String>(new String[]{"No", "Actualizando población", "Sin actualizar población"});
-		contractividadPanel.add(contractividadCombobox);
-		problemPanel.add(contractividadPanel);
 		
 		getContentPane().add(problemPanel, BorderLayout.NORTH);
 		
@@ -136,14 +139,31 @@ public class GUI extends JFrame{
 		settingsPanel = createSettingsPanelNested();
 		settingsPanel.setTarget(settings);
 		settingsPanel.initialize();		
-		showAcordingOperators();
 		
 		leftPanel.add(settingsPanel, BorderLayout.NORTH);
 		settingsPanel.setLayout(new BoxLayout(settingsPanel, BoxLayout.Y_AXIS));
 					
+		tricksPanel = new JPanel();
+		tricksPanel.setLayout(new BoxLayout(tricksPanel, BoxLayout.Y_AXIS));
+		tricksPanel.setBorder(BorderFactory.createTitledBorder("Trickery"));
+		
+		JPanel contractividadPanel = new JPanel();
+		JLabel contractividadLabel = new JLabel("Contractividad");
+		contractividadPanel.add(contractividadLabel);
+		contractividadCombobox = new JComboBox<String>(new String[]{"No", "Actualizando población", "Sin actualizar población"});
+		contractividadPanel.add(contractividadCombobox);
+		tricksPanel.add(contractividadPanel);
+		
+		invEspecialCheckBox = new JCheckBox("Inversión especial");
+		tricksPanel.add(invEspecialCheckBox);
+
+		leftPanel.add(tricksPanel);
+		
 		JPanel controlsPanel = new JPanel();
 		controlsPanel.setLayout(new BoxLayout(controlsPanel, BoxLayout.Y_AXIS));
 		leftPanel.add(controlsPanel, BorderLayout.SOUTH);
+		
+		showAcordingOperators();
 		
 		problemCombobox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -164,6 +184,7 @@ public class GUI extends JFrame{
 				if(settingsPanel.isAllValid()){
 					runButton.setEnabled(false);
 					contractividadCombobox.setEnabled(false); 
+					genesTextArea.setText("");
 					String opt = (String) problemCombobox.getSelectedItem();
 					
 					FuncionCruce fcross;
@@ -264,20 +285,43 @@ public class GUI extends JFrame{
 			stopButton.setEnabled(false);
 			controlsPanel.add(stopButton);
 						
+			int linesToDisplay = 4;
+			genesTextArea = new JTextArea("", linesToDisplay,1);
+			genesTextArea.setEditable(false);
+			genesTextArea.setLineWrap(true);
+			genesTextArea.setWrapStyleWord(true);
+			genesTextArea.setTabSize(7);
+			
+			JScrollPane rutasUpScroll = new JScrollPane(genesTextArea);
+			
+			JLabel labelGenes = new JLabel("Genes del mejor individuo");
+			
+			JPanel aux = new JPanel();
+			aux.setLayout(new BorderLayout());
+			aux.add(labelGenes, BorderLayout.NORTH);
+			aux.add(rutasUpScroll, BorderLayout.SOUTH);
+
+			chartYGenes.add(aux, BorderLayout.SOUTH);
 		
 	}
 	
 	public void onExecutionDone(Individuo bestFound) {
 		String messIntro = "";
 		String mess = "";
+		String messGenes = "";
 		if(optimo != null)
 			messIntro += ("Fitness óptimo del problema: " + optimo + "\n");
 		messIntro += ("Mejor fitness encontrado: " + bestFound.getFitness() + "\n");
 		messIntro += ("Con los siguientes genes: \n");
 		for(int i = 0; i < bestFound.getFenotipo().size(); i++){
 			mess += ("Gen #" + i + ": " + bestFound.getFenotipo().get(i) + "\n");
+			messGenes += ("Gen#" + i + ":" + bestFound.getFenotipo().get(i));
+			if(i != bestFound.getFenotipo().size()-1)
+				messGenes += ",\t";
 		}
 		System.out.println(messIntro + mess);
+		
+		genesTextArea.setText(messGenes);
 		
 		JPanel popUp = new JPanel();
 		popUp.setLayout(new BoxLayout(popUp, BoxLayout.Y_AXIS));
@@ -410,6 +454,9 @@ public class GUI extends JFrame{
 			mutationPanel.getComponent(3).setVisible(true);	//oculta combobox mutacion real
 			mutationPanel.getComponent(4).setVisible(false);	//oculta label mutacion permint
 			mutationPanel.getComponent(5).setVisible(false);	//oculta combobox mutacion permint
+			
+			invEspecialCheckBox.setVisible(false);
+			invEspecialCheckBox.setSelected(false);
 		}
 		
 		else if(tipoCromosoma == TipoCromosoma.PERMINT) {	//cromosoma permint
@@ -426,6 +473,9 @@ public class GUI extends JFrame{
 			mutationPanel.getComponent(3).setVisible(false);	//oculta combobox mutacion real
 			mutationPanel.getComponent(4).setVisible(true);		//muestra label mutacion permint
 			mutationPanel.getComponent(5).setVisible(true);		//muestra combobox mutacion permint
+			
+			invEspecialCheckBox.setVisible(true);
+			invEspecialCheckBox.setSelected(true);
 		}
 		else {	//cromosoma binario
 			crossoverPanel.getComponent(0).setVisible(true);	//muestra label crossover bin
@@ -441,6 +491,9 @@ public class GUI extends JFrame{
 			mutationPanel.getComponent(3).setVisible(false);	//oculta combobox mutacion real
 			mutationPanel.getComponent(4).setVisible(false);	//oculta label mutacion permint
 			mutationPanel.getComponent(5).setVisible(false);	//oculta combobox mutacion permint
+			
+			invEspecialCheckBox.setVisible(false);
+			invEspecialCheckBox.setSelected(false);
 		}
 	}
 

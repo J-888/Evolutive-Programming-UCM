@@ -54,19 +54,6 @@ public abstract class FuncionFitness {
 		
 		return ret;
 	}
-		
-	public void adapt(ArrayList<Individuo> poblacion, double fitPeor){
-		for(int i = 0; i < poblacion.size(); i++){
-			adaptInd(poblacion.get(i), fitPeor);
-		}
-	}
-	
-	public void adaptInd(Individuo ind, double fitPeor){
-		if(this.isMinimizacion)
-			ind.setFitnessAdaptado(fitPeor - ind.getFitness());
-		else
-			ind.setFitnessAdaptado(ind.getFitness() - fitPeor);
-	}
 
 	public abstract void evaluate(Individuo ind);	
 

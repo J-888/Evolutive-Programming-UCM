@@ -66,22 +66,12 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 
 		this.gui = (GUI) gui;
 		
-		if(true){//gui.inversionEspecialActivada){
-			invEspActivada = true;
-			invEspecial = new Inversion();
-			invEspecial.setProb(0.5);//loQueSeaOportuno);  // TODO A mano? El mismo que el de la mutación normal (no)? ..
-		}
-		else
-			invEspActivada = false;
+		cheapMutations();
 		
 		this.contracString = this.gui.getContractividad();
 		
 		this.stop = false;
 	}
-
-	public abstract void generaPobIni();
-
-	public abstract Double getOptimo();
 
 	public Individuo executeProblem() {
 		generaPobIni();
@@ -91,7 +81,6 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 		
 		while((currentIter < numGenerations) && !stop) {
 			evalPoblacion();
-			adaptPoblacion();
 			
 			if(contractividad.execute(new Poblacion(poblacion, mejorIndividuo, mejorAbsoluto, peorIndividuo, pobAvgFitness))) //Devuelve true si hay que preprocesar (no ha vuelto a una pob antigua) 
 				preProcesarPoblacion(); //Ademas modifica la poblacion si procede (para restaurar una anterior)
@@ -101,7 +90,7 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 			funcMuta.mutar(poblacionNueva);
 			insertElite();
 			
-			if(false)//invEspActivada)
+			if(invEspActivada)
 				inversionEspecial();
 			
 			poblacion = poblacionNueva;
@@ -126,13 +115,11 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 				if(minimizacion){
 					if(maybe.getFitness() < original.getFitness()){
 						original = maybe;
-						funcFit.adaptInd(original, peorIndividuo.getFitness());
 					}
 				}
 				else{
 					if(maybe.getFitness() > original.getFitness()){
 						original = maybe;
-						funcFit.adaptInd(original, peorIndividuo.getFitness());
 					}
 				}
 			}
@@ -174,6 +161,11 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 	private void evalPoblacion() {
 		mejorPeorAvg = funcFit.evaluate(poblacion);
 		actualizarGraphInds(mejorPeorAvg);
+		adaptPoblacion();
+		//Estos tres fueron clonados, no estan en la poblacion, se han de adaptar aparte
+		funcSelec.adaptInd(mejorIndividuo, peorIndividuo.getFitness(), minimizacion);
+		funcSelec.adaptInd(mejorAbsoluto, peorIndividuo.getFitness(), minimizacion);
+		funcSelec.adaptInd(peorIndividuo, peorIndividuo.getFitness(), minimizacion);
 	}
 
 	private void actualizarGraphInds(ArrayList<Individuo> mejorPeorAvg) {
@@ -206,7 +198,7 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 	}
 
 	private void adaptPoblacion() {
-		funcFit.adapt(poblacion, peorIndividuo.getFitness());
+		funcSelec.adapt(poblacion, peorIndividuo.getFitness(), minimizacion);
 	}
 
 	private void setRangoVar(ArrayList<Par<Double>> rangoVar) {
@@ -258,4 +250,21 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 				// restante y reevaluamos
 			return singularFact(tamPobTwo, cromPosibles *= rangoRestante, rangoRestante - 1);
 	}
+	
+	private void cheapMutations() {
+		if(invEspActivada){
+			invEspActivada = true;
+			invEspecial = new Inversion();
+			invEspecial.setProb(0.5);//loQueSeaOportuno);  // TODO A mano? El mismo que el de la mutación normal (no)? ..
+		}
+		else
+			invEspActivada = false;
+	}
+
+	public abstract void generaPobIni();
+
+	public abstract Double getOptimo();
+	
 }
+
+

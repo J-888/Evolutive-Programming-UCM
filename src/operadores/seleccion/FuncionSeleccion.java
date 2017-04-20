@@ -36,6 +36,19 @@ public abstract class FuncionSeleccion {
 		return fittotal;
 	}
 	
+	public void adapt(ArrayList<Individuo> poblacion, double fitPeor, boolean minimizacion){
+		for(int i = 0; i < poblacion.size(); i++){
+			adaptInd(poblacion.get(i), fitPeor, minimizacion);
+		}
+	}
+	
+	public void adaptInd(Individuo ind, double fitPeor, boolean minimizacion){
+		if(minimizacion)
+			ind.setFitnessAdaptado(fitPeor - ind.getFitness());
+		else
+			ind.setFitnessAdaptado(ind.getFitness() - fitPeor);
+	}
+	
 	public abstract String toString();
 	
 }
