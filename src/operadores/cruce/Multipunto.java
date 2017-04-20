@@ -35,6 +35,11 @@ public class Multipunto extends FuncionCruce{
 			totalLenght += genesp1.get(i).getBases().size();
 		}
 		
+		if(nPuntos >= totalLenght) {
+			System.err.println("El numero de puntos es demasiado alto y ha sido reducido de " + nPuntos + " a " + (totalLenght - 1));
+			this.nPuntos = totalLenght - 1;
+		}
+		
 		TreeSet<Integer> puntos = new TreeSet<>();
 		for (int i = 0; i < nPuntos; i++) {
 			int puntocruce;
