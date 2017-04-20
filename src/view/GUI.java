@@ -17,7 +17,6 @@ import geneticos.TipoCromosoma;
 import javax.swing.JFrame;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -52,8 +51,11 @@ import view.ConfigPanel.InnerOption;
 import view.ConfigPanel.IntegerOption;
 
 import java.awt.event.ActionListener;
-import java.util.concurrent.ExecutionException;
 import java.awt.event.ActionEvent;
+import java.awt.Component;
+import javax.swing.JSeparator;
+import java.awt.Dimension;
+import javax.swing.Box;
 
 public class GUI extends JFrame{
 
@@ -114,7 +116,7 @@ public class GUI extends JFrame{
 		labelComponent.setHorizontalAlignment(SwingConstants.LEFT);
 		problemPanel.add(labelComponent);
 		
-		problemCombobox = new JComboBox<String>(problemOptions);
+		problemCombobox = new JComboBox(problemOptions);
 		
 		labelComponent.setHorizontalAlignment(SwingConstants.RIGHT);
 		problemPanel.add(problemCombobox);
@@ -132,15 +134,18 @@ public class GUI extends JFrame{
 		
 		JPanel leftPanel = new JPanel();
 		getContentPane().add(leftPanel, BorderLayout.WEST);
-		leftPanel.setLayout(new BorderLayout(0, 0));
+		leftPanel.setLayout(new BorderLayout());
 		
+		JPanel upperLeftPannel = new JPanel();
+		upperLeftPannel.setLayout(new BoxLayout(upperLeftPannel, BoxLayout.Y_AXIS));
+		leftPanel.add(upperLeftPannel, BorderLayout.NORTH);
 		
 		final Settings settings = new Settings();
 		settingsPanel = createSettingsPanelNested();
 		settingsPanel.setTarget(settings);
 		settingsPanel.initialize();		
 		
-		leftPanel.add(settingsPanel, BorderLayout.NORTH);
+		upperLeftPannel.add(settingsPanel, BorderLayout.NORTH);
 		settingsPanel.setLayout(new BoxLayout(settingsPanel, BoxLayout.Y_AXIS));
 					
 		tricksPanel = new JPanel();
@@ -150,14 +155,15 @@ public class GUI extends JFrame{
 		JPanel contractividadPanel = new JPanel();
 		JLabel contractividadLabel = new JLabel("Contractividad");
 		contractividadPanel.add(contractividadLabel);
-		contractividadCombobox = new JComboBox<String>(new String[]{"No", "Actualizando población", "Sin actualizar población"});
+		contractividadCombobox = new JComboBox(new String[]{"No", "Actualizando población", "Sin actualizar población"});
 		contractividadPanel.add(contractividadCombobox);
 		tricksPanel.add(contractividadPanel);
 		
 		invEspecialCheckBox = new JCheckBox("Inversión especial");
+		invEspecialCheckBox.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		tricksPanel.add(invEspecialCheckBox);
 
-		leftPanel.add(tricksPanel);
+		upperLeftPannel.add(tricksPanel, BorderLayout.SOUTH);
 		
 		JPanel controlsPanel = new JPanel();
 		controlsPanel.setLayout(new BoxLayout(controlsPanel, BoxLayout.Y_AXIS));
@@ -295,6 +301,7 @@ public class GUI extends JFrame{
 			JScrollPane rutasUpScroll = new JScrollPane(genesTextArea);
 			
 			JLabel labelGenes = new JLabel("Genes del mejor individuo");
+			labelGenes.setHorizontalAlignment(SwingConstants.CENTER);
 			
 			JPanel aux = new JPanel();
 			aux.setLayout(new BorderLayout());
@@ -345,6 +352,8 @@ public class GUI extends JFrame{
 		stopButton.setEnabled(false);
 		runButton.setEnabled(true);
 		contractividadCombobox.setEnabled(true); 
+		
+		this.pack();
 	}
 	
 	public ConfigPanel<Settings> createSettingsPanelNested() {
@@ -455,7 +464,7 @@ public class GUI extends JFrame{
 			mutationPanel.getComponent(4).setVisible(false);	//oculta label mutacion permint
 			mutationPanel.getComponent(5).setVisible(false);	//oculta combobox mutacion permint
 			
-			invEspecialCheckBox.setVisible(false);
+			//invEspecialCheckBox.setVisible(false);
 			invEspecialCheckBox.setSelected(false);
 		}
 		
@@ -474,7 +483,7 @@ public class GUI extends JFrame{
 			mutationPanel.getComponent(4).setVisible(true);		//muestra label mutacion permint
 			mutationPanel.getComponent(5).setVisible(true);		//muestra combobox mutacion permint
 			
-			invEspecialCheckBox.setVisible(true);
+			//invEspecialCheckBox.setVisible(true);
 			invEspecialCheckBox.setSelected(true);
 		}
 		else {	//cromosoma binario
@@ -492,7 +501,7 @@ public class GUI extends JFrame{
 			mutationPanel.getComponent(4).setVisible(false);	//oculta label mutacion permint
 			mutationPanel.getComponent(5).setVisible(false);	//oculta combobox mutacion permint
 			
-			invEspecialCheckBox.setVisible(false);
+			//invEspecialCheckBox.setVisible(false);
 			invEspecialCheckBox.setSelected(false);
 		}
 	}
