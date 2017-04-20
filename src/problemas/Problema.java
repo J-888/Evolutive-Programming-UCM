@@ -13,9 +13,11 @@ import javax.swing.SwingWorker;
 import operadores.cruce.FuncionCruce;
 import operadores.fitness.FuncionFitness;
 import operadores.mutacion.FuncionMutacion;
+import operadores.mutacion.Inversion;
 import operadores.seleccion.FuncionSeleccion;
 import util.Contractividad;
 import util.Par;
+import util.Utiles;
 import view.GUI;
 import view.GraficaPanel;
 
@@ -30,6 +32,7 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 	protected FuncionFitness funcFit;
 	protected FuncionCruce funcCruz;
 	protected FuncionMutacion funcMuta;
+	protected Inversion invEspecial;
 	protected FuncionSeleccion funcSelec;
 	protected int tamElite;
 	protected String contracString;
@@ -44,6 +47,7 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 	protected GUI gui;
 	protected boolean minimizacion;
 	protected boolean stop;
+	protected boolean invEspActivada;
 
 	public Problema(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1,
 			int numGenerations, int tamPob, int rangoSize, JFrame gui) {
@@ -61,7 +65,17 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 		this.punts_acum = new ArrayList<Double>(tamPob);
 
 		this.gui = (GUI) gui;
+		
+		if(true){//gui.inversionEspecialActivada){
+			invEspActivada = true;
+			invEspecial = new Inversion();
+			invEspecial.setProb(0.5);//loQueSeaOportuno);  // TODO A mano? El mismo que el de la mutación normal (no)? ..
+		}
+		else
+			invEspActivada = false;
+		
 		this.contracString = this.gui.getContractividad();
+		
 		this.stop = false;
 	}
 
@@ -77,6 +91,7 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 		
 		while((currentIter < numGenerations) && !stop) {
 			evalPoblacion();
+			adaptPoblacion();
 			
 			if(contractividad.execute(new Poblacion(poblacion, mejorIndividuo, mejorAbsoluto, peorIndividuo, pobAvgFitness))) //Devuelve true si hay que preprocesar (no ha vuelto a una pob antigua) 
 				preProcesarPoblacion(); //Ademas modifica la poblacion si procede (para restaurar una anterior)
@@ -85,10 +100,14 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 			rellenarPobCruce();
 			funcMuta.mutar(poblacionNueva);
 			insertElite();
+			
+			if(false)//invEspActivada)
+				inversionEspecial();
+			
 			poblacion = poblacionNueva;
 
 			if(contractividad.iteracionValida()){ //Se ha guardado previamente si es valida o no, en execute
-				pintarGrafica(currentIter);
+				pintarGrafica(currentIter); //Pinta los de la ultima exitosa
 				currentIter++;
 			}
 		}
@@ -96,8 +115,31 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 		return mejorAbsoluto;
 	}
 	
+	private void inversionEspecial() {
+		double prob = invEspecial.getProb();
+		for(int i = 0; i < poblacion.size(); i++){
+			if(Utiles.randomDouble01() > prob){
+				Individuo original = poblacion.get(i);
+				Individuo maybe = original.clone();
+				invEspecial.mutarInd(maybe);
+				funcFit.evaluate(maybe);
+				if(minimizacion){
+					if(maybe.getFitness() < original.getFitness()){
+						original = maybe;
+						funcFit.adaptInd(original, peorIndividuo.getFitness());
+					}
+				}
+				else{
+					if(maybe.getFitness() > original.getFitness()){
+						original = maybe;
+						funcFit.adaptInd(original, peorIndividuo.getFitness());
+					}
+				}
+			}
+		}
+	}
+
 	private void preProcesarPoblacion(){
-		adaptPoblacion();
 		Collections.sort(poblacion);
 		puntuaciones = new ArrayList<Double>(tamPob);
 		punts_acum = new ArrayList<Double>(tamPob);

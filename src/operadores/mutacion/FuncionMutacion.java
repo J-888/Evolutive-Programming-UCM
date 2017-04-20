@@ -13,6 +13,10 @@ public abstract class FuncionMutacion {
 		this.prob = prob;
 	}
 	
+	public double getProb(){
+		return this.prob;
+	}
+	
 	public void mutar(ArrayList<Individuo> poblacion) {
 		for(int i = 0; i < poblacion.size(); i++){
 			Individuo ind = poblacion.get(i);
