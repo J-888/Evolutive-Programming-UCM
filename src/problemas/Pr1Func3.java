@@ -23,6 +23,9 @@ public class Pr1Func3 extends Problema{
 		this.tolerancia = 0.001;
 		this.minimizacion = false;
 		this.funcFit = new FitnessPr1Func3(this.minimizacion);
+		
+		this.funcCruz.setFuncionFitness(this.funcFit);
+		this.funcMuta.setFuncionFitness(this.funcFit);		
 	}
 	
 	public void generaPobIni() {

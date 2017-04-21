@@ -29,6 +29,8 @@ public class Pr1Func4 extends Problema{
 		this.tolerancia = 0.001;
 		this.minimizacion = true;
 		this.funcFit = new FitnessPr1Func4(this.minimizacion);
+		
+		this.funcCruz.setFuncionFitness(this.funcFit);
 		this.funcMuta.setFuncionFitness(this.funcFit);
 	}
 	
