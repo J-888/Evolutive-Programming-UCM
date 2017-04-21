@@ -7,6 +7,7 @@ public class Main {
 		GUI p = new GUI();
 		p.setSize(1000, 600);
 		p.setLocationRelativeTo(null);
+		p.pack();
 		p.setVisible(true);	
 	}
 	

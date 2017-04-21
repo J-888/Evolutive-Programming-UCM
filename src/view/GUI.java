@@ -59,6 +59,7 @@ import java.awt.Component;
 import javax.swing.JSeparator;
 import java.awt.Dimension;
 import javax.swing.Box;
+import java.awt.SystemColor;
 
 public class GUI extends JFrame{
 
@@ -121,7 +122,6 @@ public class GUI extends JFrame{
 		problemPanel.add(labelComponent);
 		
 		problemCombobox = new JComboBox(problemOptions);
-		problemCombobox.setMaximumRowCount(20);
 		
 		labelComponent.setHorizontalAlignment(SwingConstants.RIGHT);
 		problemPanel.add(problemCombobox);
@@ -169,6 +169,7 @@ public class GUI extends JFrame{
 		tricksPanel.add(invEspecialCheckBox);
 		
 		escaladoCheckBox = new JCheckBox("Escalado lineal");
+		escaladoCheckBox.setMaximumSize(new Dimension(111, 23));
 		escaladoCheckBox.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		tricksPanel.add(escaladoCheckBox);
 
@@ -303,6 +304,7 @@ public class GUI extends JFrame{
 						
 			int linesToDisplay = 4;
 			genesTextArea = new JTextArea("", linesToDisplay,1);
+			genesTextArea.setBackground(SystemColor.menu);
 			genesTextArea.setEditable(false);
 			genesTextArea.setLineWrap(true);
 			genesTextArea.setWrapStyleWord(true);
@@ -319,6 +321,9 @@ public class GUI extends JFrame{
 			aux.add(rutasUpScroll, BorderLayout.SOUTH);
 
 			chartYGenes.add(aux, BorderLayout.SOUTH);
+						
+			useLongScrolls();
+			this.pack();
 		
 	}
 	
@@ -362,8 +367,6 @@ public class GUI extends JFrame{
 		stopButton.setEnabled(false);
 		runButton.setEnabled(true);
 		contractividadCombobox.setEnabled(true); 
-		
-		this.pack();
 	}
 	
 	public ConfigPanel<Settings> createSettingsPanelNested() {
@@ -514,6 +517,26 @@ public class GUI extends JFrame{
 			invEspecialCheckBox.setVisible(false);
 			invEspecialCheckBox.setSelected(false);
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void useLongScrolls() {
+		
+		int listLength = 20;
+		
+
+		ConfigPanel<?> crossoverPanel = (ConfigPanel<?>) settingsPanel.getComponent(6);
+		ConfigPanel<?> mutationPanel = (ConfigPanel<?>) settingsPanel.getComponent(7);
+		
+		problemCombobox.setMaximumRowCount(listLength);
+
+		((JComboBox<String>) crossoverPanel.getComponent(1)).setMaximumRowCount(listLength);	//combobox crossover bin
+		((JComboBox<String>) crossoverPanel.getComponent(3)).setMaximumRowCount(listLength);	//combobox crossover real
+		((JComboBox<String>) crossoverPanel.getComponent(5)).setMaximumRowCount(listLength);	//combobox crossover permint
+
+		((JComboBox<String>) mutationPanel.getComponent(1)).setMaximumRowCount(listLength);	//combobox mutacion bin
+		((JComboBox<String>) mutationPanel.getComponent(3)).setMaximumRowCount(listLength);	//combobox mutacion real
+		((JComboBox<String>) mutationPanel.getComponent(5)).setMaximumRowCount(listLength);	//combobox mutacion permint
 	}
 
 	public GraficaPanel getChartPanel() {
