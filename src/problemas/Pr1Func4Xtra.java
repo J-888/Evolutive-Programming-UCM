@@ -19,8 +19,8 @@ public class Pr1Func4Xtra extends Problema{
 	
 	private int N;
 	
-	public Pr1Func4Xtra(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, JFrame gui, int n){
-		super(funcCruz, funcMuta, funcSelec, elite0to1, numGenerations, tamPob, n, gui);
+	public Pr1Func4Xtra(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, boolean escalado, JFrame gui, int n){
+		super(funcCruz, funcMuta, funcSelec, elite0to1, numGenerations, tamPob, n, escalado, gui);
 		
 		this.N = n;
 		this.rangoVar = new ArrayList<Par<Double>>(N);

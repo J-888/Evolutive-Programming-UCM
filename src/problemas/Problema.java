@@ -1,6 +1,5 @@
 package problemas;
 
-import geneticos.CromosomaPermInt;
 import geneticos.Individuo;
 import geneticos.Poblacion;
 
@@ -16,10 +15,10 @@ import operadores.mutacion.FuncionMutacion;
 import operadores.mutacion.Inversion;
 import operadores.seleccion.FuncionSeleccion;
 import util.Contractividad;
+import util.EscaladoLineal;
 import util.Par;
 import util.Utiles;
 import view.GUI;
-import view.GraficaPanel;
 
 public abstract class Problema extends SwingWorker<Individuo, String> {
 
@@ -48,9 +47,10 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 	protected boolean minimizacion;
 	protected boolean stop;
 	protected boolean invEspActivada;
+	protected boolean escalado;
 
 	public Problema(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1,
-			int numGenerations, int tamPob, int rangoSize, JFrame gui) {
+			int numGenerations, int tamPob, int rangoSize, boolean escalado, JFrame gui) {
 		this.funcSelec = funcSelec;
 		this.funcMuta = funcMuta;
 		this.funcCruz = funcCruz;
@@ -63,6 +63,7 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 		this.poblacion = new ArrayList<Individuo>(tamPob);
 		this.puntuaciones = new ArrayList<Double>(tamPob);
 		this.punts_acum = new ArrayList<Double>(tamPob);
+		this.escalado = escalado;
 
 		this.gui = (GUI) gui;
 		
@@ -136,6 +137,10 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 	
 	private void pintarGrafica(int currentIter){
 		if (gui != null) gui.getChartPanel().update(currentIter, mejorIndividuo.getFitness(), peorIndividuo.getFitness(), pobAvgFitness, mejorAbsoluto.getFitness());
+		
+		/*UNCOMMENT FOR SELECTIVE PRESSURE DEBUG*/
+		//System.out.println(this.mejorAbsoluto.getFitnessAdaptado() / this.mejorPeorAvg.get(2).getFitnessAdaptado());	//Adapt SP
+		//System.err.println(this.mejorAbsoluto.getFitnessEscalado() / this.mejorPeorAvg.get(2).getFitnessEscalado());	//Scale SP
 	}
 
 	private void rellenarPobCruce() { // Rellena la nueva poblacion cruzando si
@@ -166,6 +171,18 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 		funcSelec.adaptInd(mejorIndividuo, peorIndividuo.getFitness(), minimizacion);
 		funcSelec.adaptInd(mejorAbsoluto, peorIndividuo.getFitness(), minimizacion);
 		funcSelec.adaptInd(peorIndividuo, peorIndividuo.getFitness(), minimizacion);
+		//en nuestro caso calcular la media de la adaptacion de todos los fitness es equivalente a adaptar la media del fitness
+		funcSelec.adaptInd(mejorPeorAvg.get(2), peorIndividuo.getFitness(), minimizacion);
+		
+		if(this.escalado) {
+			EscaladoLineal escalado = new EscaladoLineal(tamPob, mejorIndividuo.getFitnessAdaptado(), mejorPeorAvg.get(2).getFitnessAdaptado());
+			scalePoblacion(escalado);
+			//Estos tres fueron clonados, no estan en la poblacion, se han de escalar aparte
+			funcSelec.scaleInd(escalado, mejorIndividuo);
+			funcSelec.scaleInd(escalado, mejorAbsoluto);
+			funcSelec.scaleInd(escalado, peorIndividuo);
+			funcSelec.scaleInd(escalado, mejorPeorAvg.get(2));
+		}
 	}
 
 	private void actualizarGraphInds(ArrayList<Individuo> mejorPeorAvg) {
@@ -199,6 +216,10 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 
 	private void adaptPoblacion() {
 		funcSelec.adapt(poblacion, peorIndividuo.getFitness(), minimizacion);
+	}
+
+	private void scalePoblacion(EscaladoLineal escalado) {
+		funcSelec.scale(escalado, poblacion);
 	}
 
 	private void setRangoVar(ArrayList<Par<Double>> rangoVar) {

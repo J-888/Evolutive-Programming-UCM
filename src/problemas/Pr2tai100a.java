@@ -16,8 +16,8 @@ import util.Par;
 
 public class Pr2tai100a extends Problema {
 	
-	public Pr2tai100a(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, JFrame gui){
-		super(funcCruz, funcMuta, funcSelec, elite0to1, numGenerations, tamPob, 1, gui);
+	public Pr2tai100a(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, boolean escalado, JFrame gui){
+		super(funcCruz, funcMuta, funcSelec, elite0to1, numGenerations, tamPob, 1, escalado, gui);
 		
 		this.rangoVar.add(new Par<Double>((double)DatosMatrices.getMatrixDim("tai100a") , (double)DatosMatrices.getMatrixDim("tai100a"))); //reminder to update rangoSize on super constructor s
 		this.minimizacion = true;
