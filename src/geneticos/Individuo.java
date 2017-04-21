@@ -32,7 +32,10 @@ public class Individuo implements Comparable<Individuo> {
 	}
 
 	public int compareTo(Individuo o) {
-		return Double.compare(fitnessAdaptado, o.fitnessAdaptado);
+		if(fitnessAdaptado == 0 && o.fitnessAdaptado == 0)	//fitness adaptado sin rellenar
+			return Double.compare(fitness, o.fitness);
+		else
+			return Double.compare(fitnessAdaptado, o.fitnessAdaptado);
 	}
 	
 	public Cromosoma getCromosoma() {
