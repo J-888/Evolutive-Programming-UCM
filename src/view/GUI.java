@@ -30,6 +30,7 @@ import operadores.cruce.ERX;
 import operadores.cruce.FuncionCruce;
 import operadores.cruce.Monopunto;
 import operadores.cruce.Multipunto;
+import operadores.cruce.OPX;
 import operadores.cruce.OX;
 import operadores.cruce.OXOrdenPrio;
 import operadores.cruce.OXPosPrio;
@@ -68,7 +69,7 @@ public class GUI extends JFrame{
 	private FuncionSeleccion[] selectionOptions = {new Ruleta(), new TorneoDeterminista(2), new TorneoDeterminista(3), new EstocasticoUniversal()}; 
 	private FuncionCruce[] crossoverOptionsBin = {new Monopunto(), new Multipunto(2), new Multipunto(3), new Uniforme()}; 
 	private FuncionCruce[] crossoverOptionsReal = {new Monopunto(), new Multipunto(2), new Multipunto(3), new Uniforme(), new Aritmetico()};
-	private FuncionCruce[] crossoverOptionsPermInt = {new PMX(), new OX(), new OXPosPrio(), new OXOrdenPrio(), new CX(), new ERX(), new Monopunto(), new Multipunto(2), new Multipunto(3), new Uniforme(), new SX()};
+	private FuncionCruce[] crossoverOptionsPermInt = {new PMX(), new OX(), new OXPosPrio(), new OXOrdenPrio(), new CX(), new ERX(), new Monopunto(), new Multipunto(2), new Multipunto(3), new Uniforme(), new SX(), new OPX()};
 	private FuncionMutacion[] mutationOptionsBin = {new BaseABase()}; 
 	private FuncionMutacion[] mutationOptionsReal = {new BaseABase()}; 
 	private FuncionMutacion[] mutationOptionsPermInt = {new Inversion(), new Intercambio(), new IntercambioAgresivo(), new Insercion(), new Heuristica(3)}; 

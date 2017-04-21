@@ -2,12 +2,14 @@ package operadores.cruce;
 
 import geneticos.Cromosoma;
 import geneticos.Individuo;
+import operadores.fitness.FuncionFitness;
 import util.Par;
 import util.Utiles;
 
 public abstract class FuncionCruce {
 
 	protected double prob;
+	protected FuncionFitness funFit;
 	
 	public void setProb(double prob){
 		this.prob = prob;
@@ -27,6 +29,10 @@ public abstract class FuncionCruce {
 		}
 		else 
 			return new Par<Individuo>(padres.getN1().clone(), padres.getN2().clone());
+	}	
+	
+	public void setFuncionFitness(FuncionFitness fitness) {
+		this.funFit = fitness;
 	}
 	
 	protected abstract Par<Cromosoma> cruceCromosomas(Cromosoma p1, Cromosoma p2);
