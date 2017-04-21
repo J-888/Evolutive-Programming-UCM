@@ -78,6 +78,7 @@ public class GUI extends JFrame{
 	private JPanel tricksPanel;
 	private JTextField ntf;
 	private JCheckBox invEspecialCheckBox;
+	private JCheckBox escaladoCheckBox;
 	private JTextArea genesTextArea;
 	private Problema pf;
 	private Double optimo;
@@ -165,6 +166,10 @@ public class GUI extends JFrame{
 		invEspecialCheckBox = new JCheckBox("Inversión especial");
 		invEspecialCheckBox.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		tricksPanel.add(invEspecialCheckBox);
+		
+		escaladoCheckBox = new JCheckBox("Escalado lineal");
+		escaladoCheckBox.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		tricksPanel.add(escaladoCheckBox);
 
 		upperLeftPannel.add(tricksPanel, BorderLayout.SOUTH);
 		
@@ -215,6 +220,7 @@ public class GUI extends JFrame{
 					double elite = settings.getEliteIndex()/100.0;
 					int genNum = settings.getGenerationNum();
 					int popSize = settings.getPopulationSize();
+					boolean escalado = escaladoCheckBox.isSelected();
 					
 					fcross.setProb(settings.getCrossoverIndex()/100.0);
 					fmut.setProb(settings.getMutationIndex()/100.0);
@@ -228,42 +234,42 @@ public class GUI extends JFrame{
 					
 					switch (opt) {
 						case "Pr1.1":
-							pf = new Pr1Func1(fcross, fmut, fselec, elite, genNum, popSize, gui);
+							pf = new Pr1Func1(fcross, fmut, fselec, elite, genNum, popSize, escalado, gui);
 							break;
 						case "Pr1.2":
-							pf = new Pr1Func2(fcross, fmut, fselec, elite, genNum, popSize, gui);				
+							pf = new Pr1Func2(fcross, fmut, fselec, elite, genNum, popSize, escalado, gui);				
 							break;
 						case "Pr1.3":
-							pf = new Pr1Func3(fcross, fmut, fselec, elite, genNum, popSize, gui);
+							pf = new Pr1Func3(fcross, fmut, fselec, elite, genNum, popSize, escalado, gui);
 							break;
 						case "Pr1.4":
 							npass = Integer.parseInt(ntf.getText());
-							pf = new Pr1Func4(fcross, fmut, fselec, elite, genNum, popSize, gui, npass);
+							pf = new Pr1Func4(fcross, fmut, fselec, elite, genNum, popSize, escalado, gui, npass);
 							break;
 						case "Pr1.4Xtra":
 							npass = Integer.parseInt(ntf.getText());
-							pf = new Pr1Func4Xtra(fcross, fmut, fselec, elite, genNum, popSize, gui, npass);
+							pf = new Pr1Func4Xtra(fcross, fmut, fselec, elite, genNum, popSize, escalado, gui, npass);
 							break;
 						case "Pr1.5":
-							pf = new Pr1Func5(fcross, fmut, fselec, elite, genNum, popSize, gui);
+							pf = new Pr1Func5(fcross, fmut, fselec, elite, genNum, popSize, escalado, gui);
 							break;
 						case "Pr2.Ajuste":
-							pf = new Pr2Ajuste(fcross, fmut, fselec, elite, genNum, popSize, gui);
+							pf = new Pr2Ajuste(fcross, fmut, fselec, elite, genNum, popSize, escalado, gui);
 							break;
 						case "Pr2.Datos12":
-							pf = new Pr2Datos12(fcross, fmut, fselec, elite, genNum, popSize, gui);
+							pf = new Pr2Datos12(fcross, fmut, fselec, elite, genNum, popSize, escalado, gui);
 							break;
 						case "Pr2.Datos15":
-							pf = new Pr2Datos15(fcross, fmut, fselec, elite, genNum, popSize, gui);
+							pf = new Pr2Datos15(fcross, fmut, fselec, elite, genNum, popSize, escalado, gui);
 							break;
 						case "Pr2.Datos30":
-							pf = new Pr2Datos30(fcross, fmut, fselec, elite, genNum, popSize, gui);
+							pf = new Pr2Datos30(fcross, fmut, fselec, elite, genNum, popSize, escalado, gui);
 							break;
 						case "Pr2.tai100a":
-							pf = new Pr2tai100a(fcross, fmut, fselec, elite, genNum, popSize, gui);
+							pf = new Pr2tai100a(fcross, fmut, fselec, elite, genNum, popSize, escalado, gui);
 							break;
 						case "Pr2.tai256c":
-							pf = new Pr2tai256c(fcross, fmut, fselec, elite, genNum, popSize, gui);
+							pf = new Pr2tai256c(fcross, fmut, fselec, elite, genNum, popSize, escalado, gui);
 							break;
 						default:
 							break;
@@ -467,7 +473,7 @@ public class GUI extends JFrame{
 			mutationPanel.getComponent(4).setVisible(false);	//oculta label mutacion permint
 			mutationPanel.getComponent(5).setVisible(false);	//oculta combobox mutacion permint
 			
-			//invEspecialCheckBox.setVisible(false);
+			invEspecialCheckBox.setVisible(false);
 			invEspecialCheckBox.setSelected(false);
 		}
 		
@@ -486,7 +492,7 @@ public class GUI extends JFrame{
 			mutationPanel.getComponent(4).setVisible(true);		//muestra label mutacion permint
 			mutationPanel.getComponent(5).setVisible(true);		//muestra combobox mutacion permint
 			
-			//invEspecialCheckBox.setVisible(true);
+			invEspecialCheckBox.setVisible(true);
 			invEspecialCheckBox.setSelected(true);
 		}
 		else {	//cromosoma binario
@@ -504,7 +510,7 @@ public class GUI extends JFrame{
 			mutationPanel.getComponent(4).setVisible(false);	//oculta label mutacion permint
 			mutationPanel.getComponent(5).setVisible(false);	//oculta combobox mutacion permint
 			
-			//invEspecialCheckBox.setVisible(false);
+			invEspecialCheckBox.setVisible(false);
 			invEspecialCheckBox.setSelected(false);
 		}
 	}

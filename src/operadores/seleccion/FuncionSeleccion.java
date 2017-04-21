@@ -1,18 +1,27 @@
 package operadores.seleccion;
 
 import geneticos.Individuo;
+import util.EscaladoLineal;
+
 import java.util.ArrayList;
 
 public abstract class FuncionSeleccion {
-
-	public abstract Individuo select(ArrayList<Individuo> orderedPob, ArrayList<Double> punts_acum);
+	
+	protected boolean escalado;
 	
 	public void clasificarPob(ArrayList<Individuo> poblacion, ArrayList<Double> puntuaciones, ArrayList<Double> punts_acum){
-		double fittotaladap = fitnessAdaptadoPob(poblacion);
+		double fitTotalAdaptOrSca;
+		if (!this.escalado)
+			fitTotalAdaptOrSca = fitnessAdaptadoPob(poblacion);
+		else
+			fitTotalAdaptOrSca = fitnessEscaladoPob(poblacion);
 		
 		for(int j = 0; j < poblacion.size(); j++){
 			Individuo indd = poblacion.get(j);
-			puntuaciones.add(indd.getFitnessAdaptado() / fittotaladap);
+			if(!this.escalado)
+				puntuaciones.add(indd.getFitnessAdaptado() / fitTotalAdaptOrSca);
+			else
+				puntuaciones.add(indd.getFitnessEscalado() / fitTotalAdaptOrSca);
 			if(j==0)
 				punts_acum.add(puntuaciones.get(j));
 			else
@@ -24,6 +33,14 @@ public abstract class FuncionSeleccion {
 		int fittotaladap = 0;
 		for(int i = 0; i < poblacion.size(); i++){
 			fittotaladap += poblacion.get(i).getFitnessAdaptado();
+		}
+		return fittotaladap;
+	}
+	
+	public double fitnessEscaladoPob(ArrayList<Individuo> poblacion){
+		int fittotaladap = 0;
+		for(int i = 0; i < poblacion.size(); i++){
+			fittotaladap += poblacion.get(i).getFitnessEscalado();
 		}
 		return fittotaladap;
 	}
@@ -49,6 +66,22 @@ public abstract class FuncionSeleccion {
 			ind.setFitnessAdaptado(ind.getFitness() - fitPeor);
 	}
 	
+	public void setEscalado(boolean useEscalado) {
+		this.escalado = useEscalado;
+	}
+	
+	public void scale(EscaladoLineal escalado, ArrayList<Individuo> poblacion){
+		for(int i = 0; i < poblacion.size(); i++){
+			scaleInd(escalado, poblacion.get(i));
+		}
+	}
+	
+	public void scaleInd(EscaladoLineal escalado, Individuo ind){
+		ind.setFitnessEscalado(escalado.scaleFitness(ind.getFitnessAdaptado()));
+	}
+	
 	public abstract String toString();
+
+	public abstract Individuo select(ArrayList<Individuo> orderedPob, ArrayList<Double> punts_acum);
 	
 }

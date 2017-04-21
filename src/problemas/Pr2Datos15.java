@@ -17,8 +17,8 @@ import geneticos.TipoCromosoma;
 
 public class Pr2Datos15 extends Problema {
 	
-	public Pr2Datos15(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, JFrame gui){
-		super(funcCruz, funcMuta, funcSelec, elite0to1, numGenerations, tamPob, 1, gui);
+	public Pr2Datos15(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, boolean escalado, JFrame gui){
+		super(funcCruz, funcMuta, funcSelec, elite0to1, numGenerations, tamPob, 1, escalado, gui);
 		
 		this.rangoVar.add(new Par<Double>((double)DatosMatrices.getMatrixDim("datos15") , (double)DatosMatrices.getMatrixDim("datos15"))); //reminder to update rangoSize on super constructor 
 		this.minimizacion = true;

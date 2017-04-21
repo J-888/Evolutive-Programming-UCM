@@ -7,6 +7,7 @@ public class Individuo implements Comparable<Individuo> {
 	private Cromosoma cromosoma;
 	private double fitness;
 	private double fitnessAdaptado;
+	private double fitnessEscalado;
 	private ArrayList<?> fenotipo;
 	
 	public Individuo(Cromosoma c){
@@ -45,11 +46,20 @@ public class Individuo implements Comparable<Individuo> {
 	public void setFitnessAdaptado(double fitnessAdaptado) {
 		this.fitnessAdaptado = fitnessAdaptado;
 	}
+
+	public double getFitnessEscalado() {
+		return fitnessEscalado;
+	}
+
+	public void setFitnessEscalado(double fitnessEscalado) {
+		this.fitnessEscalado = fitnessEscalado;
+	}
 	
 	public Individuo clone(){
 		Individuo nuevo = new Individuo(cromosoma.clone());
 		nuevo.setFitness(fitness);
 		nuevo.setFitnessAdaptado(fitnessAdaptado);
+		nuevo.setFitnessEscalado(fitnessEscalado);
 		return nuevo;
 	}
 	

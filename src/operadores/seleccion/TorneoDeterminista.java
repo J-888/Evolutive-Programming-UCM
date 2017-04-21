@@ -23,8 +23,14 @@ public class TorneoDeterminista extends FuncionSeleccion {
 		Individuo best = new Individuo();
 		best.setFitnessAdaptado(-1);
 		for(int i = 0; i < nElems; i++){
-			if(inds.get(i).getFitnessAdaptado() > best.getFitnessAdaptado())
-				best = inds.get(i);
+			if(!this.escalado) {
+				if(inds.get(i).getFitnessAdaptado() > best.getFitnessAdaptado())
+					best = inds.get(i);
+			}
+			else {
+				if(inds.get(i).getFitnessEscalado() > best.getFitnessEscalado())
+					best = inds.get(i);
+			}
 		}
 		
 		return best;

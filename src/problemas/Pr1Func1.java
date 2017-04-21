@@ -15,8 +15,8 @@ import view.GraficaPanel;
 
 public class Pr1Func1 extends Problema{
 		
-	public Pr1Func1(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, JFrame gui){
-		super(funcCruz, funcMuta, funcSelec, elite0to1, numGenerations, tamPob, 1, gui);
+	public Pr1Func1(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, boolean escalado, JFrame gui){
+		super(funcCruz, funcMuta, funcSelec, elite0to1, numGenerations, tamPob, 1, escalado, gui);
 		
 		this.rangoVar.add(new Par<Double>(new Double(-250),new Double(250))); //reminder to update rangoSize on super constructor  
 		this.tolerancia = 0.001;
