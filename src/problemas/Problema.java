@@ -46,11 +46,11 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 	protected GUI gui;
 	protected boolean minimizacion;
 	protected boolean stop;
-	protected boolean invEspActivada;
 	protected boolean escalado;
+	protected boolean invEspActivada;
 
 	public Problema(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1,
-			int numGenerations, int tamPob, int rangoSize, boolean escalado, JFrame gui) {
+			int numGenerations, int tamPob, int rangoSize, boolean escalado, boolean inversionEspecial, JFrame gui) {
 		this.funcSelec = funcSelec;
 		this.funcMuta = funcMuta;
 		this.funcCruz = funcCruz;
@@ -63,6 +63,7 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 		this.poblacion = new ArrayList<Individuo>(tamPob);
 		this.puntuaciones = new ArrayList<Double>(tamPob);
 		this.punts_acum = new ArrayList<Double>(tamPob);
+		this.escalado = invEspActivada;
 		this.escalado = escalado;
 
 		this.gui = (GUI) gui;

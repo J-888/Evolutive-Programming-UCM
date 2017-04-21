@@ -164,14 +164,14 @@ public class GUI extends JFrame{
 		contractividadPanel.add(contractividadCombobox);
 		tricksPanel.add(contractividadPanel);
 		
-		invEspecialCheckBox = new JCheckBox("Inversión especial");
-		invEspecialCheckBox.setAlignmentX(Component.RIGHT_ALIGNMENT);
-		tricksPanel.add(invEspecialCheckBox);
-		
 		escaladoCheckBox = new JCheckBox("Escalado lineal");
 		escaladoCheckBox.setMaximumSize(new Dimension(111, 23));
 		escaladoCheckBox.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		tricksPanel.add(escaladoCheckBox);
+		
+		invEspecialCheckBox = new JCheckBox("Inversión especial");
+		invEspecialCheckBox.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		tricksPanel.add(invEspecialCheckBox);
 
 		upperLeftPannel.add(tricksPanel, BorderLayout.SOUTH);
 		
@@ -223,6 +223,7 @@ public class GUI extends JFrame{
 					int genNum = settings.getGenerationNum();
 					int popSize = settings.getPopulationSize();
 					boolean escalado = escaladoCheckBox.isSelected();
+					boolean inversionEspecial = escaladoCheckBox.isSelected();
 					
 					fcross.setProb(settings.getCrossoverIndex()/100.0);
 					fmut.setProb(settings.getMutationIndex()/100.0);
@@ -236,42 +237,42 @@ public class GUI extends JFrame{
 					
 					switch (opt) {
 						case "Pr1.1":
-							pf = new Pr1Func1(fcross, fmut, fselec, elite, genNum, popSize, escalado, gui);
+							pf = new Pr1Func1(fcross, fmut, fselec, elite, genNum, popSize, escalado, inversionEspecial, gui);
 							break;
 						case "Pr1.2":
-							pf = new Pr1Func2(fcross, fmut, fselec, elite, genNum, popSize, escalado, gui);				
+							pf = new Pr1Func2(fcross, fmut, fselec, elite, genNum, popSize, escalado, inversionEspecial, gui);				
 							break;
 						case "Pr1.3":
-							pf = new Pr1Func3(fcross, fmut, fselec, elite, genNum, popSize, escalado, gui);
+							pf = new Pr1Func3(fcross, fmut, fselec, elite, genNum, popSize, escalado, inversionEspecial, gui);
 							break;
 						case "Pr1.4":
 							npass = Integer.parseInt(ntf.getText());
-							pf = new Pr1Func4(fcross, fmut, fselec, elite, genNum, popSize, escalado, gui, npass);
+							pf = new Pr1Func4(fcross, fmut, fselec, elite, genNum, popSize, escalado, inversionEspecial, gui, npass);
 							break;
 						case "Pr1.4Xtra":
 							npass = Integer.parseInt(ntf.getText());
-							pf = new Pr1Func4Xtra(fcross, fmut, fselec, elite, genNum, popSize, escalado, gui, npass);
+							pf = new Pr1Func4Xtra(fcross, fmut, fselec, elite, genNum, popSize, escalado, inversionEspecial, gui, npass);
 							break;
 						case "Pr1.5":
-							pf = new Pr1Func5(fcross, fmut, fselec, elite, genNum, popSize, escalado, gui);
+							pf = new Pr1Func5(fcross, fmut, fselec, elite, genNum, popSize, escalado, inversionEspecial, gui);
 							break;
 						case "Pr2.Ajuste":
-							pf = new Pr2Ajuste(fcross, fmut, fselec, elite, genNum, popSize, escalado, gui);
+							pf = new Pr2Ajuste(fcross, fmut, fselec, elite, genNum, popSize, escalado, inversionEspecial, gui);
 							break;
 						case "Pr2.Datos12":
-							pf = new Pr2Datos12(fcross, fmut, fselec, elite, genNum, popSize, escalado, gui);
+							pf = new Pr2Datos12(fcross, fmut, fselec, elite, genNum, popSize, escalado, inversionEspecial, gui);
 							break;
 						case "Pr2.Datos15":
-							pf = new Pr2Datos15(fcross, fmut, fselec, elite, genNum, popSize, escalado, gui);
+							pf = new Pr2Datos15(fcross, fmut, fselec, elite, genNum, popSize, escalado, inversionEspecial, gui);
 							break;
 						case "Pr2.Datos30":
-							pf = new Pr2Datos30(fcross, fmut, fselec, elite, genNum, popSize, escalado, gui);
+							pf = new Pr2Datos30(fcross, fmut, fselec, elite, genNum, popSize, escalado, inversionEspecial, gui);
 							break;
 						case "Pr2.tai100a":
-							pf = new Pr2tai100a(fcross, fmut, fselec, elite, genNum, popSize, escalado, gui);
+							pf = new Pr2tai100a(fcross, fmut, fselec, elite, genNum, popSize, escalado, inversionEspecial, gui);
 							break;
 						case "Pr2.tai256c":
-							pf = new Pr2tai256c(fcross, fmut, fselec, elite, genNum, popSize, escalado, gui);
+							pf = new Pr2tai256c(fcross, fmut, fselec, elite, genNum, popSize, escalado, inversionEspecial, gui);
 							break;
 						default:
 							break;
