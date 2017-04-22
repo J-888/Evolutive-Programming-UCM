@@ -50,7 +50,7 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 	protected boolean invEspActivada;
 
 	public Problema(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1,
-			int numGenerations, int tamPob, int rangoSize, boolean escalado, boolean inversionEspecial, JFrame gui) {
+			int numGenerations, int tamPob, int rangoSize, JFrame guiExt) {
 		this.funcSelec = funcSelec;
 		this.funcMuta = funcMuta;
 		this.funcCruz = funcCruz;
@@ -63,22 +63,21 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 		this.poblacion = new ArrayList<Individuo>(tamPob);
 		this.puntuaciones = new ArrayList<Double>(tamPob);
 		this.punts_acum = new ArrayList<Double>(tamPob);
-		this.escalado = invEspActivada;
-		this.escalado = escalado;
 
-		this.gui = (GUI) gui;
-		
-		cheapMutations();
+		this.gui = (GUI) guiExt;
 		
 		this.contracString = this.gui.getContractividad();
-		
+		this.invEspActivada = this.gui.getInvEspecial();
+		this.escalado = this.gui.getEscalado();
+		cheapMutations();// <- al final de estos getters
+
 		this.stop = false;
 	}
 
 	public Individuo executeProblem() {
 		generaPobIni();
 		initGraphInds();
-		contractividad = new Contractividad(contracString, minimizacion);
+		contractividad = new Contractividad(contracString, minimizacion); //No hara nada si en la GUI esta desactivada
 		int currentIter = 0;
 		
 		while((currentIter < numGenerations) && !stop) {
@@ -277,7 +276,7 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 		if(invEspActivada){
 			invEspActivada = true;
 			invEspecial = new Inversion();
-			invEspecial.setProb(0.5);//loQueSeaOportuno);  // TODO A mano? El mismo que el de la mutación normal (no)? ..
+			invEspecial.setProb(0.5);
 		}
 		else
 			invEspActivada = false;

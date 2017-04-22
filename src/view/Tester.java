@@ -159,37 +159,37 @@ public class Tester {
 		
 		switch (problem) {
 		case "Pr1.1":
-			pf = new Pr1Func1(fcross, fmut, fselec, elite, genNum, popSize, false, false, null);
+			pf = new Pr1Func1(fcross, fmut, fselec, elite, genNum, popSize, null);
 			break;
 		case "Pr1.2":
-			pf = new Pr1Func2(fcross, fmut, fselec, elite, genNum, popSize, false, false, null);	
+			pf = new Pr1Func2(fcross, fmut, fselec, elite, genNum, popSize, null);	
 			break;
 		case "Pr1.3":
-			pf = new Pr1Func3(fcross, fmut, fselec, elite, genNum, popSize, false, false, null);
+			pf = new Pr1Func3(fcross, fmut, fselec, elite, genNum, popSize, null);
 			break;
 		case "Pr1.4":
-			pf = new Pr1Func4(fcross, fmut, fselec, elite, genNum, popSize, false, false, null, npass);
+			pf = new Pr1Func4(fcross, fmut, fselec, elite, genNum, popSize, null, npass);
 			break;
 		case "Pr1.4Xtra":
-			pf = new Pr1Func4Xtra(fcross, fmut, fselec, elite, genNum, popSize, false, false,  null, npass);
+			pf = new Pr1Func4Xtra(fcross, fmut, fselec, elite, genNum, popSize,  null, npass);
 			break;
 		case "Pr1.5":
-			pf = new Pr1Func5(fcross, fmut, fselec, elite, genNum, popSize, false, false, null);
+			pf = new Pr1Func5(fcross, fmut, fselec, elite, genNum, popSize, null);
 			break;
 		case "Pr2.Ajuste":
-			pf = new Pr2Ajuste(fcross, fmut, fselec, elite, genNum, popSize, false, false, null);
+			pf = new Pr2Ajuste(fcross, fmut, fselec, elite, genNum, popSize, null);
 			break;
 		case "Pr2.Datos12":
-			pf = new Pr2Datos12(fcross, fmut, fselec, elite, genNum, popSize, false, false, null);
+			pf = new Pr2Datos12(fcross, fmut, fselec, elite, genNum, popSize, null);
 			break;
 		case "Pr2.Datos15":
-			pf = new Pr2Datos15(fcross, fmut, fselec, elite, genNum, popSize, false, false, null);
+			pf = new Pr2Datos15(fcross, fmut, fselec, elite, genNum, popSize, null);
 			break;
 		case "Pr2.Datos30":
-			pf = new Pr2Datos30(fcross, fmut, fselec, elite, genNum, popSize, false, false, null);
+			pf = new Pr2Datos30(fcross, fmut, fselec, elite, genNum, popSize, null);
 			break;
 		case "Pr2.tai256c":
-			pf = new Pr2tai256c(fcross, fmut, fselec, elite, genNum, popSize, false, false, null);
+			pf = new Pr2tai256c(fcross, fmut, fselec, elite, genNum, popSize, null);
 			break;
 		default:
 			break;

@@ -17,8 +17,8 @@ import geneticos.TipoCromosoma;
 
 public class Pr2tai256c extends Problema {
 	
-	public Pr2tai256c(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, boolean escalado, boolean inversionEspecial, JFrame gui){
-		super(funcCruz, funcMuta, funcSelec, elite0to1, numGenerations, tamPob, 1, escalado, inversionEspecial, gui);
+	public Pr2tai256c(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, JFrame gui){
+		super(funcCruz, funcMuta, funcSelec, elite0to1, numGenerations, tamPob, 1, gui);
 		
 		this.rangoVar.add(new Par<Double>((double)DatosMatrices.getMatrixDim("tai256c") , (double)DatosMatrices.getMatrixDim("tai256c"))); //reminder to update rangoSize on super constructor s
 		this.minimizacion = true;
