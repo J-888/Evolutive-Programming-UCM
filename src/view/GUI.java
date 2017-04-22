@@ -72,7 +72,7 @@ public class GUI extends JFrame{
 	private FuncionCruce[] crossoverOptionsPermInt = {new PMX(), new OX(), new OXPosPrio(), new OXOrdenPrio(), new CX(), new ERX(), new Monopunto(), new Multipunto(2), new Multipunto(3), new Uniforme(), new SX(), new OPX()};
 	private FuncionMutacion[] mutationOptionsBin = {new BaseABase()}; 
 	private FuncionMutacion[] mutationOptionsReal = {new BaseABase()}; 
-	private FuncionMutacion[] mutationOptionsPermInt = {new Inversion(), new Intercambio(), new IntercambioAgresivo(), new Insercion(), new Heuristica(3)}; 
+	private FuncionMutacion[] mutationOptionsPermInt = {new Inversion(), new Intercambio(), new IntercambioAgresivo(0.2), new Insercion(), new Heuristica(3)}; 
 	private JComboBox<String> problemCombobox;
 	private JComboBox<String> contractividadCombobox; 
 	private GraficaPanel chartPanel;
@@ -82,6 +82,7 @@ public class GUI extends JFrame{
 	private JTextField ntf;
 	private JCheckBox invEspecialCheckBox;
 	private JCheckBox escaladoCheckBox;
+	private JCheckBox irradiateCheckBox;
 	private JTextArea genesTextArea;
 	private Problema pf;
 	private Double optimo;
@@ -173,6 +174,10 @@ public class GUI extends JFrame{
 		invEspecialCheckBox = new JCheckBox("Inversión especial");
 		invEspecialCheckBox.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		tricksPanel.add(invEspecialCheckBox);
+		
+		irradiateCheckBox = new JCheckBox("Irradiar");
+		irradiateCheckBox.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		tricksPanel.add(irradiateCheckBox);
 
 		upperLeftPannel.add(tricksPanel, BorderLayout.SOUTH);
 		
@@ -553,6 +558,10 @@ public class GUI extends JFrame{
 
 	public boolean getInvEspecial() {
 		return invEspecialCheckBox.isSelected();
+	}
+	
+	public boolean getIrradiate() {
+		return irradiateCheckBox.isSelected();
 	}
 	
 }

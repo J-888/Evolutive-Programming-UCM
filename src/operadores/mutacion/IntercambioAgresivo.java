@@ -10,6 +10,13 @@ import util.Utiles;
 
 public class IntercambioAgresivo extends FuncionMutacion {
 
+	double ALPHA; //% 0-1 de continuar mutando
+	
+	public IntercambioAgresivo(double a) {
+		super();
+		this.ALPHA = a;
+	}
+	
 	@Override
 	public void mutarInd(Individuo ind) {
 		Cromosoma c = ind.getCromosoma();
@@ -50,7 +57,6 @@ public class IntercambioAgresivo extends FuncionMutacion {
 	
 
 	private int deltaFunction(int maxMuts, int acc) {
-		double ALPHA = 0.2; //% 0-1 de continuar mutando
 		
 		if(acc == maxMuts)
 			return 0;

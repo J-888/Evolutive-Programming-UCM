@@ -12,6 +12,7 @@ import javax.swing.SwingWorker;
 import operadores.cruce.FuncionCruce;
 import operadores.fitness.FuncionFitness;
 import operadores.mutacion.FuncionMutacion;
+import operadores.mutacion.IntercambioAgresivo;
 import operadores.mutacion.Inversion;
 import operadores.seleccion.FuncionSeleccion;
 import util.Contractividad;
@@ -32,6 +33,7 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 	protected FuncionCruce funcCruz;
 	protected FuncionMutacion funcMuta;
 	protected Inversion invEspecial;
+	protected IntercambioAgresivo irradiateFunct;
 	protected FuncionSeleccion funcSelec;
 	protected int tamElite;
 	protected String contracString;
@@ -48,6 +50,10 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 	protected boolean stop;
 	protected boolean escalado;
 	protected boolean invEspActivada;
+	
+	protected boolean irradiarActivado;
+	protected boolean irradiating;
+	protected ArrayList<Double> bestFitnessReg;
 
 	public Problema(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1,
 			int numGenerations, int tamPob, int rangoSize, JFrame guiExt) {
@@ -63,14 +69,16 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 		this.poblacion = new ArrayList<Individuo>(tamPob);
 		this.puntuaciones = new ArrayList<Double>(tamPob);
 		this.punts_acum = new ArrayList<Double>(tamPob);
+		
+		bestFitnessReg = new ArrayList<Double>(numGenerations);
 
 		this.gui = (GUI) guiExt;
-		
-		this.contracString = this.gui.getContractividad();
-		this.invEspActivada = this.gui.getInvEspecial();
 		this.escalado = this.gui.getEscalado();
-		cheapMutations();// <- al final de estos getters
+		this.contracString = this.gui.getContractividad();
+		
+		cheapMutations(this.gui);
 
+		this.irradiating = false;
 		this.stop = false;
 	}
 
@@ -89,15 +97,20 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 			poblacionNueva = new ArrayList<Individuo>(tamPob);
 			rellenarPobCruce();
 			funcMuta.mutar(poblacionNueva);
+			
+			if(irradiating) //Puede empeorar, ha de hacerse antes de insertar la elite
+				irradiar();
+			
 			insertElite();
 			
-			if(invEspActivada)
+			if(invEspActivada) //Solo mejora, puede hacerse tras la elite (no la va a romper)
 				inversionEspecial();
-			
+
 			poblacion = poblacionNueva;
 
 			if(contractividad.iteracionValida()){ //Se ha guardado previamente si es valida o no, en execute
 				pintarGrafica(currentIter); //Pinta los de la ultima exitosa
+				registrarEstadisticasYActualizar(currentIter);
 				currentIter++;
 			}
 		}
@@ -105,6 +118,29 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 		return mejorAbsoluto;
 	}
 	
+	private void irradiar() {
+		irradiateFunct.mutar(poblacionNueva);
+	}
+
+	private void registrarEstadisticasYActualizar(int currentIter) {
+		bestFitnessReg.add(mejorAbsoluto.getFitness());
+		//Actualizacion de la irradiacion//////
+		if(currentIter > 50){ //Irradia si no ha habido una mejora de 0.1% en las ultimas 50 generaciones
+			if(minimizacion){
+				if(mejorAbsoluto.getFitness() > bestFitnessReg.get(currentIter-50)*0.999){
+					irradiating = true;
+				}
+			}
+			else{
+				if(mejorAbsoluto.getFitness() < bestFitnessReg.get(currentIter-50)*1.001){
+					irradiating = true;
+				}
+			}
+			
+		}
+		//Fin actualziación de la irradiación//
+	}
+
 	private void inversionEspecial() {
 		double prob = invEspecial.getProb();
 		for(int i = 0; i < poblacion.size(); i++){
@@ -272,14 +308,19 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 			return singularFact(tamPobTwo, cromPosibles *= rangoRestante, rangoRestante - 1);
 	}
 	
-	private void cheapMutations() {
+	private void cheapMutations(GUI gui) {
+		this.invEspActivada = this.gui.getInvEspecial();
+		this.irradiarActivado = this.gui.getIrradiate();
+		
 		if(invEspActivada){
-			invEspActivada = true;
 			invEspecial = new Inversion();
 			invEspecial.setProb(0.5);
 		}
-		else
-			invEspActivada = false;
+		
+		if(irradiarActivado){
+			irradiateFunct = new IntercambioAgresivo(0.95);
+		}
+
 	}
 
 	public abstract void generaPobIni();
