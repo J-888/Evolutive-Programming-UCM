@@ -4,8 +4,10 @@ import geneticos.Individuo;
 import operadores.cruce.Aritmetico;
 import operadores.cruce.FuncionCruce;
 import operadores.cruce.Monopunto;
+import operadores.cruce.OPX;
 import operadores.cruce.PMX;
 import operadores.mutacion.FuncionMutacion;
+import operadores.mutacion.Heuristica;
 import operadores.mutacion.Inversion;
 import operadores.mutacion.BaseABase;
 import operadores.seleccion.EstocasticoUniversal;
@@ -22,6 +24,7 @@ import problemas.Pr2Ajuste;
 import problemas.Pr2Datos12;
 import problemas.Pr2Datos15;
 import problemas.Pr2Datos30;
+import problemas.Pr2tai100a;
 import problemas.Pr2tai256c;
 import problemas.Problema;
 
@@ -41,13 +44,16 @@ public class Tester {
 	private boolean isMinimization;
 	
 	private FakeInterface fakeInterface;
+	private boolean verbose;
 	
 	private String bestCombination;
 	private double bestFitness;
 
 	public static void main(String[] args) {	
-		generalBattery();	
+		//generalBattery();	
 		//intensiveBattery();
+		
+		Pr2MemBattery();
 	}
 	
 	public static void generalBattery() {	
@@ -66,19 +72,24 @@ public class Tester {
 		int popSize = 50;
 		int executions = 50;
 		
-		FakeInterface fakeInterface = new FakeInterface();
+		boolean escalado = false;
+		String contractividad = "No";
+		boolean invEsp = false;
+		boolean irradiate = false;
+		FakeInterface fakeInterface = new FakeInterface(escalado, contractividad, invEsp, irradiate);
 		
-		Tester t = new Tester("Pr1.1", selections, crossoversBin, crossoverPercentages, mutationsBin, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface);
-		//Tester t = new Tester("Pr1.2", selections, crossoversBin, crossoverPercentages, mutationsBin, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface);
-		//Tester t = new Tester("Pr1.3", selections, crossoversBin, crossoverPercentages, mutationsBin, mutationPercentages, elite, genNum, popSize, executions, false, fakeInterface);
-		//Tester t = new Tester("Pr1.4", 3, selections, crossoversBin, crossoverPercentages, mutationsBin, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface);
-		//Tester t = new Tester("Pr1.4Xtra", 3, selections, crossoversReal, crossoverPercentages, mutationsReal, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface);
-		//Tester t = new Tester("Pr1.5", selections, crossoversBin, crossoverPercentages, mutationsBin, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface);
-		//Tester t = new Tester("Pr2.Ajuste", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface);
-		//Tester t = new Tester("Pr2.Datos12", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface);
-		//Tester t = new Tester("Pr2.Datos15", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface);
-		//Tester t = new Tester("Pr2.Datos13", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface);
-		//Tester t = new Tester("Pr2.tai256c", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface);
+		Tester t = new Tester("Pr1.1", selections, crossoversBin, crossoverPercentages, mutationsBin, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface, false);
+		//Tester t = new Tester("Pr1.2", selections, crossoversBin, crossoverPercentages, mutationsBin, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface, false);
+		//Tester t = new Tester("Pr1.3", selections, crossoversBin, crossoverPercentages, mutationsBin, mutationPercentages, elite, genNum, popSize, executions, false, fakeInterface, false);
+		//Tester t = new Tester("Pr1.4", 3, selections, crossoversBin, crossoverPercentages, mutationsBin, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface, false);
+		//Tester t = new Tester("Pr1.4Xtra", 3, selections, crossoversReal, crossoverPercentages, mutationsReal, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface, false);
+		//Tester t = new Tester("Pr1.5", selections, crossoversBin, crossoverPercentages, mutationsBin, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface, false);
+		//Tester t = new Tester("Pr2.Ajuste", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface, false);
+		//Tester t = new Tester("Pr2.Datos12", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface, false);
+		//Tester t = new Tester("Pr2.Datos15", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface, false);
+		//Tester t = new Tester("Pr2.Datos30", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface, false);
+		//Tester t = new Tester("Pr2.tai100a", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface, false);
+		//Tester t = new Tester("Pr2.tai256c", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface, false);
 		
 		t.run();
 	}
@@ -99,24 +110,57 @@ public class Tester {
 		int popSize = 50;
 		int executions = 250;
 		
-		FakeInterface fakeInterface = new FakeInterface();
+		boolean escalado = false;
+		String contractividad = "No";
+		boolean invEsp = false;
+		boolean irradiate = false;
+		FakeInterface fakeInterface = new FakeInterface(escalado, contractividad, invEsp, irradiate);
 		
-		Tester t = new Tester("Pr1.1", selections, crossoversBin, crossoverPercentages, mutationsBin, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface);
-		//Tester t = new Tester("Pr1.2", selections, crossoversBin, crossoverPercentages, mutationsBin, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface);
-		//Tester t = new Tester("Pr1.3", selections, crossoversBin, crossoverPercentages, mutationsBin, mutationPercentages, elite, genNum, popSize, executions, false, fakeInterface);
-		//Tester t = new Tester("Pr1.4", 3, selections, crossoversBin, crossoverPercentages, mutationsBin, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface);
-		//Tester t = new Tester("Pr1.4Xtra", 3, selections, crossoversReal, crossoverPercentages, mutationsReal, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface);
-		//Tester t = new Tester("Pr1.5", selections, crossoversBin, crossoverPercentages, mutationsBin, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface);
-		//Tester t = new Tester("Pr2.Ajuste", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface);
-		//Tester t = new Tester("Pr2.Datos12", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface);
-		//Tester t = new Tester("Pr2.Datos15", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface);
-		//Tester t = new Tester("Pr2.Datos13", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface);
-		//Tester t = new Tester("Pr2.tai256c", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface);
+		Tester t = new Tester("Pr1.1", selections, crossoversBin, crossoverPercentages, mutationsBin, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface, false);
+		//Tester t = new Tester("Pr1.2", selections, crossoversBin, crossoverPercentages, mutationsBin, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface, false);
+		//Tester t = new Tester("Pr1.3", selections, crossoversBin, crossoverPercentages, mutationsBin, mutationPercentages, elite, genNum, popSize, executions, false, fakeInterface, false);
+		//Tester t = new Tester("Pr1.4", 3, selections, crossoversBin, crossoverPercentages, mutationsBin, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface, false);
+		//Tester t = new Tester("Pr1.4Xtra", 3, selections, crossoversReal, crossoverPercentages, mutationsReal, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface, false);
+		//Tester t = new Tester("Pr1.5", selections, crossoversBin, crossoverPercentages, mutationsBin, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface, false);
+		//Tester t = new Tester("Pr2.Ajuste", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface, false);
+		//Tester t = new Tester("Pr2.Datos12", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface, false);
+		//Tester t = new Tester("Pr2.Datos15", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface, false);
+		//Tester t = new Tester("Pr2.Datos30", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface, false);
+		//Tester t = new Tester("Pr2.tai100a", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface, false);
+		//Tester t = new Tester("Pr2.tai256c", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface, false);
+		
+		t.run();
+	}
+	
+	public static void Pr2MemBattery() {	
+		
+		FuncionSeleccion[] selections = {new TorneoDeterminista(3)};
+		FuncionCruce[] crossoversPermInt = {new OPX()};
+		double[] crossoverPercentages = {0.5};
+		FuncionMutacion[] mutationsPermInt = {new Heuristica(3)};
+		double[] mutationPercentages = {0.20};
+		double elite = 0.05;
+		int genNum = 300;
+		int popSize = 150;
+		int executions = 20;
+		
+		boolean escalado = false;
+		String contractividad = "Actualizando población";
+		boolean invEsp = true;
+		boolean irradiate = true;
+		FakeInterface fakeInterface = new FakeInterface(escalado, contractividad, invEsp, irradiate);
+		
+		Tester t = new Tester("Pr2.Ajuste", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface, true);
+		//Tester t = new Tester("Pr2.Datos12", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface, true);
+		//Tester t = new Tester("Pr2.Datos15", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface, true);
+		//Tester t = new Tester("Pr2.Datos30", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface, true);
+		//Tester t = new Tester("Pr2.tai100a", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface, true);
+		//Tester t = new Tester("Pr2.tai256c", selections, crossoversPermInt, crossoverPercentages, mutationsPermInt, mutationPercentages, elite, genNum, popSize, executions, true, fakeInterface, true);
 		
 		t.run();
 	}
 
-	public Tester(String problem, FuncionSeleccion[] selections, FuncionCruce[] crossovers, double[] crossoverPercentages, FuncionMutacion[] mutations, double[] mutationPercentages, double elite, int genNum, int popSize, int executions, boolean isMin, FakeInterface fakeInterface) {
+	public Tester(String problem, FuncionSeleccion[] selections, FuncionCruce[] crossovers, double[] crossoverPercentages, FuncionMutacion[] mutations, double[] mutationPercentages, double elite, int genNum, int popSize, int executions, boolean isMin, FakeInterface fakeInterface, boolean verbose) {
 		super();
 		this.problem = problem;
 		this.selectionOptions = selections;
@@ -137,10 +181,11 @@ public class Tester {
 			bestFitness = Double.NEGATIVE_INFINITY;
 		
 		this.fakeInterface = fakeInterface;
+		this.verbose = verbose;
 	}
 	
-	public Tester(String problem, int npass, FuncionSeleccion[] selections, FuncionCruce[] crossovers, double[] crossoverPercentages, FuncionMutacion[] mutations, double[] mutationPercentages, double elite, int genNum, int popSize, int executions, boolean isMin, FakeInterface fakeInterface) {
-		this(problem, selections, crossovers, crossoverPercentages, mutations, mutationPercentages, elite, genNum, popSize, executions, isMin, fakeInterface);
+	public Tester(String problem, int npass, FuncionSeleccion[] selections, FuncionCruce[] crossovers, double[] crossoverPercentages, FuncionMutacion[] mutations, double[] mutationPercentages, double elite, int genNum, int popSize, int executions, boolean isMin, FakeInterface fakeInterface, boolean verbose) {
+		this(problem, selections, crossovers, crossoverPercentages, mutations, mutationPercentages, elite, genNum, popSize, executions, isMin, fakeInterface, verbose);
 		this.npass = npass;
 	}
 	
@@ -160,9 +205,8 @@ public class Tester {
 		System.err.println(bestCombination);
 		System.err.println(bestFitness);
 	}
-
-	private void run(FuncionSeleccion fselec, FuncionCruce fcross, double pcross, FuncionMutacion fmut, double pmut) {
-		
+	
+	private Problema buildProblema(FuncionSeleccion fselec, FuncionCruce fcross, double pcross, FuncionMutacion fmut, double pmut) {
 		Problema pf = null;
 		
 		switch (problem) {
@@ -196,17 +240,34 @@ public class Tester {
 		case "Pr2.Datos30":
 			pf = new Pr2Datos30(fcross, fmut, fselec, elite, genNum, popSize, fakeInterface);
 			break;
+		case "Pr2.tai100a":
+			pf = new Pr2tai100a(fcross, fmut, fselec, elite, genNum, popSize, fakeInterface);
+			break;
 		case "Pr2.tai256c":
 			pf = new Pr2tai256c(fcross, fmut, fselec, elite, genNum, popSize, fakeInterface);
 			break;
 		default:
 			break;
 		}
+		
+		return pf;
+	}
 
+	private void run(FuncionSeleccion fselec, FuncionCruce fcross, double pcross, FuncionMutacion fmut, double pmut) {
+		
 		double avgFitness = 0;
 		for (int i = 0; i < executions; i++) {
+			Problema pf = buildProblema(fselec, fcross, pcross, fmut, pmut);
 			Individuo bestFound = pf.executeProblem();
 			avgFitness += bestFound.getFitness();
+			if(this.verbose)
+				
+				System.out.println("individuo " + bestFound.toStringShort());
+				System.out.println("fitness " + bestFound.getFitness());
+				System.out.println();
+				
+				/*PARA TABLA*/
+				//System.out.println(bestFound.toStringShort() + "; " + bestFound.getFitness());
 		}
 		avgFitness = avgFitness/executions;
 		

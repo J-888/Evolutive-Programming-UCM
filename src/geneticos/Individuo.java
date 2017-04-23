@@ -70,4 +70,34 @@ public class Individuo implements Comparable<Individuo> {
 		fenotipo = cromosoma.toFenotipo();
 	}
 	
+	public String toString() {
+		String res = "";
+		for(int i = 0; i < getFenotipo().size(); i++){
+			res += ("Gen#" + i + ":" + getFenotipo().get(i));
+			if(i != getFenotipo().size()-1)
+				res += ", ";
+		}
+		return res;
+	}
+	
+	public String toStringShort() {
+		String res = "";
+		for(int i = 0; i < getFenotipo().size(); i++){
+			res += (getFenotipo().get(i));
+			if(i != getFenotipo().size()-1)
+				res += " ";
+		}
+		return res;
+	}
+	
+	public String toStringTabla() {
+		String res = "";
+		for(int i = 0; i < getFenotipo().size(); i++){
+			res += (getFenotipo().get(i));
+			if(i != getFenotipo().size()-1)
+				res += " ";
+		}
+		return res;
+	}
+	
 }
