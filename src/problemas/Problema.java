@@ -55,7 +55,7 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 	protected boolean irradiating;
 	protected ArrayList<Double> bestFitnessReg;
 	
-	protected boolean debug = false;
+	protected boolean debug = true;
 
 	public Problema(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1,
 			int numGenerations, int tamPob, int rangoSize, JFrame guiExt) {
@@ -135,14 +135,14 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 	private void registrarEstadisticasYActualizar(int currentIter) {
 		bestFitnessReg.add(mejorAbsoluto.getFitness());
 		//Actualizacion de la irradiacion//////
-		if(currentIter > 50){ //Irradia si no ha habido una mejora de 0.1% en las ultimas 50 generaciones
+		if(currentIter > 10 && irradiarActivado){ //Irradia si no ha habido una mejora de 0.1% en las ultimas 50 generaciones
 			if(minimizacion){
-				if(mejorAbsoluto.getFitness() > bestFitnessReg.get(currentIter-50)*0.999){
+				if(mejorAbsoluto.getFitness() > bestFitnessReg.get(currentIter-10)*0.999){
 					irradiating = true;
 				}
 			}
 			else{
-				if(mejorAbsoluto.getFitness() < bestFitnessReg.get(currentIter-50)*1.001){
+				if(mejorAbsoluto.getFitness() < bestFitnessReg.get(currentIter-10)*1.001){
 					irradiating = true;
 				}
 			}
@@ -328,7 +328,7 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 		}
 		
 		if(irradiarActivado){
-			irradiateFunct = new IntercambioAgresivo(0.95);
+			irradiateFunct = new IntercambioAgresivo(0.75);
 		}
 
 	}
