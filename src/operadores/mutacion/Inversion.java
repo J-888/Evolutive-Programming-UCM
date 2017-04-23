@@ -13,6 +13,9 @@ public class Inversion extends FuncionMutacion {
 
 	@Override
 	public void mutarInd(Individuo ind) {
+		
+		this.contador++;
+
 		Cromosoma c = ind.getCromosoma();
 		
 		if(c.getTipo() == TipoCromosoma.PERMINT){

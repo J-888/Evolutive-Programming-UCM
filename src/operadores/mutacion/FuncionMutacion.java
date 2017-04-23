@@ -7,9 +7,11 @@ import operadores.fitness.FuncionFitness;
 public abstract class FuncionMutacion {
 	
 	protected double prob;
+	protected int contador;
 	protected FuncionFitness funFit;
 	
 	public void setProb(double prob){
+		this.contador = 0;
 		this.prob = prob;
 	}
 	
@@ -27,6 +29,10 @@ public abstract class FuncionMutacion {
 
 	public void setFuncionFitness(FuncionFitness fitness) {
 		this.funFit = fitness;
+	}
+	
+	public int getCounter(){
+		return contador;
 	}
 	
 	public abstract void mutarInd(Individuo ind);

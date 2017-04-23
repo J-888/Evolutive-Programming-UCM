@@ -9,14 +9,19 @@ import util.Utiles;
 public abstract class FuncionCruce {
 
 	protected double prob;
+	protected int contador;
 	protected FuncionFitness funFit;
 	
 	public void setProb(double prob){
+		this.contador = 0;
 		this.prob = prob;
 	}
 		
 	public Par<Individuo> cruzar(Par<Individuo> padres) {
 		if (prob > Utiles.randomDouble01()){
+			
+			this.contador++;
+
 			Individuo padre1 = padres.getN1();
 			Individuo padre2 = padres.getN2();
 			
@@ -33,6 +38,10 @@ public abstract class FuncionCruce {
 	
 	public void setFuncionFitness(FuncionFitness fitness) {
 		this.funFit = fitness;
+	}
+	
+	public int getCounter(){
+		return contador;
 	}
 	
 	protected abstract Par<Cromosoma> cruceCromosomas(Cromosoma p1, Cromosoma p2);

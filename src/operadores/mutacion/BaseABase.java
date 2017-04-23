@@ -15,6 +15,8 @@ public class BaseABase extends FuncionMutacion {
 
 	public void mutarInd(Individuo ind){
 		
+		this.contador++;
+		
 		Cromosoma c = ind.getCromosoma();
 		
 		if(c.getTipo() == TipoCromosoma.BIN){

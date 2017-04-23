@@ -114,7 +114,13 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 				currentIter++;
 			}
 		}
-
+		
+		System.out.println("Número de cruces realizados: " + funcCruz.getCounter());
+		System.out.println("Número de mutaciones realizadas: " + funcMuta.getCounter());
+		if(invEspActivada)
+			System.out.println("Número de inversiones especiales realizadas: " + invEspecial.getCounter());
+		System.out.println();
+		
 		return mejorAbsoluto;
 	}
 	
