@@ -46,7 +46,7 @@ public class Insercion extends FuncionMutacion {
 
 	@Override
 	public String toString() {
-		return "Insercion";
+		return "Inserción";
 	}
 
 }
