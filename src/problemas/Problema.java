@@ -54,6 +54,8 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 	protected boolean irradiarActivado;
 	protected boolean irradiating;
 	protected ArrayList<Double> bestFitnessReg;
+	
+	protected boolean debug = false;
 
 	public Problema(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1,
 			int numGenerations, int tamPob, int rangoSize, JFrame guiExt) {
@@ -76,7 +78,7 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 		this.escalado = this.gui.getEscalado();
 		this.contracString = this.gui.getContractividad();
 		
-		cheapMutations(this.gui);
+		cheapMutations();
 
 		this.irradiating = false;
 		this.stop = false;
@@ -115,11 +117,13 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 			}
 		}
 		
-		System.out.println("Número de cruces realizados: " + funcCruz.getCounter());
-		System.out.println("Número de mutaciones realizadas: " + funcMuta.getCounter());
-		if(invEspActivada)
-			System.out.println("Número de inversiones especiales realizadas: " + invEspecial.getCounter());
-		System.out.println();
+		if(this.debug) {
+			System.out.println("Número de cruces realizados: " + funcCruz.getCounter());
+			System.out.println("Número de mutaciones realizadas: " + funcMuta.getCounter());
+			if(invEspActivada)
+				System.out.println("Número de inversiones especiales realizadas: " + invEspecial.getCounter());
+			System.out.println();
+		}
 		
 		return mejorAbsoluto;
 	}
@@ -178,7 +182,7 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 	
 	
 	private void pintarGrafica(int currentIter){
-		if (gui != null) gui.getChartPanel().update(currentIter, mejorIndividuo.getFitness(), peorIndividuo.getFitness(), pobAvgFitness, mejorAbsoluto.getFitness());
+		gui.getChartPanel().update(currentIter, mejorIndividuo.getFitness(), peorIndividuo.getFitness(), pobAvgFitness, mejorAbsoluto.getFitness());
 		
 		/*UNCOMMENT FOR SELECTIVE PRESSURE DEBUG*/
 		//System.out.println(this.mejorAbsoluto.getFitnessAdaptado() / this.mejorPeorAvg.get(2).getFitnessAdaptado());	//Adapt SP
@@ -314,7 +318,7 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 			return singularFact(tamPobTwo, cromPosibles *= rangoRestante, rangoRestante - 1);
 	}
 	
-	private void cheapMutations(GUI gui) {
+	private void cheapMutations() {
 		this.invEspActivada = this.gui.getInvEspecial();
 		this.irradiarActivado = this.gui.getIrradiate();
 		
