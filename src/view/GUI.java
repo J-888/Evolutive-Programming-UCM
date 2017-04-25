@@ -72,7 +72,7 @@ public class GUI extends JFrame{
 	private FuncionCruce[] crossoverOptionsPermInt = {new PMX(), new OX(), new OXPosPrio(), new OXOrdenPrio(), new CX(), new ERX(), new Monopunto(), new Multipunto(2), new Multipunto(3), new Uniforme(), new SX(), new OPX()};
 	private FuncionMutacion[] mutationOptionsBin = {new BaseABase()}; 
 	private FuncionMutacion[] mutationOptionsReal = {new BaseABase()}; 
-	private FuncionMutacion[] mutationOptionsPermInt = {new Inversion(), new Intercambio(), new IntercambioAgresivo(0.2), new Insercion(), new Heuristica(3)}; 
+	private FuncionMutacion[] mutationOptionsPermInt = {new Inversion(), new Intercambio(), new IntercambioAgresivo(0.2), new Insercion(), new Heuristica(5)}; 
 	private JComboBox<String> problemCombobox;
 	private JComboBox<String> contractividadCombobox; 
 	private GraficaPanel chartPanel;
@@ -176,6 +176,7 @@ public class GUI extends JFrame{
 		tricksPanel.add(invEspecialCheckBox);
 		
 		irradiateCheckBox = new JCheckBox("Irradiar");
+		irradiateCheckBox.setMaximumSize(new Dimension(111, 23));
 		irradiateCheckBox.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		tricksPanel.add(irradiateCheckBox);
 
