@@ -5,9 +5,9 @@ import java.util.TreeSet;
 import javax.swing.JFrame;
 
 import datos.DatosMatrices;
-import geneticos.CromosomaPermInt;
-import geneticos.Individuo;
+import geneticos.IndividuoStd;
 import geneticos.TipoCromosoma;
+import geneticos.cromosomas.CromosomaPermInt;
 import operadores.cruce.FuncionCruce;
 import operadores.fitness.FitnessPr2;
 import operadores.mutacion.FuncionMutacion;
@@ -45,7 +45,7 @@ public class Pr2tai100a extends Problema {
 				
 				if(!mapping.contains(newCromo)){
 					mapping.add(newCromo);
-					Individuo newInd = new Individuo(newCromo);
+					IndividuoStd newInd = new IndividuoStd(newCromo);
 					poblacion.add(newInd);
 					i++;
 				}
@@ -57,7 +57,7 @@ public class Pr2tai100a extends Problema {
 			for (int i = 0; i < tamPob; i++) {
 				CromosomaPermInt newCromo = new CromosomaPermInt(rangoVar, TipoCromosoma.PERMINT);
 				newCromo.randomizeCromosome(tolerancia);
-				Individuo newInd = new Individuo(newCromo);
+				IndividuoStd newInd = new IndividuoStd(newCromo);
 				poblacion.add(newInd);	
 			}
 		}

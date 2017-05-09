@@ -2,18 +2,22 @@ package operadores.cruce;
 
 import java.util.ArrayList;
 
-import geneticos.Cromosoma;
 import geneticos.Gen;
 import geneticos.GenInt;
+import geneticos.cromosomas.Cromosoma;
+import geneticos.cromosomas.CromosomaStd;
 import util.Par;
 import util.Utiles;
 
 public class PMX extends FuncionCruce {
 
 	@Override
-	protected Par<Cromosoma> cruceCromosomas(Cromosoma p1, Cromosoma p2) {
-		Cromosoma h1 = p1.clone();
-		Cromosoma h2 = p2.clone();
+	protected Par<Cromosoma> cruceCromosomas(Cromosoma pp1, Cromosoma pp2) {
+		CromosomaStd p1 = (CromosomaStd) pp1;
+		CromosomaStd p2 = (CromosomaStd) pp2;
+		
+		CromosomaStd h1 = p1.clone();
+		CromosomaStd h2 = p2.clone();
 		
 		ArrayList<Gen> genesH1 = h1.getGenes();
 		ArrayList<Gen> genesH2 = h2.getGenes();

@@ -1,11 +1,15 @@
-package geneticos;
+package geneticos.cromosomas;
+
+import geneticos.Gen;
+import geneticos.GenInt;
+import geneticos.TipoCromosoma;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 import util.Par;
 
-public class CromosomaPermInt extends Cromosoma implements Comparable{
+public class CromosomaPermInt extends CromosomaStd implements Comparable{
 
 	public CromosomaPermInt (ArrayList<Par<Double>> rango, TipoCromosoma tipo){
 		this.tipo = tipo;
@@ -42,8 +46,8 @@ public class CromosomaPermInt extends Cromosoma implements Comparable{
 		
 	}
 
-	public Cromosoma clone() {
-		Cromosoma nuevo = new CromosomaPermInt(rango, tipo);
+	public CromosomaStd clone() {
+		CromosomaStd nuevo = new CromosomaPermInt(rango, tipo);
 		ArrayList<Gen> nuevosGenes = new ArrayList<Gen>(this.genes.size());
 		for(int i = 0; i < genes.size(); i++){
 			nuevosGenes.add(genes.get(i).clone());

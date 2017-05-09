@@ -5,9 +5,9 @@ import java.util.List;
 
 import util.Par;
 import datos.DatosMatrices;
-import geneticos.CromosomaPermInt;
 import geneticos.Individuo;
 import geneticos.TipoCromosoma;
+import geneticos.cromosomas.CromosomaPermInt;
 
 public class FitnessPr2 extends FuncionFitness {
 

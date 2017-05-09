@@ -1,6 +1,7 @@
 package util;
 
 import geneticos.Individuo;
+import geneticos.IndividuoStd;
 import operadores.cruce.Aritmetico;
 import operadores.cruce.FuncionCruce;
 import operadores.cruce.Monopunto;
@@ -262,7 +263,7 @@ public class Tester {
 			avgFitness += bestFound.getFitness();
 			if(this.verbose)
 				
-				System.out.println("individuo " + bestFound.toStringShort());
+				System.out.println("individuo " + ((IndividuoStd) bestFound).toStringShort());
 				System.out.println("fitness " + bestFound.getFitness());
 				System.out.println();
 				

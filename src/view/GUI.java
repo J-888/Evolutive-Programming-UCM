@@ -12,6 +12,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import geneticos.Individuo;
+import geneticos.IndividuoStd;
 import geneticos.TipoCromosoma;
 
 import javax.swing.JFrame;
@@ -57,9 +58,13 @@ import view.ConfigPanel.IntegerOption;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Component;
+
 import javax.swing.JSeparator;
+
 import java.awt.Dimension;
+
 import javax.swing.Box;
+
 import java.awt.SystemColor;
 
 public class GUI extends JFrame{
@@ -333,18 +338,18 @@ public class GUI extends JFrame{
 		
 	}
 	
-	public void onExecutionDone(Individuo bestFound) {
+	public void onExecutionDone(Individuo mejorAbsoluto) {
 		String messIntro = "";
 		String mess = "";
 		String messGenes = "";
 		if(optimo != null)
 			messIntro += ("Fitness óptimo del problema: " + optimo + "\n");
-		messIntro += ("Mejor fitness encontrado: " + bestFound.getFitness() + "\n");
+		messIntro += ("Mejor fitness encontrado: " + mejorAbsoluto.getFitness() + "\n");
 		messIntro += ("Con los siguientes genes: \n");
-		for(int i = 0; i < bestFound.getFenotipo().size(); i++){
-			mess += ("Gen #" + i + ": " + bestFound.getFenotipo().get(i) + "\n");
-			messGenes += ("Gen#" + i + ":" + bestFound.getFenotipo().get(i));
-			if(i != bestFound.getFenotipo().size()-1)
+		for(int i = 0; i < mejorAbsoluto.getFenotipo().size(); i++){
+			mess += ("Gen #" + i + ": " + mejorAbsoluto.getFenotipo().get(i) + "\n");
+			messGenes += ("Gen#" + i + ":" + mejorAbsoluto.getFenotipo().get(i));
+			if(i != mejorAbsoluto.getFenotipo().size()-1)
 				messGenes += ",\t";
 		}
 		System.out.println(messIntro + mess);
@@ -357,11 +362,11 @@ public class GUI extends JFrame{
 			JLabel popUpLabel0 = new JLabel("Fitness óptimo del problema: " + optimo);
 			popUp.add(popUpLabel0);
 		}
-		JLabel popUpLabel1 = new JLabel("Mejor fitness encontrado: " + bestFound.getFitness());
+		JLabel popUpLabel1 = new JLabel("Mejor fitness encontrado: " + mejorAbsoluto.getFitness());
 		JLabel popUpLabel2 = new JLabel( "Con los siguientes genes:");
 		popUp.add(popUpLabel1);
 		popUp.add(popUpLabel2);
-		int linesToDisplay = Math.min(4, bestFound.getFenotipo().size()) + 1;
+		int linesToDisplay = Math.min(4, mejorAbsoluto.getFenotipo().size()) + 1;
 		JTextArea popUpTextArea = new JTextArea(mess.substring(0, mess.length()-1), linesToDisplay, 2);
 		popUpTextArea.setEditable(false);
 		JScrollPane popUpScroll = new JScrollPane(popUpTextArea);

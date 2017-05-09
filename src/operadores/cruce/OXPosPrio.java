@@ -4,18 +4,21 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.TreeSet;
 
-import geneticos.Cromosoma;
 import geneticos.Gen;
+import geneticos.cromosomas.Cromosoma;
+import geneticos.cromosomas.CromosomaStd;
 import util.Par;
 import util.Utiles;
 
 public class OXPosPrio extends FuncionCruce {
 
 	@Override
-	protected Par<Cromosoma> cruceCromosomas(Cromosoma p1, Cromosoma p2) {
+	protected Par<Cromosoma> cruceCromosomas(Cromosoma pp1, Cromosoma pp2) {
+		CromosomaStd p1 = (CromosomaStd) pp1;
+		CromosomaStd p2 = (CromosomaStd) pp2;
 		
-		Cromosoma h1 = p1.clone();
-		Cromosoma h2 = p2.clone();
+		CromosomaStd h1 = p1.clone();
+		CromosomaStd h2 = p2.clone();
 
 		ArrayList<Gen> genesH1 = h1.getGenes();
 		ArrayList<Gen> genesH2 = h2.getGenes();

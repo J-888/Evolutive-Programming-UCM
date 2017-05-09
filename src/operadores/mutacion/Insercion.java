@@ -1,8 +1,9 @@
 package operadores.mutacion;
 
-import geneticos.Cromosoma;
 import geneticos.Individuo;
+import geneticos.IndividuoStd;
 import geneticos.TipoCromosoma;
+import geneticos.cromosomas.CromosomaStd;
 import util.Utiles;
 
 public class Insercion extends FuncionMutacion {
@@ -12,7 +13,7 @@ public class Insercion extends FuncionMutacion {
 		
 		this.contador++;
 
-		Cromosoma c = ind.getCromosoma();
+		CromosomaStd c = (CromosomaStd) ind.getCromosoma();
 		
 		if(c.getTipo() == TipoCromosoma.PERMINT){
 			int genToInsertLocation, insertLocation = -1;

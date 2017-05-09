@@ -1,23 +1,15 @@
 package geneticos;
 
+import geneticos.cromosomas.Cromosoma;
+import geneticos.cromosomas.CromosomaStd;
+
 import java.util.ArrayList;
 
-public class Individuo implements Comparable<Individuo> {
-
-	private Cromosoma cromosoma;
-	private double fitness;
-	private double fitnessAdaptado;
-	private double fitnessEscalado;
-	private ArrayList<?> fenotipo;
-	
-	public Individuo(Cromosoma c){
-		cromosoma = c;
-		fenotipo = cromosoma.toFenotipo();
-	}
-	
-	public Individuo(){
-
-	}
+public abstract class Individuo implements Comparable<Individuo> {
+	protected double fitness;
+	protected double fitnessAdaptado;
+	protected double fitnessEscalado;
+	protected ArrayList<?> fenotipo;
 	
 	public double getFitness() {
 		return fitness;
@@ -30,18 +22,7 @@ public class Individuo implements Comparable<Individuo> {
 	public ArrayList<?> getFenotipo() {
 		return fenotipo;
 	}
-
-	public int compareTo(Individuo o) {
-		if(fitnessAdaptado == 0 && o.fitnessAdaptado == 0)	//fitness adaptado sin rellenar
-			return Double.compare(fitness, o.fitness);
-		else
-			return Double.compare(fitnessAdaptado, o.fitnessAdaptado);
-	}
 	
-	public Cromosoma getCromosoma() {
-		return cromosoma;
-	}
-
 	public double getFitnessAdaptado() {
 		return fitnessAdaptado;
 	}
@@ -58,46 +39,14 @@ public class Individuo implements Comparable<Individuo> {
 		this.fitnessEscalado = fitnessEscalado;
 	}
 	
-	public Individuo clone(){
-		Individuo nuevo = new Individuo(cromosoma.clone());
-		nuevo.setFitness(fitness);
-		nuevo.setFitnessAdaptado(fitnessAdaptado);
-		nuevo.setFitnessEscalado(fitnessEscalado);
-		return nuevo;
+	public int compareTo(Individuo o) {
+		if(fitnessAdaptado == 0 && o.fitnessAdaptado == 0)	//fitness adaptado sin rellenar
+			return Double.compare(fitness, o.fitness);
+		else
+			return Double.compare(fitnessAdaptado, o.fitnessAdaptado);
 	}
 	
-	public void updateFenotipo(){
-		fenotipo = cromosoma.toFenotipo();
-	}
-	
-	public String toString() {
-		String res = "";
-		for(int i = 0; i < getFenotipo().size(); i++){
-			res += ("Gen#" + i + ":" + getFenotipo().get(i));
-			if(i != getFenotipo().size()-1)
-				res += ", ";
-		}
-		return res;
-	}
-	
-	public String toStringShort() {
-		String res = "";
-		for(int i = 0; i < getFenotipo().size(); i++){
-			res += (getFenotipo().get(i));
-			if(i != getFenotipo().size()-1)
-				res += " ";
-		}
-		return res;
-	}
-	
-	public String toStringTabla() {
-		String res = "";
-		for(int i = 0; i < getFenotipo().size(); i++){
-			res += (getFenotipo().get(i));
-			if(i != getFenotipo().size()-1)
-				res += " ";
-		}
-		return res;
-	}
-	
+	public abstract Cromosoma getCromosoma();
+	public abstract Individuo clone();
+	public abstract void updateFenotipo();
 }

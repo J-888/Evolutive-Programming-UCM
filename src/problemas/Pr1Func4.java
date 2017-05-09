@@ -1,8 +1,8 @@
 package problemas;
 
-import geneticos.CromosomaBin;
-import geneticos.Individuo;
+import geneticos.IndividuoStd;
 import geneticos.TipoCromosoma;
+import geneticos.cromosomas.CromosomaBin;
 
 import java.util.ArrayList;
 
@@ -38,7 +38,7 @@ public class Pr1Func4 extends Problema{
 		for (int i = 0; i < tamPob; i++) {
 			CromosomaBin newCromo = new CromosomaBin(rangoVar, TipoCromosoma.BIN);
 			newCromo.randomizeCromosome(tolerancia);
-			Individuo newInd = new Individuo(newCromo);
+			IndividuoStd newInd = new IndividuoStd(newCromo);
 			poblacion.add(newInd);		
 		}
 	}

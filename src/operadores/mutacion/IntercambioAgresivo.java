@@ -1,8 +1,9 @@
 package operadores.mutacion;
 
-import geneticos.Cromosoma;
 import geneticos.Individuo;
+import geneticos.IndividuoStd;
 import geneticos.TipoCromosoma;
+import geneticos.cromosomas.CromosomaStd;
 import util.Utiles;
 
 //Función basada en la teoría de que para que un individuo mejore y por lo tanto tenga mas oportunidades de ser
@@ -22,7 +23,7 @@ public class IntercambioAgresivo extends FuncionMutacion {
 		
 		this.contador++;
 
-		Cromosoma c = ind.getCromosoma();
+		CromosomaStd c = (CromosomaStd) ind.getCromosoma();
 		
 		if(c.getTipo() == TipoCromosoma.PERMINT){
 			int tamCrom = c.getGenes().size();
@@ -46,7 +47,7 @@ public class IntercambioAgresivo extends FuncionMutacion {
 		return "Intercambio agresivo";
 	}
 	
-	private void intercambiar(Cromosoma c){
+	private void intercambiar(CromosomaStd c){
 		int pInterc1, pInterc2 = -1;
 		int tamCrom = c.getGenes().size();
 		pInterc1 = Utiles.randomIntNO()%(tamCrom);

@@ -1,11 +1,16 @@
-package geneticos;
+package geneticos.cromosomas;
+
+import geneticos.Gen;
+import geneticos.GenBin;
+import geneticos.TipoCromosoma;
 
 import java.util.ArrayList;
+
 import util.Par;
 import util.Utiles;
 
 
-public class CromosomaBin extends Cromosoma {
+public class CromosomaBin extends CromosomaStd {
 	
 	public CromosomaBin(ArrayList<Par<Double>> rango, TipoCromosoma tipo){
 		this.tipo = tipo;
@@ -36,8 +41,8 @@ public class CromosomaBin extends Cromosoma {
 		
 	}
 	
-	public Cromosoma clone(){
-		Cromosoma nuevo = new CromosomaBin(rango, tipo);
+	public CromosomaStd clone(){
+		CromosomaStd nuevo = new CromosomaBin(rango, tipo);
 		ArrayList<Gen> nuevosGenes = new ArrayList<Gen>(this.genes.size());
 		for(int i = 0; i < genes.size(); i++){
 			nuevosGenes.add(genes.get(i).clone());

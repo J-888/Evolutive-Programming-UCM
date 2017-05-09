@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.TreeSet;
 
-import geneticos.Cromosoma;
 import geneticos.Individuo;
+import geneticos.IndividuoStd;
 import geneticos.TipoCromosoma;
+import geneticos.cromosomas.CromosomaStd;
 import util.Utiles;
 
 public class Heuristica extends FuncionMutacion {
@@ -24,7 +25,7 @@ public class Heuristica extends FuncionMutacion {
 		
 		this.contador++;
 		
-		Cromosoma c = ind.getCromosoma();
+		CromosomaStd c = (CromosomaStd) ind.getCromosoma();
 		
 		if(c.getTipo() == TipoCromosoma.PERMINT){
 			
@@ -43,9 +44,9 @@ public class Heuristica extends FuncionMutacion {
 			}
 			
 			ArrayList<ArrayList<Integer>> permutations = generatePermutations(posibleBases);
-			ArrayList<Individuo> individuos = generateIndividuos(mutationLocations, permutations, ind);
+			ArrayList<Individuo> individuos = generateIndividuos(mutationLocations, permutations, (IndividuoStd)ind);
 
-			ind.getCromosoma().setGenes(this.funFit.evaluate(individuos).get(0).getCromosoma().getGenes());	 //Inserta al original los genes del mejor individuo obtenido
+			((CromosomaStd) ind.getCromosoma()).setGenes(((CromosomaStd) this.funFit.evaluate(individuos).get(0).getCromosoma()).getGenes());	 //Inserta al original los genes del mejor individuo obtenido
 
 		}
 		else{
@@ -75,11 +76,11 @@ public class Heuristica extends FuncionMutacion {
 		}
 	}
 	
-	private ArrayList<Individuo> generateIndividuos(ArrayList<Integer> mutationLocations, ArrayList<ArrayList<Integer>> permutations, Individuo orig) {
+	private ArrayList<Individuo> generateIndividuos(ArrayList<Integer> mutationLocations, ArrayList<ArrayList<Integer>> permutations, IndividuoStd orig) {
 		ArrayList<Individuo> result = new ArrayList<>(nPermutations);
 		
 		for (int i = 0; i < permutations.size(); i++) {	//crea nPermutations Individuos
-			Individuo ind = orig.clone();
+			IndividuoStd ind = orig.clone();
 			for (int j = 0; j < permutations.get(i).size(); j++) {	//modifica el individuo a cada permutacion
 				int location = mutationLocations.get(j);
 				int value = permutations.get(i).get(j);

@@ -1,6 +1,7 @@
 package problemas;
 
 import geneticos.Individuo;
+import geneticos.IndividuoStd;
 import geneticos.Poblacion;
 
 import java.util.ArrayList;
@@ -248,7 +249,7 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 	}
 
 	private void initGraphInds() {
-		mejorAbsoluto = new Individuo();
+		mejorAbsoluto = new IndividuoStd();
 		if (minimizacion)
 			mejorAbsoluto.setFitness(Double.MAX_VALUE);
 		else

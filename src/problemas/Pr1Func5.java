@@ -2,10 +2,9 @@ package problemas;
 
 import javax.swing.JFrame;
 
-import geneticos.CromosomaBin;
-import geneticos.Individuo;
+import geneticos.IndividuoStd;
 import geneticos.TipoCromosoma;
-
+import geneticos.cromosomas.CromosomaBin;
 import operadores.cruce.FuncionCruce;
 import operadores.fitness.FitnessPr1Func5;
 import operadores.mutacion.FuncionMutacion;
@@ -32,7 +31,7 @@ public class Pr1Func5 extends Problema{
 		for (int i = 0; i < tamPob; i++) {
 			CromosomaBin newCromo = new CromosomaBin(rangoVar, TipoCromosoma.BIN);
 			newCromo.randomizeCromosome(tolerancia);
-			Individuo newInd = new Individuo(newCromo);
+			IndividuoStd newInd = new IndividuoStd(newCromo);
 			poblacion.add(newInd);		
 		}
 	}

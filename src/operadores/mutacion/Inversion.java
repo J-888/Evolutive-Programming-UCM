@@ -4,10 +4,11 @@ import java.util.ArrayList;
 
 import util.Par;
 import util.Utiles;
-import geneticos.Cromosoma;
 import geneticos.Gen;
 import geneticos.Individuo;
+import geneticos.IndividuoStd;
 import geneticos.TipoCromosoma;
+import geneticos.cromosomas.CromosomaStd;
 
 public class Inversion extends FuncionMutacion {
 
@@ -16,7 +17,7 @@ public class Inversion extends FuncionMutacion {
 		
 		this.contador++;
 
-		Cromosoma c = ind.getCromosoma();
+		CromosomaStd c = (CromosomaStd) ind.getCromosoma();
 		
 		if(c.getTipo() == TipoCromosoma.PERMINT){
 			int pCorte1, pCorte2 = -1;

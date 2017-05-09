@@ -1,7 +1,10 @@
 package operadores.fitness;
 
 import java.util.ArrayList;
+
 import geneticos.Individuo;
+import geneticos.IndividuoStd;
+import geneticos.cromosomas.CromosomaStd;
 
 public abstract class FuncionFitness {
 	
@@ -48,7 +51,7 @@ public abstract class FuncionFitness {
 		ArrayList<Individuo> ret = new ArrayList<Individuo>(3);
 		ret.add(mejor);
 		ret.add(peor);
-		Individuo fake = new Individuo();
+		Individuo fake = new IndividuoStd();
 		fake.setFitness(avgFitness/(double)poblacion.size());
 		ret.add(fake);
 		
@@ -56,6 +59,5 @@ public abstract class FuncionFitness {
 	}
 
 	public abstract void evaluate(Individuo ind);	
-
 
 }

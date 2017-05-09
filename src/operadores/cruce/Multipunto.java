@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.TreeSet;
 
-import geneticos.Cromosoma;
-import geneticos.CromosomaPermInt;
-import geneticos.CromosomaReal;
 import geneticos.Gen;
 import geneticos.TipoCromosoma;
+import geneticos.cromosomas.Cromosoma;
+import geneticos.cromosomas.CromosomaPermInt;
+import geneticos.cromosomas.CromosomaReal;
+import geneticos.cromosomas.CromosomaStd;
 import util.Par;
 import util.Utiles;
 
@@ -20,7 +21,10 @@ public class Multipunto extends FuncionCruce{
 		this.nPuntos = np;
 	}
 
-	protected Par<Cromosoma> cruceCromosomas(Cromosoma p1, Cromosoma p2) {
+	protected Par<Cromosoma> cruceCromosomas(Cromosoma pp1, Cromosoma pp2) {
+		CromosomaStd p1 = (CromosomaStd) pp1;
+		CromosomaStd p2 = (CromosomaStd) pp2;
+		
 		int totalLenght = 0;
 		
 		ArrayList<Gen> genesp1 = p1.getGenes();

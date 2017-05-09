@@ -11,9 +11,9 @@ import operadores.mutacion.FuncionMutacion;
 import operadores.seleccion.FuncionSeleccion;
 import util.Par;
 import view.GraficaPanel;
-import geneticos.CromosomaPermInt;
-import geneticos.Individuo;
+import geneticos.IndividuoStd;
 import geneticos.TipoCromosoma;
+import geneticos.cromosomas.CromosomaPermInt;
 
 public class Pr2Datos30 extends Problema {
 	
@@ -45,7 +45,7 @@ public class Pr2Datos30 extends Problema {
 				
 				if(!mapping.contains(newCromo)){
 					mapping.add(newCromo);
-					Individuo newInd = new Individuo(newCromo);
+					IndividuoStd newInd = new IndividuoStd(newCromo);
 					poblacion.add(newInd);
 					i++;
 				}
@@ -57,7 +57,7 @@ public class Pr2Datos30 extends Problema {
 			for (int i = 0; i < tamPob; i++) {
 				CromosomaPermInt newCromo = new CromosomaPermInt(rangoVar, TipoCromosoma.PERMINT);
 				newCromo.randomizeCromosome(tolerancia);
-				Individuo newInd = new Individuo(newCromo);
+				IndividuoStd newInd = new IndividuoStd(newCromo);
 				poblacion.add(newInd);	
 			}
 		}

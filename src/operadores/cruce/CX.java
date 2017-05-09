@@ -2,15 +2,17 @@ package operadores.cruce;
 
 import java.util.ArrayList;
 
-import geneticos.Cromosoma;
+import geneticos.cromosomas.Cromosoma;
+import geneticos.cromosomas.CromosomaStd;
 import util.Par;
 import util.Utiles;
 
 public class CX extends FuncionCruce {
 
 	@Override
-	protected Par<Cromosoma> cruceCromosomas(Cromosoma p1, Cromosoma p2) {
-		
+	protected Par<Cromosoma> cruceCromosomas(Cromosoma pp1, Cromosoma pp2) {
+		CromosomaStd p1 = (CromosomaStd) pp1;
+		CromosomaStd p2 = (CromosomaStd) pp2;
 		ArrayList<Boolean> exchangeBases = new ArrayList<>(p1.getGenes().size());
 		ArrayList<Integer> remainingLocations = new ArrayList<>(p1.getGenes().size());
 		int exchangeNum = 0;
@@ -30,7 +32,7 @@ public class CX extends FuncionCruce {
 		return Utiles.exchangeBases(exchangeBases, exchangeNum, p1, p2);
 	}
 	
-	private int findCycle(int startIndex, ArrayList<Boolean> exchangeBases, ArrayList<Integer> remainingLocations, boolean currentCycleChildren, Cromosoma p1, Cromosoma p2) {
+	private int findCycle(int startIndex, ArrayList<Boolean> exchangeBases, ArrayList<Integer> remainingLocations, boolean currentCycleChildren, CromosomaStd p1, CromosomaStd p2) {
 		
 		int currentIndex = startIndex;
 		
@@ -47,7 +49,7 @@ public class CX extends FuncionCruce {
 			return -1;
 	}
 		
-	private int searchInRemaningLocations(Object p2base, Cromosoma p1, ArrayList<Integer> remainingLocations) {
+	private int searchInRemaningLocations(Object p2base, CromosomaStd p1, ArrayList<Integer> remainingLocations) {
 		for(int i = 0; i < remainingLocations.size(); i++) {
 			int location = remainingLocations.get(i);
 			if(p1.getGenes().get(location).getBases().get(0).equals(p2base))

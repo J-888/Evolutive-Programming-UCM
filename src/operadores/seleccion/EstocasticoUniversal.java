@@ -1,8 +1,11 @@
 package operadores.seleccion;
 
 import geneticos.Individuo;
+import geneticos.IndividuoStd;
+
 import java.util.ArrayList;
 import java.util.Collections;
+
 import util.Utiles;
 
 public class EstocasticoUniversal extends FuncionSeleccion {

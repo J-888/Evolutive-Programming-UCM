@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import geneticos.Cromosoma;
 import geneticos.Individuo;
+import geneticos.IndividuoStd;
 import geneticos.TipoCromosoma;
+import geneticos.cromosomas.Cromosoma;
+import geneticos.cromosomas.CromosomaStd;
 import util.Par;
 
 /*
@@ -23,7 +25,9 @@ public class OPX extends FuncionCruce {
 	private FuncionCruce[] current;
 	
 	@Override
-	protected Par<Cromosoma> cruceCromosomas(Cromosoma p1, Cromosoma p2) {
+	protected Par<Cromosoma> cruceCromosomas(Cromosoma pp1, Cromosoma pp2) {
+		CromosomaStd p1 = (CromosomaStd) pp1;
+		CromosomaStd p2 = (CromosomaStd) pp2;
 		
 		if(p1.getTipo() == TipoCromosoma.BIN || p2.getTipo() == TipoCromosoma.BIN)	//redundante
 			current = crossoverOptionsBin;
@@ -40,22 +44,22 @@ public class OPX extends FuncionCruce {
 		
 		for (int i = 0; i < current.length; i++) {
 			Par<Cromosoma> cromInd = current[i].cruceCromosomas(p1, p2);
-			Individuo child1 = new Individuo(cromInd.getN1());
-			Individuo child2 = new Individuo(cromInd.getN2());
+			IndividuoStd child1 = new IndividuoStd((CromosomaStd)cromInd.getN1());
+			IndividuoStd child2 = new IndividuoStd((CromosomaStd)cromInd.getN2());
 			children.add(child1);
 			children.add(child2);
 		}
 
 		
-		Individuo h1 = this.funFit.evaluate(children).get(0);	 //el mejor individuo obtenido
-		Individuo h2;	//segundo mejor individuo
+		IndividuoStd h1 = (IndividuoStd) this.funFit.evaluate(children).get(0);	 //el mejor individuo obtenido
+		IndividuoStd h2;	//segundo mejor individuo
 				
 		Collections.sort(children);
 		
 		if(h1.getFitness() == children.get(0).getFitness())	//ordenado de mejor a peor
-			h2 = children.get(1);
+			h2 = (IndividuoStd) children.get(1);
 		else
-			h2 = children.get(children.size()-1);
+			h2 = (IndividuoStd) children.get(children.size()-1);
 		
 		return new Par<Cromosoma>(h1.getCromosoma().clone(), h2.getCromosoma().clone());
 	}

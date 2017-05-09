@@ -1,6 +1,7 @@
 package operadores.mutacion;
 
 import java.util.ArrayList;
+
 import geneticos.Individuo;
 import operadores.fitness.FuncionFitness;
 

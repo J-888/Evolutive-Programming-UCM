@@ -2,15 +2,19 @@ package operadores.cruce;
 
 import java.util.ArrayList;
 
-import geneticos.Cromosoma;
 import geneticos.Gen;
 import geneticos.TipoCromosoma;
+import geneticos.cromosomas.Cromosoma;
+import geneticos.cromosomas.CromosomaStd;
 import util.Par;
 import util.Utiles;
 
 public class Uniforme extends FuncionCruce{
 
-	protected Par<Cromosoma> cruceCromosomas(Cromosoma p1, Cromosoma p2) {
+	protected Par<Cromosoma> cruceCromosomas(Cromosoma pp1, Cromosoma pp2) {
+		CromosomaStd p1 = (CromosomaStd) pp1;
+		CromosomaStd p2 = (CromosomaStd) pp2;
+		
 		int totalLenght = 0;
 		
 		ArrayList<Gen> genesp1 = p1.getGenes();

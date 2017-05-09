@@ -1,9 +1,14 @@
-package geneticos;
+package geneticos.cromosomas;
+
+import geneticos.Gen;
+import geneticos.GenReal;
+import geneticos.TipoCromosoma;
 
 import java.util.ArrayList;
+
 import util.Par;
 
-public class CromosomaReal extends Cromosoma {
+public class CromosomaReal extends CromosomaStd {
 	
 	public CromosomaReal(ArrayList<Par<Double>> rango, TipoCromosoma tipo){
 		this.tipo = tipo;
@@ -14,7 +19,7 @@ public class CromosomaReal extends Cromosoma {
 	public ArrayList<Double> toFenotipo() {
 		ArrayList<Double> fen = new ArrayList<Double>(genes.size());
 		for (int i = 0; i < genes.size(); i++) 
-			fen.add((double) genes.get(i).bases.get(0));
+			fen.add((double) genes.get(i).getBases().get(0));
 		
 		return fen;
 	}
@@ -29,8 +34,8 @@ public class CromosomaReal extends Cromosoma {
 		
 	}
 
-	public Cromosoma clone(){
-		Cromosoma nuevo = new CromosomaReal(rango, tipo);
+	public CromosomaStd clone(){
+		CromosomaStd nuevo = new CromosomaReal(rango, tipo);
 		ArrayList<Gen> nuevosGenes = new ArrayList<Gen>(this.genes.size());
 		for(int i = 0; i < genes.size(); i++){
 			nuevosGenes.add(genes.get(i).clone());

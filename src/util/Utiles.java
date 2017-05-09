@@ -3,11 +3,12 @@ package util;
 import java.util.ArrayList;
 import java.util.Random;
 
-import geneticos.Cromosoma;
-import geneticos.CromosomaPermInt;
 import geneticos.Gen;
 import geneticos.GenInt;
 import geneticos.TipoCromosoma;
+import geneticos.cromosomas.Cromosoma;
+import geneticos.cromosomas.CromosomaPermInt;
+import geneticos.cromosomas.CromosomaStd;
 import view.GUI;
 
 public class Utiles {
@@ -132,9 +133,9 @@ public class Utiles {
 		return decoded; 
 	}
 	
-	public static Par<Cromosoma> exchangeBases(ArrayList<Boolean> exchangeBases, int exchangeNum, Cromosoma p1, Cromosoma p2){
-		Cromosoma h1 = p1.clone();
-		Cromosoma h2 = p2.clone();
+	public static Par<Cromosoma> exchangeBases(ArrayList<Boolean> exchangeBases, int exchangeNum, CromosomaStd p1, CromosomaStd p2){
+		CromosomaStd h1 = p1.clone();
+		CromosomaStd h2 = p2.clone();
 		boolean exchangeOn = exchangeNum*2 <= exchangeBases.size();	//comprueba que requiere menos cambios, intercambiar todos los genes con exchangeBases true o false
 		int index = 0;
 		for (int i = 0; i < p1.getGenes().size(); i++) {
