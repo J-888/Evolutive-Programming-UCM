@@ -2,29 +2,31 @@ package geneticos;
 
 import geneticos.cromosomas.Cromosoma;
 import geneticos.cromosomas.CromosomaPG;
+import geneticos.cromosomas.CromosomaStd;
 
 public class IndividuoPG extends Individuo {
 
-	public IndividuoPG(CromosomaPG n1) {
-		// TODO Auto-generated constructor stub
+	private CromosomaPG cromosoma;
+	
+	public IndividuoPG(CromosomaPG c) {
+		cromosoma = c;
+		fenotipo = cromosoma.toFenotipo();
 	}
 
-	@Override
 	public Cromosoma getCromosoma() {
-		// TODO Auto-generated method stub
-		return null;
+		return cromosoma;
 	}
 
-	@Override
 	public Individuo clone() {
-		// TODO Auto-generated method stub
-		return null;
+		IndividuoPG nuevo = new IndividuoPG(cromosoma.clone());
+		nuevo.setFitness(fitness);
+		nuevo.setFitnessAdaptado(fitnessAdaptado);
+		nuevo.setFitnessEscalado(fitnessEscalado);
+		return nuevo;
 	}
 
-	@Override
 	public void updateFenotipo() {
-		// TODO Auto-generated method stub
-		
+		//No hace nada porque el fenotipo es igual al genotipo
 	}
 
 

@@ -14,10 +14,6 @@ public class IndividuoStd extends Individuo {
 	}
 	
 	public IndividuoStd(){}
-
-	public CromosomaStd getCromosoma() {
-		return cromosoma;
-	}
 	
 	public IndividuoStd clone(){
 		IndividuoStd nuevo = new IndividuoStd(cromosoma.clone());
@@ -61,4 +57,7 @@ public class IndividuoStd extends Individuo {
 		return res;
 	}
 	
+	public CromosomaStd getCromosoma() {
+		return cromosoma;
+	}
 }
