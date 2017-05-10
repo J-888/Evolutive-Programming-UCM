@@ -18,7 +18,7 @@ public class Pr3Mux4 extends Problema {
 		super(funcCruz, funcMuta, funcSelec, elite0to1, numGenerations, tamPob, 1, gui);
 		
 		this.minimizacion = false;
-		//this.funcFit = new FitnessPr3Mux4(this.minimizacion);
+		this.funcFit = new FitnessPr3MuxN(this.minimizacion);
 
 		this.funcCruz.setFuncionFitness(this.funcFit);
 		this.funcMuta.setFuncionFitness(this.funcFit);
