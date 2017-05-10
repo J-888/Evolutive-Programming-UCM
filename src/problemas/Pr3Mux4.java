@@ -1,15 +1,8 @@
 package problemas;
 
-import geneticos.IndividuoStd;
-import geneticos.TipoCromosoma;
-import geneticos.cromosomas.CromosomaPermInt;
-
-import java.util.TreeSet;
-
 import javax.swing.JFrame;
-
 import operadores.cruce.FuncionCruce;
-import operadores.fitness.FitnessPr2;
+import operadores.fitness.FitnessPr3MuxN;
 import operadores.mutacion.FuncionMutacion;
 import operadores.seleccion.FuncionSeleccion;
 
