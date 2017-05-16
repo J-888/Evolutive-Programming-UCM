@@ -1,6 +1,7 @@
 package util;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import geneticos.Gen;
@@ -189,6 +190,15 @@ public class Utiles {
 		CromosomaPermInt newCromo2 = new CromosomaPermInt(rangs, TipoCromosoma.PERMINT);
 		newCromo2.setGenes(Utiles.decodeOrdinal(newCromo1.getGenes()));
 		System.out.println("ya2");
+	}
+	
+	public static int array2int(List<Integer> selectSL){
+		int sum = 0;
+		
+		for(int i = 0; i < selectSL.size(); i++)
+			sum += selectSL.get(i)*(2^i);
+		
+		return sum;
 	}
 	
 }

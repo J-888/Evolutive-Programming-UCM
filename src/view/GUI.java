@@ -570,4 +570,12 @@ public class GUI extends JFrame{
 		return irradiateCheckBox.isSelected();
 	}
 	
+	public int getProfundidadMax() {
+		return 42;
+	}
+
+	public String getPobIniGenMethod() {
+		return "lolmethod";
+	}
+	
 }

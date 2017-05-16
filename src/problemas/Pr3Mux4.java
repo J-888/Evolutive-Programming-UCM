@@ -14,20 +14,21 @@ import operadores.mutacion.FuncionMutacion;
 import operadores.seleccion.FuncionSeleccion;
 import util.pg.Node;
 import util.pg.UtilesPG;
+import view.GUI;
 
 public class Pr3Mux4 extends Problema {
 	
 	String pobIniGenMethod = null;
 	int profundidadMax;
 	
-	public Pr3Mux4(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, JFrame gui){
+	public Pr3Mux4(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, GUI gui){
 		super(funcCruz, funcMuta, funcSelec, elite0to1, numGenerations, tamPob, 1, gui);
 		
-		//this.pobIniGenMethod = gui.getPobIniGenMethod();
-		//this.profundidadMax = gui.getProfundidadMax();
+		this.pobIniGenMethod = gui.getPobIniGenMethod();
+		this.profundidadMax = gui.getProfundidadMax();
 		
 		this.minimizacion = false;
-		this.funcFit = new FitnessPr3MuxN(this.minimizacion);
+		this.funcFit = new FitnessPr3MuxN(this.minimizacion, 4);
 
 		this.funcCruz.setFuncionFitness(this.funcFit);
 		this.funcMuta.setFuncionFitness(this.funcFit);
@@ -38,7 +39,7 @@ public class Pr3Mux4 extends Problema {
 		if(pobIniGenMethod.equals("Creciente")){
 			for (int i = 0; i < tamPob; i++) {
 				Node crecNode = UtilesPG.genNodeCreciente(profundidadMax);
-				CromosomaPG cromCrec = new CromosomaPG(crecNode);
+				CromosomaPG cromCrec = new CromosomaPG(crecNode, 4, profundidadMax);
 				IndividuoPG indCrec = new IndividuoPG(cromCrec);
 				poblacion.add(indCrec);
 			}
@@ -46,7 +47,7 @@ public class Pr3Mux4 extends Problema {
 		else if(pobIniGenMethod.equals("Completa")){
 			for (int i = 0; i < tamPob; i++) {
 				Node comNode = UtilesPG.genNodeCompleta(profundidadMax);
-				CromosomaPG cromCom = new CromosomaPG(comNode);
+				CromosomaPG cromCom = new CromosomaPG(comNode, 4, profundidadMax);
 				IndividuoPG indCom = new IndividuoPG(cromCom);
 				poblacion.add(indCom);
 			}
@@ -59,13 +60,13 @@ public class Pr3Mux4 extends Problema {
 				for (int j = 0; j < tamPob; j++) {
 					if (j%0 == 0){
 						Node crecNode = UtilesPG.genNodeCreciente(i+2);
-						CromosomaPG cromCrec = new CromosomaPG(crecNode);
+						CromosomaPG cromCrec = new CromosomaPG(crecNode, 4, profundidadMax);
 						IndividuoPG indCrec = new IndividuoPG(cromCrec);
 						poblacion.add(indCrec);
 					}		
 					else{
 						Node comNode = UtilesPG.genNodeCompleta(i+2);
-						CromosomaPG cromCom = new CromosomaPG(comNode);
+						CromosomaPG cromCom = new CromosomaPG(comNode, 4, profundidadMax);
 						IndividuoPG indCom = new IndividuoPG(cromCom);
 						poblacion.add(indCom);
 					}
