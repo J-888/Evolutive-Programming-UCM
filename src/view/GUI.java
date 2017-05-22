@@ -50,6 +50,7 @@ import operadores.seleccion.FuncionSeleccion;
 import operadores.seleccion.Ruleta;
 import operadores.seleccion.TorneoDeterminista;
 import problemas.*;
+import util.pg.TipoNodo;
 import view.ConfigPanel.ChoiceOption;
 import view.ConfigPanel.DoubleOption;
 import view.ConfigPanel.InnerOption;
@@ -66,6 +67,8 @@ import java.awt.Dimension;
 import javax.swing.Box;
 
 import java.awt.SystemColor;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GUI extends JFrame{
 
@@ -571,11 +574,29 @@ public class GUI extends JFrame{
 	}
 	
 	public int getProfundidadMax() {
-		return 42;
+		return 4;
 	}
 
 	public String getPobIniGenMethod() {
-		return "lolmethod";
+		return "RampedAndHalf";
+	}
+
+	public List<TipoNodo> getNTDisponibles() {
+		List<TipoNodo> ret = new ArrayList<TipoNodo>();
+		
+		ret.add(TipoNodo.AND);
+		ret.add(TipoNodo.NOT);
+		ret.add(TipoNodo.OR);
+		
+		return ret;
+	}
+
+	public int getMaxentsPorNodo() {
+		return 5;
+	}
+
+	public int getTamMux() {
+		return 4;
 	}
 	
 }
