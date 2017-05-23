@@ -45,4 +45,8 @@ public class NonLeafNode extends Node {
 		
 		return ret;
 	}
+
+	public boolean isLeaf() {
+		return false;
+	}
 }

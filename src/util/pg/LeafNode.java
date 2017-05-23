@@ -10,12 +10,13 @@ public class LeafNode extends Node {
 	
 	public LeafNode(int entrada){
 		super();
-		this.numNodos = 0;
+		this.numNodos = 1;
+		this.altura = 1;
 		this.entrada = entrada;
 	}
 
 	public boolean resolve() {
-		return FitnessPr3MuxN.valorEnts.get(entrada) == 1;
+		return FitnessPr3MuxN.valoresSelectsYEnts.get(entrada) == 1;
 	}
 
 	public Node clone() {
@@ -26,6 +27,10 @@ public class LeafNode extends Node {
 		ret.setTipo(tipo);
 		
 		return ret;
+	}
+
+	public boolean isLeaf() {
+		return true;
 	}
 	
 }

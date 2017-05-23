@@ -28,6 +28,7 @@ public class Pr3MuxN extends Problema {
 	public static List<TipoNodo> NTDisponibles;
 	public static int maxEntsPorNodo;
 	public static int tamMux;
+	public static int nSelects;
 	
 	public Pr3MuxN(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1, int numGenerations, int tamPob, GUI gui){
 		super(funcCruz, funcMuta, funcSelec, elite0to1, numGenerations, tamPob, 1, gui);
@@ -36,14 +37,26 @@ public class Pr3MuxN extends Problema {
 		this.profundidadMax = gui.getProfundidadMax();
 		
 		this.minimizacion = false;
-		this.funcFit = new FitnessPr3MuxN(this.minimizacion, 4);
+		this.tamMux = gui.getTamMux();
+		
+		nSelects = 1;
+		boolean oK = false;
+		while(!oK){
+			if(Math.pow(2,nSelects) == tamMux){
+				oK = true;
+			}
+			else
+				nSelects++;
+		}
+
+		
+		this.funcFit = new FitnessPr3MuxN(this.minimizacion, tamMux, nSelects);
 
 		this.funcCruz.setFuncionFitness(this.funcFit);
 		this.funcMuta.setFuncionFitness(this.funcFit);
 		
 		this.NTDisponibles = gui.getNTDisponibles();
 		this.maxEntsPorNodo = gui.getMaxentsPorNodo();
-		this.tamMux = gui.getTamMux();
 	}
 	
 	
@@ -66,7 +79,7 @@ public class Pr3MuxN extends Problema {
 				poblacion.add(indCom);
 			}
 		}
-		else if(pobIniGenMethod.equals("RampedAndHalf")){	//TODO: comprobar
+		else if(pobIniGenMethod.equals("Ramped&Half")){
 
 			int numGrupos = profundidadMax - 1;
 			int pobAsignada = 0;
@@ -98,7 +111,6 @@ public class Pr3MuxN extends Problema {
 	}
 
 	public Double getOptimo(){
-		int numSelects = (int) Math.sqrt(tamMux);
-		return (double) (2^(tamMux + numSelects));
+		return new Double(Math.pow(2,(tamMux + nSelects)));
 	}
 }

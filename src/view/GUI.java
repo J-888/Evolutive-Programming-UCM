@@ -36,6 +36,7 @@ import operadores.cruce.OX;
 import operadores.cruce.OXOrdenPrio;
 import operadores.cruce.OXPosPrio;
 import operadores.cruce.PMX;
+import operadores.cruce.Permutacion;
 import operadores.cruce.SX;
 import operadores.cruce.Uniforme;
 import operadores.mutacion.FuncionMutacion;
@@ -45,6 +46,7 @@ import operadores.mutacion.Intercambio;
 import operadores.mutacion.IntercambioAgresivo;
 import operadores.mutacion.BaseABase;
 import operadores.mutacion.Inversion;
+import operadores.mutacion.Terminal;
 import operadores.seleccion.EstocasticoUniversal;
 import operadores.seleccion.FuncionSeleccion;
 import operadores.seleccion.Ruleta;
@@ -68,26 +70,37 @@ import javax.swing.Box;
 
 import java.awt.SystemColor;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GUI extends JFrame{
 
 	private JFrame gui = this;
-	private String[] problemOptions = {"Pr1.1", "Pr1.2", "Pr1.3", "Pr1.4", "Pr1.4Xtra", "Pr1.5", "Pr2.Ajuste", "Pr2.Datos12", "Pr2.Datos15", "Pr2.Datos30", "Pr2.tai100a", "Pr2.tai256c"}; 
+	private String[] problemOptions = {"Pr1.1", "Pr1.2", "Pr1.3", "Pr1.4", "Pr1.4Xtra", "Pr1.5", "Pr2.Ajuste", "Pr2.Datos12", "Pr2.Datos15", "Pr2.Datos30", "Pr2.tai100a", "Pr2.tai256c", "Pr3.MuxN"}; 
 	private FuncionSeleccion[] selectionOptions = {new Ruleta(), new TorneoDeterminista(2), new TorneoDeterminista(3), new EstocasticoUniversal()}; 
 	private FuncionCruce[] crossoverOptionsBin = {new Monopunto(), new Multipunto(2), new Multipunto(3), new Uniforme()}; 
 	private FuncionCruce[] crossoverOptionsReal = {new Monopunto(), new Multipunto(2), new Multipunto(3), new Uniforme(), new Aritmetico()};
 	private FuncionCruce[] crossoverOptionsPermInt = {new PMX(), new OX(), new OXPosPrio(), new OXOrdenPrio(), new CX(), new ERX(), new Monopunto(), new Multipunto(2), new Multipunto(3), new Uniforme(), new SX(), new OPX()};
+	private FuncionCruce[] crossoverOptionsPG = {new Permutacion()};
 	private FuncionMutacion[] mutationOptionsBin = {new BaseABase()}; 
 	private FuncionMutacion[] mutationOptionsReal = {new BaseABase()}; 
 	private FuncionMutacion[] mutationOptionsPermInt = {new Inversion(), new Intercambio(), new IntercambioAgresivo(0.2), new Insercion(), new Heuristica(5)}; 
+	private FuncionMutacion[] mutationOptionsPG = {new Terminal()}; 
+	private String[] gateNames = {"AND", "OR", "NOT", "IF", "XOR"};
+	private int[] gateSelected = {0, 1, 2};
 	private JComboBox<String> problemCombobox;
 	private JComboBox<String> contractividadCombobox; 
 	private GraficaPanel chartPanel;
 	private final ConfigPanel<Settings> settingsPanel;
-	private JLabel n;
+	private JLabel nLab;
+	private JLabel maxEntLab;
+	private JLabel maxProfLab;
 	private JPanel tricksPanel;
 	private JTextField ntf;
+	private JTextField maxProftf;
+	private JTextField maxEntradastf;
+	private JComboBox<String> initPopPG;
+	private JButton changeGatesBtn; 
 	private JCheckBox invEspecialCheckBox;
 	private JCheckBox escaladoCheckBox;
 	private JCheckBox irradiateCheckBox;
@@ -136,11 +149,36 @@ public class GUI extends JFrame{
 		labelComponent.setHorizontalAlignment(SwingConstants.RIGHT);
 		problemPanel.add(problemCombobox);
 					
-		n = new JLabel("N:");
-		problemPanel.add(n);
+		nLab = new JLabel("N:");
+		problemPanel.add(nLab);
 		
-		ntf = new JTextField("3");
+		ntf = new JTextField("4");
 		problemPanel.add(ntf);
+
+		maxEntLab = new JLabel("Max Ents/puerta:");
+		problemPanel.add(maxEntLab);
+		maxEntradastf = new JTextField("2");
+		problemPanel.add(maxEntradastf);
+
+		maxProfLab = new JLabel("Max Profundidad:");
+		problemPanel.add(maxProfLab);
+		maxProftf = new JTextField("4");
+		problemPanel.add(maxProftf);
+		
+		initPopPG = new JComboBox<String>(new String[]{"Creciente", "Completa", "Ramped&Half"});
+		problemPanel.add(initPopPG);
+		
+		GateSelector gateSelector = new GateSelector(gateNames, gateSelected);
+
+		changeGatesBtn = new JButton("Puertas Logicas");
+		changeGatesBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, gateSelector, "Gate selector", JOptionPane.PLAIN_MESSAGE);
+				gateSelected = gateSelector.getSelectedIndices();
+			}
+		});
+		problemPanel.add(changeGatesBtn);
+				
 		
 		visuals = new JCheckBox("Enable popups", true);
 		problemPanel.add(visuals);
@@ -202,6 +240,8 @@ public class GUI extends JFrame{
 					tipoCromosoma = TipoCromosoma.REAL;
 				else if(((String)problemCombobox.getSelectedItem()).substring(0, 4).equals( "Pr2."))
 					tipoCromosoma = TipoCromosoma.PERMINT;
+				else if(((String)problemCombobox.getSelectedItem()).substring(0, 4).equals( "Pr3."))
+					tipoCromosoma = TipoCromosoma.CROMPG;
 				else
 					tipoCromosoma = TipoCromosoma.BIN;
 
@@ -227,6 +267,10 @@ public class GUI extends JFrame{
 					else if (tipoCromosoma == TipoCromosoma.PERMINT){
 						fcross = settings.getCrossoverOptionPermInt();
 						fmut = settings.getMutationOptionPermInt();
+					}
+					else if (tipoCromosoma == TipoCromosoma.CROMPG){
+						fcross = settings.getCrossoverOptionPG();
+						fmut = settings.getMutationOptionPG();
 					}
 					else{
 						fcross = settings.getCrossoverOptionBin();
@@ -286,6 +330,9 @@ public class GUI extends JFrame{
 							break;
 						case "Pr2.tai256c":
 							pf = new Pr2tai256c(fcross, fmut, fselec, elite, genNum, popSize, gui);
+							break;
+						case "Pr3.MuxN":
+							pf = new Pr3MuxN(fcross, fmut, fselec, elite, genNum, popSize, (GUI)gui);
 							break;
 						default:
 							break;
@@ -395,12 +442,14 @@ public class GUI extends JFrame{
 				.addInner(new ChoiceOption<Settings>("CrossoverB", "", "crossoverOptionBin", crossoverOptionsBin))
 				.addInner(new ChoiceOption<Settings>("CrossoverR", "", "crossoverOptionReal", crossoverOptionsReal))
 				.addInner(new ChoiceOption<Settings>("CrossoverPI", "", "crossoverOptionPermInt", crossoverOptionsPermInt))
+				.addInner(new ChoiceOption<Settings>("CrossoverPG", "", "crossoverOptionPG", crossoverOptionsPG))
 				.addInner(new DoubleOption<Settings>("Crossover %", "", "crossoverIndex", 0, 100))
 			.endInner()
 			.beginInner(new InnerOption<Settings,Settings>("Mutation", "", "settings", Settings.class))
 				.addInner(new ChoiceOption<Settings>("MutationB", "", "mutationOptionBin", mutationOptionsBin))
 				.addInner(new ChoiceOption<Settings>("MutationR", "", "mutationOptionReal", mutationOptionsReal))
 				.addInner(new ChoiceOption<Settings>("MutationPI", "", "mutationOptionPermInt", mutationOptionsPermInt))
+				.addInner(new ChoiceOption<Settings>("MutationPG", "", "mutationOptionPG", mutationOptionsPG))
 				.addInner(new DoubleOption<Settings>("Mutation %", "", "mutationIndex", 0, 100))
 			.endInner()
 			.beginInner(new InnerOption<Settings,Settings>("Elite", "", "settings", Settings.class))
@@ -423,9 +472,11 @@ public class GUI extends JFrame{
 		private FuncionCruce crossoverOptionBin = new Monopunto();
 		private FuncionCruce crossoverOptionReal = new Monopunto();
 		private FuncionCruce crossoverOptionPermInt = new PMX();
+		private FuncionCruce crossoverOptionPG = new Permutacion();
 		private FuncionMutacion mutationOptionBin = new BaseABase();
 		private FuncionMutacion mutationOptionReal = new BaseABase();
 		private FuncionMutacion mutationOptionPermInt = new Inversion();
+		private FuncionMutacion mutationOptionPG = new Terminal();
 		
 		public int getPopulationSize() { return populationSize; }
 		public void setPopulationSize(int populationSize) { this.populationSize = populationSize; }
@@ -447,6 +498,8 @@ public class GUI extends JFrame{
 		public void setCrossoverOptionReal(FuncionCruce crossoverOptionReal) { this.crossoverOptionReal = crossoverOptionReal; }
 		public FuncionCruce getCrossoverOptionPermInt() { return crossoverOptionPermInt; }
 		public void setCrossoverOptionPermInt(FuncionCruce crossoverOptionPermInt) { this.crossoverOptionPermInt = crossoverOptionPermInt; }
+		public FuncionCruce getCrossoverOptionPG() { return crossoverOptionPG; }
+		public void setCrossoverOptionPG(FuncionCruce crossoverOptionPG) { this.crossoverOptionPG = crossoverOptionPG; }
 
 		public FuncionMutacion getMutationOptionBin() { return mutationOptionBin; }
 		public void setMutationOptionBin(FuncionMutacion mutationOptionBin) { this.mutationOptionBin = mutationOptionBin; }
@@ -454,6 +507,8 @@ public class GUI extends JFrame{
 		public void setMutationOptionReal(FuncionMutacion mutationOptionReal) { this.mutationOptionReal = mutationOptionReal; }
 		public FuncionMutacion getMutationOptionPermInt() { return mutationOptionPermInt; }
 		public void setMutationOptionPermInt(FuncionMutacion mutationOptionPermInt) { this.mutationOptionPermInt = mutationOptionPermInt; }
+		public FuncionMutacion getMutationOptionPG() { return mutationOptionPG; }
+		public void setMutationOptionPG(FuncionMutacion mutationOptionPG) { this.mutationOptionPG = mutationOptionPG; }
 		
 		public Settings getSettings() { return this; }
 		public void setSettings(Settings settings) { }
@@ -468,12 +523,34 @@ public class GUI extends JFrame{
 		String opt = (String) problemCombobox.getSelectedItem();
 		
 		if(opt == "Pr1.4" || opt == "Pr1.4Xtra"){
-			n.setVisible(true);
+			nLab.setVisible(true);
 			ntf.setVisible(true);
+			maxEntLab.setVisible(false);
+			maxEntradastf.setVisible(false);
+			maxProftf.setVisible(false);
+			maxProfLab.setVisible(false);
+			initPopPG.setVisible(false);
+			changeGatesBtn.setVisible(false);
+		}
+		else if(opt == "Pr3.MuxN"){
+			nLab.setVisible(true);
+			ntf.setVisible(true);
+			maxEntLab.setVisible(true);
+			maxEntradastf.setVisible(true);
+			maxProftf.setVisible(true);
+			maxProfLab.setVisible(true);
+			initPopPG.setVisible(true);
+			changeGatesBtn.setVisible(true);
 		}
 		else{
-			n.setVisible(false);
+			nLab.setVisible(false);
 			ntf.setVisible(false);
+			maxEntLab.setVisible(false);
+			maxEntradastf.setVisible(false);
+			maxProftf.setVisible(false);
+			maxProfLab.setVisible(false);
+			initPopPG.setVisible(false);
+			changeGatesBtn.setVisible(false);
 		}
 
 		if(tipoCromosoma == TipoCromosoma.REAL) {	//cromosoma real
@@ -483,18 +560,21 @@ public class GUI extends JFrame{
 			crossoverPanel.getComponent(3).setVisible(true);	//muestra combobox crossover real
 			crossoverPanel.getComponent(4).setVisible(false);	//oculta label crossover permint
 			crossoverPanel.getComponent(5).setVisible(false);	//oculta combobox crossover permint
+			crossoverPanel.getComponent(6).setVisible(false);	//oculta label crossover pg
+			crossoverPanel.getComponent(7).setVisible(false);	//oculta combobox crossover pg
 
-			mutationPanel.getComponent(0).setVisible(false);		//muestra label mutacion bin
-			mutationPanel.getComponent(1).setVisible(false);		//muestra combobox mutacion bin
-			mutationPanel.getComponent(2).setVisible(true);	//oculta label mutacion real
-			mutationPanel.getComponent(3).setVisible(true);	//oculta combobox mutacion real
+			mutationPanel.getComponent(0).setVisible(false);	//muestra label mutacion bin
+			mutationPanel.getComponent(1).setVisible(false);	//muestra combobox mutacion bin
+			mutationPanel.getComponent(2).setVisible(true);		//oculta label mutacion real
+			mutationPanel.getComponent(3).setVisible(true);		//oculta combobox mutacion real
 			mutationPanel.getComponent(4).setVisible(false);	//oculta label mutacion permint
 			mutationPanel.getComponent(5).setVisible(false);	//oculta combobox mutacion permint
+			mutationPanel.getComponent(6).setVisible(false);	//oculta label mutacion pg
+			mutationPanel.getComponent(7).setVisible(false);	//oculta combobox mutacion pg
 			
 			invEspecialCheckBox.setVisible(false);
 			invEspecialCheckBox.setSelected(false);
-		}
-		
+		}		
 		else if(tipoCromosoma == TipoCromosoma.PERMINT) {	//cromosoma permint
 			crossoverPanel.getComponent(0).setVisible(false);	//oculta label crossover bin
 			crossoverPanel.getComponent(1).setVisible(false);	//oculta combobox crossover bin
@@ -502,6 +582,8 @@ public class GUI extends JFrame{
 			crossoverPanel.getComponent(3).setVisible(false);	//oculta combobox crossover real
 			crossoverPanel.getComponent(4).setVisible(true);	//muestra label crossover permint
 			crossoverPanel.getComponent(5).setVisible(true);	//muestra combobox crossover permint
+			crossoverPanel.getComponent(6).setVisible(false);	//oculta label crossover pg
+			crossoverPanel.getComponent(7).setVisible(false);	//oculta combobox crossover pg
 
 			mutationPanel.getComponent(0).setVisible(false);	//oculta label mutacion bin
 			mutationPanel.getComponent(1).setVisible(false);	//oculta combobox mutacion bin
@@ -509,9 +591,33 @@ public class GUI extends JFrame{
 			mutationPanel.getComponent(3).setVisible(false);	//oculta combobox mutacion real
 			mutationPanel.getComponent(4).setVisible(true);		//muestra label mutacion permint
 			mutationPanel.getComponent(5).setVisible(true);		//muestra combobox mutacion permint
+			mutationPanel.getComponent(6).setVisible(false);	//oculta label mutacion pg
+			mutationPanel.getComponent(7).setVisible(false);	//oculta combobox mutacion pg
 			
 			invEspecialCheckBox.setVisible(true);
 			invEspecialCheckBox.setSelected(true);
+		}		
+		else if(tipoCromosoma == TipoCromosoma.CROMPG) {	//cromosoma pg
+			crossoverPanel.getComponent(0).setVisible(false);	//oculta label crossover bin
+			crossoverPanel.getComponent(1).setVisible(false);	//oculta combobox crossover bin
+			crossoverPanel.getComponent(2).setVisible(false);	//oculta label crossover real
+			crossoverPanel.getComponent(3).setVisible(false);	//oculta combobox crossover real
+			crossoverPanel.getComponent(4).setVisible(false);	//oculta label crossover permint
+			crossoverPanel.getComponent(5).setVisible(false);	//oculta combobox crossover permint
+			crossoverPanel.getComponent(6).setVisible(true);	//muestra label crossover pg
+			crossoverPanel.getComponent(7).setVisible(true);	//muestra combobox crossover pg
+
+			mutationPanel.getComponent(0).setVisible(false);	//oculta label mutacion bin
+			mutationPanel.getComponent(1).setVisible(false);	//oculta combobox mutacion bin
+			mutationPanel.getComponent(2).setVisible(false);	//oculta label mutacion real
+			mutationPanel.getComponent(3).setVisible(false);	//oculta combobox mutacion real
+			mutationPanel.getComponent(4).setVisible(false);	//oculta label mutacion permint
+			mutationPanel.getComponent(5).setVisible(false);	//oculta combobox mutacion permint
+			mutationPanel.getComponent(6).setVisible(true);		//muestra label mutacion pg
+			mutationPanel.getComponent(7).setVisible(true);		//muestra combobox mutacion pg
+			
+			invEspecialCheckBox.setVisible(false);
+			invEspecialCheckBox.setSelected(false);
 		}
 		else {	//cromosoma binario
 			crossoverPanel.getComponent(0).setVisible(true);	//muestra label crossover bin
@@ -520,6 +626,8 @@ public class GUI extends JFrame{
 			crossoverPanel.getComponent(3).setVisible(false);	//oculta combobox crossover real
 			crossoverPanel.getComponent(4).setVisible(false);	//oculta label crossover permint
 			crossoverPanel.getComponent(5).setVisible(false);	//oculta combobox crossover permint
+			crossoverPanel.getComponent(6).setVisible(false);	//oculta label crossover pg
+			crossoverPanel.getComponent(7).setVisible(false);	//oculta combobox crossover pg
 
 			mutationPanel.getComponent(0).setVisible(true);		//muestra label mutacion bin
 			mutationPanel.getComponent(1).setVisible(true);		//muestra combobox mutacion bin
@@ -527,6 +635,8 @@ public class GUI extends JFrame{
 			mutationPanel.getComponent(3).setVisible(false);	//oculta combobox mutacion real
 			mutationPanel.getComponent(4).setVisible(false);	//oculta label mutacion permint
 			mutationPanel.getComponent(5).setVisible(false);	//oculta combobox mutacion permint
+			mutationPanel.getComponent(6).setVisible(false);	//oculta label mutacion pg
+			mutationPanel.getComponent(7).setVisible(false);	//oculta combobox mutacion pg
 			
 			invEspecialCheckBox.setVisible(false);
 			invEspecialCheckBox.setSelected(false);
@@ -574,29 +684,66 @@ public class GUI extends JFrame{
 	}
 	
 	public int getProfundidadMax() {
-		return 4;
+		int ents = Integer.parseInt(maxProftf.getText());
+		if(ents < 1){
+			JOptionPane.showMessageDialog(null, "La profundidad minima es 1! Cambiada a 1","Ojo!!!",JOptionPane.WARNING_MESSAGE);
+			ents = 1;
+		}
+		return ents;
 	}
 
 	public String getPobIniGenMethod() {
-		return "RampedAndHalf";
+		return (String) initPopPG.getSelectedItem();
 	}
 
 	public List<TipoNodo> getNTDisponibles() {
 		List<TipoNodo> ret = new ArrayList<TipoNodo>();
+		ArrayList<Integer> aux = new ArrayList<Integer>(gateSelected.length);
+		for (int i = 0; i < gateSelected.length; i++)
+			aux.add(gateSelected[i]);
 		
-		ret.add(TipoNodo.AND);
-		ret.add(TipoNodo.NOT);
-		ret.add(TipoNodo.OR);
-		
+		if(aux.contains(0))
+			ret.add(TipoNodo.AND);
+		if(aux.contains(1))
+			ret.add(TipoNodo.OR);
+		if(aux.contains(2))
+			ret.add(TipoNodo.NOT);
+		if(aux.contains(3))
+			ret.add(TipoNodo.IF);
+		if(aux.contains(4))
+			ret.add(TipoNodo.XOR);		
 		return ret;
 	}
 
 	public int getMaxentsPorNodo() {
-		return 5;
+		int ents = Integer.parseInt(maxEntradastf.getText());
+		if(ents <= 1){
+			JOptionPane.showMessageDialog(null, "El numero minimo de entradas de las puertas es 2! Cambiada a 2","Ojo!!!",JOptionPane.WARNING_MESSAGE);
+			ents = 2;
+		}
+		return ents;
 	}
 
 	public int getTamMux() {
-		return 4;
+		int ents = Integer.parseInt(ntf.getText());
+		
+		if(ents <= 1){
+			JOptionPane.showMessageDialog(null, "El numero de entradas del Mux es menor que 1! Redondeada a 2","Ojo!!!",JOptionPane.WARNING_MESSAGE);
+			ents = 2;
+		}
+		else if((ents & (ents - 1)) != 0){
+			boolean oK = false;
+		
+			while(!oK){
+				ents++;
+				if((ents & (ents - 1)) == 0)
+					oK = true;
+			}
+				
+			JOptionPane.showMessageDialog(null, "El numero de entradas del Mux ha de ser potencia de 2! Redondeada a: " + ents,"Ojo!!!",JOptionPane.WARNING_MESSAGE);
+		}
+			
+		return ents;
 	}
 	
 }

@@ -1,5 +1,7 @@
 package geneticos.cromosomas;
 
+import geneticos.TipoCromosoma;
+
 import java.util.ArrayList;
 
 import util.pg.Node;
@@ -14,6 +16,7 @@ public class CromosomaPG extends Cromosoma {
 		this.arbol = arbol;
 		this.nEntradas = nE;
 		this.profMax = pm;
+		this.tipo = TipoCromosoma.CROMPG;
 	}
 	
 	public CromosomaPG clone() {

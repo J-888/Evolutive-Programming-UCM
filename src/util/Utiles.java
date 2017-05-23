@@ -196,7 +196,7 @@ public class Utiles {
 		int sum = 0;
 		
 		for(int i = 0; i < selectSL.size(); i++)
-			sum += selectSL.get(i)*(2^i);
+			sum += selectSL.get(i)*Math.pow(2,i);
 		
 		return sum;
 	}
