@@ -11,6 +11,7 @@ public class LeafNode extends Node {
 	
 	public LeafNode(int entrada){
 		super();
+		parent = null;
 		this.numNodos = 1;
 		this.altura = 1;
 		this.entrada = entrada;
@@ -42,5 +43,10 @@ public class LeafNode extends Node {
 		if(puertas == -1 || puertas == 0) //add si todos o solo terminales
 			nodosh1.add(this);
 	}
+
+	public int getNumEntradas() {
+		return 0;
+	}
+	
 	
 }

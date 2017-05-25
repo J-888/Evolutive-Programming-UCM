@@ -23,11 +23,11 @@ public abstract class Node {
 		parent = null;
 	}
 
-	protected void setParent(Node p){
+	public void setParent(Node p){
 		this.parent = p;
 	}
 	
-	protected Node getParent(){
+	public Node getParent(){
 		return this.parent;
 	}
 
@@ -50,16 +50,25 @@ public abstract class Node {
 	public void setNumNodos(int numNodos){
 		this.numNodos = numNodos;
 	}
-	
+		
 	public void actualizarArbol(){
 		if(!isLeaf()){
+			numNodos = 0;
+			altura = 0;
 			ArrayList<Node> child = ((NonLeafNode)this).getChildren();
 			for (int i = 0; i < child.size(); i++) {
 				child.get(i).actualizarArbol();
-				numNodos += child.get(i).getNumNodos() + 1;
-				if (child.get(i).getAltura() > altura + 1)
-					altura = child.get(i).getAltura() + 1;
+				numNodos += child.get(i).getNumNodos();
+				if (child.get(i).getAltura() >= altura)
+					altura = child.get(i).getAltura();
 			}
+			//aportacion propia
+			altura++;
+			numNodos++;
+		}
+		else{
+			numNodos = 1;
+			altura = 1;
 		}
 	}
 	
@@ -70,5 +79,6 @@ public abstract class Node {
 	//Devuelve todos los nodos del arbol con n puertas. Si puertas es -1, devuelve todos los del arbol. Detalle: Las entradas(terminales) se interpretan como 0 puertas,
 	//Para no confundir con el not que tiene una.
 	public abstract void nodificar(HashSet<Node> nodosh1, int puertas);
+	public abstract int getNumEntradas();
 	
 }

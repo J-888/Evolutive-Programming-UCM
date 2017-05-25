@@ -9,6 +9,7 @@ public class NonLeafNode extends Node {
 	
 	public NonLeafNode(){
 		super();
+		parent = null;
 		children = new ArrayList<>();
 	}
 	
@@ -71,5 +72,9 @@ public class NonLeafNode extends Node {
 		
 		for(int i = 0; i < children.size(); i++)
 			children.get(i).nodificar(nodosh1, puertas);
+	}
+
+	public int getNumEntradas() {
+		return children.size();
 	}
 }
