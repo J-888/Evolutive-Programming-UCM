@@ -37,9 +37,11 @@ public class NonLeafNode extends Node {
 		for(int i = 0; i < children.size(); i++){
 			Node hijo = children.get(i).clone();
 			hijo.setParent(ret);
+			hijo.setNumHijo(i);
 			hijosclonados.add(hijo);
 		}
 		
+		ret.setEsRaiz(esRaiz);
 		ret.setAltura(altura);
 		ret.setNumNodos(numNodos);
 		ret.setTipo(tipo);
@@ -67,8 +69,10 @@ public class NonLeafNode extends Node {
 	}
 
 	public void nodificar(HashSet<Node> nodosh1, int puertas) {
-		if(puertas == -1 || puertas == children.size()) // add si todos o si se buscan con las puertas que tiene este nodo
-			nodosh1.add(this);
+		if(esRaiz == false){ //La raiz no se nodifica por conveniencia para el cruce
+			if(puertas == -1 || puertas == children.size()) // add si todos o si se buscan con las puertas que tiene este nodo
+				nodosh1.add(this);
+		}
 		
 		for(int i = 0; i < children.size(); i++)
 			children.get(i).nodificar(nodosh1, puertas);

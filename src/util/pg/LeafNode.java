@@ -25,6 +25,7 @@ public class LeafNode extends Node {
 	public Node clone() {
 		LeafNode ret = new LeafNode(entrada);
 		
+		ret.setEsRaiz(esRaiz);
 		ret.setAltura(altura);
 		ret.setNumNodos(numNodos);
 		ret.setTipo(tipo);
@@ -41,8 +42,10 @@ public class LeafNode extends Node {
 	}
 
 	public void nodificar(HashSet<Node> nodosh1, int puertas) {
-		if(puertas == -1 || puertas == 0) //add si todos o solo terminales
-			nodosh1.add(this);
+		if(esRaiz == false){ //La raiz no se nodifica por conveniencia para el cruce
+			if(puertas == -1 || puertas == 0) //add si todos o solo terminales
+				nodosh1.add(this);
+		}
 	}
 
 	public int getNumEntradas() {

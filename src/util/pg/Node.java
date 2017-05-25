@@ -10,6 +10,7 @@ public abstract class Node {
 	protected int numNodos;
 	protected TipoNodo tipo;
 	protected int numHijo;
+	protected boolean esRaiz;
 	
 	public int getNumHijo() {
 		return numHijo;
@@ -50,7 +51,15 @@ public abstract class Node {
 	public void setNumNodos(int numNodos){
 		this.numNodos = numNodos;
 	}
-		
+	
+	public boolean getEsRaiz() {
+		return esRaiz;
+	}
+
+	public void setEsRaiz(boolean esRaiz) {
+		this.esRaiz = esRaiz;
+	}
+
 	public void actualizarArbol(){
 		if(!isLeaf()){
 			numNodos = 0;

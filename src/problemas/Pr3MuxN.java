@@ -64,6 +64,7 @@ public class Pr3MuxN extends Problema {
 		if(pobIniGenMethod.equals("Creciente")){
 			for (int i = 0; i < tamPob; i++) {
 				Node crecTree = UtilesPG.genTreeCreciente(0, profundidadMax);
+				crecTree.setEsRaiz(true);
 				crecTree.actualizarArbol();
 				CromosomaPG cromCrec = new CromosomaPG(crecTree, tamMux, profundidadMax);
 				IndividuoPG indCrec = new IndividuoPG(cromCrec);
@@ -73,6 +74,7 @@ public class Pr3MuxN extends Problema {
 		else if(pobIniGenMethod.equals("Completa")){
 			for (int i = 0; i < tamPob; i++) {
 				Node comTree = UtilesPG.genTreeCompleta(0, profundidadMax);
+				comTree.setEsRaiz(true);
 				comTree.actualizarArbol();
 				CromosomaPG cromCom = new CromosomaPG(comTree, tamMux, profundidadMax);
 				IndividuoPG indCom = new IndividuoPG(cromCom);
@@ -87,6 +89,7 @@ public class Pr3MuxN extends Problema {
 			while(pobAsignada < tamPob){
 				for(int i = 0; i < numGrupos && pobAsignada < tamPob; i++){
 					Node crecTree = UtilesPG.genTreeCreciente(0, i + 2);
+					crecTree.setEsRaiz(true);
 					crecTree.actualizarArbol();
 					CromosomaPG cromCrec = new CromosomaPG(crecTree, tamMux, profundidadMax);
 					IndividuoPG indCrec = new IndividuoPG(cromCrec);
@@ -95,6 +98,7 @@ public class Pr3MuxN extends Problema {
 	
 					if(pobAsignada < tamPob){
 						Node comTree = UtilesPG.genTreeCompleta(0, i + 2);
+						comTree.setEsRaiz(true);
 						comTree.actualizarArbol();
 						CromosomaPG cromCom = new CromosomaPG(comTree, tamMux, profundidadMax);
 						IndividuoPG indCom = new IndividuoPG(cromCom);

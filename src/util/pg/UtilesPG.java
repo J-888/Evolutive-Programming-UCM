@@ -13,6 +13,7 @@ public class UtilesPG {
 
 		if(profundidad < profundidadMax && Math.random() < alpha){
 			nodo = new NonLeafNode();
+			nodo.setEsRaiz(false);
 			nodo.setTipo(Pr3MuxN.NTDisponibles.get(Utiles.randomIntNO()%Pr3MuxN.NTDisponibles.size()));
 			
 			int rnd = Utiles.randomIntNO();
@@ -31,6 +32,7 @@ public class UtilesPG {
 		}
 		else{
 			nodo = new LeafNode(Utiles.randomIntNO()%FitnessPr3MuxN.valoresSelectsYEnts.size());
+			nodo.setEsRaiz(false);
 		}
 		return nodo;
 	}
@@ -41,6 +43,7 @@ public class UtilesPG {
 		if (profundidad < profundidadMax) {
 
 			nodo = new NonLeafNode();
+			nodo.setEsRaiz(false);
 			nodo.setTipo(Pr3MuxN.NTDisponibles.get(Utiles.randomIntNO() % Pr3MuxN.NTDisponibles.size()));
 
 			//TODO: Probar con random entre minents y maxents
@@ -53,6 +56,7 @@ public class UtilesPG {
 
 		} else {
 			nodo = new LeafNode(Utiles.randomIntNO() % FitnessPr3MuxN.valoresSelectsYEnts.size());
+			nodo.setEsRaiz(false);
 		}
 
 		return nodo;
