@@ -15,6 +15,7 @@ public class LeafNode extends Node {
 		this.numNodos = 1;
 		this.altura = 1;
 		this.entrada = entrada;
+		this.tipo = TipoNodo.ENTRADA;
 	}
 
 	public boolean resolve() {
