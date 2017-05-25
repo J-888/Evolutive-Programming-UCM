@@ -49,4 +49,18 @@ public class NonLeafNode extends Node {
 	public boolean isLeaf() {
 		return false;
 	}
+
+	public String toString() {
+		String cad = "";
+		cad += this.tipo.toString();
+		cad += "(";
+		for(int i = 0; i < children.size(); i++){
+			cad += children.get(i).toString();
+			if(i != children.size() - 1)
+				cad += ",";
+		}
+		cad += ")";
+		
+		return cad;
+	}
 }

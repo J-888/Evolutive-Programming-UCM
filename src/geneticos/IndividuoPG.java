@@ -29,5 +29,8 @@ public class IndividuoPG extends Individuo {
 		//No hace nada porque el fenotipo es igual al genotipo
 	}
 
+	public String toString(){
+		return "hola";
+	}
 
 }

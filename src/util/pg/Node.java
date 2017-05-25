@@ -52,7 +52,8 @@ public abstract class Node {
 			}
 		}
 	}
-
+	
+	public abstract String toString();
 	public abstract Node clone();
 	public abstract boolean resolve();
 	public abstract boolean isLeaf();

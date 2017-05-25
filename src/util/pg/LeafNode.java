@@ -32,5 +32,9 @@ public class LeafNode extends Node {
 	public boolean isLeaf() {
 		return true;
 	}
+
+	public String toString() {
+		return String.valueOf(entrada);
+	}
 	
 }

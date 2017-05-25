@@ -26,6 +26,10 @@ public enum TipoNodo {
 		public int getMaxEnts() {
 			return 3;
 		}
+
+		public String toString() {
+			return "IF";
+		}
 		
 	}, AND {
 		public boolean resolve(ArrayList<Node> children) {
@@ -43,6 +47,10 @@ public enum TipoNodo {
 
 		public int getMaxEnts() {
 			return Pr3MuxN.maxEntsPorNodo;
+		}
+
+		public String toString() {
+			return "AND";
 		}
 		
 	}, OR {
@@ -62,6 +70,10 @@ public enum TipoNodo {
 		public int getMaxEnts() {
 			return Pr3MuxN.maxEntsPorNodo;
 		}
+
+		public String toString() {
+			return "OR";
+		}
 		
 	}, XOR {
 		public boolean resolve(ArrayList<Node> children) {
@@ -80,6 +92,10 @@ public enum TipoNodo {
 		public int getMaxEnts() {
 			return Pr3MuxN.maxEntsPorNodo;
 		}
+
+		public String toString() {
+			return "XOR";
+		}
 		
 	}, ENTRADA {
 		//Shouldn't ever be called
@@ -93,6 +109,10 @@ public enum TipoNodo {
 
 		public int getMaxEnts() {
 			return 0;
+		}
+
+		public String toString() {
+			return "";
 		}
 		
 	}, NOT {
@@ -113,11 +133,16 @@ public enum TipoNodo {
 		public int getMaxEnts() {
 			return 1;
 		}
+
+		public String toString() {
+			return "NOT";
+		}
 		
 	};	
 	
 	public abstract boolean resolve(ArrayList<Node> children);
 	public abstract int getMinEnts();
 	public abstract int getMaxEnts();
+	public abstract String toString();
 
 }
