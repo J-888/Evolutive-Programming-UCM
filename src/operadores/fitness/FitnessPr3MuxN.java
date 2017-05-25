@@ -38,7 +38,6 @@ public class FitnessPr3MuxN extends FuncionFitness {
 		for(int i = 0; i < nPosib; i++) {
 			List<Integer> selectSL = valoresSelectsYEnts.subList(0, nSelect);
 			entSeleccionada = Utiles.array2int(selectSL);
-
 			valorEntSelec = valoresSelectsYEnts.get(entSeleccionada+nSelect) == 1;
 			if (valorEntSelec == arbol.resolve())
 				numAciertos++;

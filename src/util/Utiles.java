@@ -194,9 +194,12 @@ public class Utiles {
 	
 	public static int array2int(List<Integer> selectSL){
 		int sum = 0;
+		int acum = 0;
 		
-		for(int i = 0; i < selectSL.size(); i++)
-			sum += selectSL.get(i)*Math.pow(2,i);
+		for(int i = selectSL.size() - 1; i >= 0; i--){
+			sum += selectSL.get(i)*Math.pow(2,acum);
+			acum++;
+		}
 		
 		return sum;
 	}
