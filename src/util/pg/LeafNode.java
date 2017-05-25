@@ -1,6 +1,7 @@
 package util.pg;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import operadores.fitness.FitnessPr3MuxN;
 
@@ -35,6 +36,11 @@ public class LeafNode extends Node {
 
 	public String toString() {
 		return String.valueOf(entrada);
+	}
+
+	public void nodificar(HashSet<Node> nodosh1, int puertas) {
+		if(puertas == -1 || puertas == 0) //add si todos o solo terminales
+			nodosh1.add(this);
 	}
 	
 }

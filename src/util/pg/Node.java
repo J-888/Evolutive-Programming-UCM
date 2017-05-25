@@ -1,6 +1,7 @@
 package util.pg;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public abstract class Node {
 	
@@ -8,7 +9,16 @@ public abstract class Node {
 	protected int altura;
 	protected int numNodos;
 	protected TipoNodo tipo;
+	protected int numHijo;
 	
+	public int getNumHijo() {
+		return numHijo;
+	}
+
+	public void setNumHijo(int numHijo) {
+		this.numHijo = numHijo;
+	}
+
 	Node(){
 		parent = null;
 	}
@@ -25,11 +35,11 @@ public abstract class Node {
 		this.tipo = tipo;
 	}
 
-	private int getAltura() {
+	public int getAltura() {
 		return altura;
 	}
 
-	private int getNumNodos() {
+	public int getNumNodos() {
 		return numNodos;
 	}
 	
@@ -57,5 +67,8 @@ public abstract class Node {
 	public abstract Node clone();
 	public abstract boolean resolve();
 	public abstract boolean isLeaf();
+	//Devuelve todos los nodos del arbol con n puertas. Si puertas es -1, devuelve todos los del arbol. Detalle: Las entradas(terminales) se interpretan como 0 puertas,
+	//Para no confundir con el not que tiene una.
+	public abstract void nodificar(HashSet<Node> nodosh1, int puertas);
 	
 }

@@ -1,6 +1,7 @@
 package util.pg;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class NonLeafNode extends Node {
 
@@ -62,5 +63,13 @@ public class NonLeafNode extends Node {
 		cad += ")";
 		
 		return cad;
+	}
+
+	public void nodificar(HashSet<Node> nodosh1, int puertas) {
+		if(puertas == -1 || puertas == children.size()) // add si todos o si se buscan con las puertas que tiene este nodo
+			nodosh1.add(this);
+		
+		for(int i = 0; i < children.size(); i++)
+			children.get(i).nodificar(nodosh1, puertas);
 	}
 }

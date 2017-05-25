@@ -25,6 +25,7 @@ public class UtilesPG {
 			
 			for(int i = 0; i < numHijos; i++){
 				Node hijo = genTreeCreciente(profundidad+1, profundidadMax);
+				hijo.setNumHijo(i);
 				((NonLeafNode)nodo).addChildren(hijo);
 			}
 		}
@@ -46,6 +47,7 @@ public class UtilesPG {
 			int numHijos = nodo.tipo.getMaxEnts();
 			for (int i = 0; i < numHijos; i++) {
 				Node hijo = genTreeCompleta(profundidad + 1, profundidadMax);
+				hijo.setNumHijo(i);
 				((NonLeafNode) nodo).addChildren(hijo);
 			}
 
