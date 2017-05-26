@@ -16,11 +16,14 @@ public class FitnessPr3MuxN extends FuncionFitness {
 	private int nSelect;
 	private int nPosib;
 	public static List<Integer> valoresSelectsYEnts;
+	private boolean reduceBloating;
+	private final double maxNodes = 35;
 	
-	public FitnessPr3MuxN (boolean isMinimizacion, int nSoloEnts, int nSelects){
+	public FitnessPr3MuxN (boolean isMinimizacion, int nSoloEnts, int nSelects, boolean reduceBloating){
 		super(isMinimizacion);
 		this.nSelect = nSelects;
 		this.nPosib = (int) Math.pow(2,(nSoloEnts + nSelect));
+		this.reduceBloating = reduceBloating;
 		
 		valoresSelectsYEnts = new ArrayList<Integer>(Arrays.asList(new Integer[nSoloEnts + nSelect]));
 		Collections.fill(valoresSelectsYEnts, 0);
@@ -46,7 +49,14 @@ public class FitnessPr3MuxN extends FuncionFitness {
 				Collections.fill(valoresSelectsYEnts, 0);
 		}
 		
-		indiv.setFitness(numAciertos);
+		if(this.reduceBloating && arbol.getNumNodos() > maxNodes) {
+			double ratio = arbol.getNumNodos()/maxNodes;
+			ratio = Math.pow(ratio, 2);
+			indiv.setFitness(numAciertos/ratio);
+		}
+		else {
+			indiv.setFitness(numAciertos);
+		}
 		
 	}
 	

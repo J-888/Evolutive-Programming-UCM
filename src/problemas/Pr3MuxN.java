@@ -24,7 +24,7 @@ import view.GUI;
 public class Pr3MuxN extends Problema {
 	
 	String pobIniGenMethod = null;
-	int profundidadMax;
+	private int profundidadMax;
 	public static List<TipoNodo> NTDisponibles;
 	public static int maxEntsPorNodo;
 	public static int tamMux;
@@ -50,7 +50,7 @@ public class Pr3MuxN extends Problema {
 		}
 
 		
-		this.funcFit = new FitnessPr3MuxN(this.minimizacion, tamMux, nSelects);
+		this.funcFit = new FitnessPr3MuxN(this.minimizacion, tamMux, nSelects, true);
 
 		this.funcCruz.setFuncionFitness(this.funcFit);
 		this.funcMuta.setFuncionFitness(this.funcFit);
