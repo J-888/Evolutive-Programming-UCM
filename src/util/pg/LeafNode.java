@@ -52,5 +52,12 @@ public class LeafNode extends Node {
 		return 0;
 	}
 	
+	public int getEntrada() {
+		return this.entrada;
+	}
+		
+	public void setEntrada(int entrada) {
+		this.entrada = entrada;
+	}
 	
 }
