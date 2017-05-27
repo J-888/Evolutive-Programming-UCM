@@ -49,11 +49,8 @@ public class Subarbol extends FuncionMutacion{
 			NonLeafNode padrehNodo2 = (NonLeafNode) nodo2.getParent();
 			int numHijoh2 = nodo2.getNumHijo();
 			
-			if(padreNodo1.getChildren().size() < numHijoh1)
-				System.out.println("!");
+
 			padreNodo1.getChildren().set(numHijoh1, nodo2);
-			if(padrehNodo2.getChildren().size() < numHijoh2)
-				System.out.println("!");
 			padrehNodo2.getChildren().set(numHijoh2, nodo1);
 			nodo2.setParent(padreNodo1);
 			nodo1.setParent(padrehNodo2);

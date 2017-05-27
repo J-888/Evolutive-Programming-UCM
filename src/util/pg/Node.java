@@ -70,6 +70,7 @@ public abstract class Node {
 			altura = 0;
 			ArrayList<Node> child = ((NonLeafNode)this).getChildren();
 			for (int i = 0; i < child.size(); i++) {
+				child.get(i).setNumHijo(i);
 				child.get(i).actualizarArbol();
 				numNodos += child.get(i).getNumNodos();
 				if (child.get(i).getAltura() >= altura)
