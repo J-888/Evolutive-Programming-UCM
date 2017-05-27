@@ -154,7 +154,48 @@ public class Utiles {
 		}
 		return new Par<Cromosoma>(h1, h2);
 	}
+
+	/*MEAN*/
+	public static double mean(List<Double> data) {
+		double tot = 0.0;
+		for (int i = 0; i < data.size(); i++)
+			tot += data.get(i);
+		return tot / data.size();
+	}
 	
+	/*VARIANCE*/
+	public static double variance(List<Double> data) {
+		return variance(data, mean(data));
+	}
+
+	public static double variance(List<Double> data, double avg) {
+		double acum = 0;
+
+		for (double a : data)
+			acum += (a - avg) * (a - avg);
+
+		return acum / data.size();
+	}
+
+	/*COVARIANCE*/
+	public static double covariance(List<Double> data1, List<Double> data2) {
+		double avg1 = mean(data1);
+		double avg2 = mean(data2);		
+		return covariance(data1, avg1, data2, avg2);
+	}
+
+	public static double covariance(List<Double> data1, double avg1, List<Double> data2) {
+		double avg2 = mean(data2);		
+		return covariance(data1, avg1, data2, avg2);
+	}
+
+	public static double covariance(List<Double> data1, double avg1, List<Double> data2, double avg2) {
+		double sumsq = 0.0;
+		for (int i = 0; i < data1.size(); i++)
+			sumsq += (avg1 - data1.get(i)) * (avg2 - data2.get(i));
+		return sumsq / (data1.size());
+	}
+
 	public static void main(String[] args) {	
 		ArrayList<Par<Double>> rangs = new ArrayList<>();
 		rangs.add(new Par<Double>(10.0, 10.0));
