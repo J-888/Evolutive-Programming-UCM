@@ -9,6 +9,7 @@ import geneticos.cromosomas.CromosomaStd;
 public abstract class FuncionFitness {
 	
 	private boolean isMinimizacion;
+	protected BloatControl bloatControl;
 	
 	public FuncionFitness(boolean isMinimizacion) {
 		this.isMinimizacion = isMinimizacion;
@@ -46,6 +47,10 @@ public abstract class FuncionFitness {
 				else if(fitEval > mejor.getFitness())
 					mejor = eval;
 			}
+		}
+		
+		if(this.bloatControl != null && this.bloatControl.isActive()) {
+			bloatControl.adjustFitness(poblacion, isMinimizacion);
 		}
 
 		ArrayList<Individuo> ret = new ArrayList<Individuo>(3);

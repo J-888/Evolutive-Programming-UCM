@@ -13,6 +13,8 @@ import geneticos.cromosomas.CromosomaPermInt;
 import javax.swing.JFrame;
 
 import operadores.cruce.FuncionCruce;
+import operadores.fitness.BloatControl;
+import operadores.fitness.BloatControl.AntibloatingMethod;
 import operadores.fitness.FitnessPr3MuxN;
 import operadores.mutacion.FuncionMutacion;
 import operadores.seleccion.FuncionSeleccion;
@@ -49,8 +51,8 @@ public class Pr3MuxN extends Problema {
 				nSelects++;
 		}
 
-		
-		this.funcFit = new FitnessPr3MuxN(this.minimizacion, tamMux, nSelects, true);
+		BloatControl bloatControl = new BloatControl(AntibloatingMethod.ADVANCED);
+		this.funcFit = new FitnessPr3MuxN(this.minimizacion, tamMux, nSelects, bloatControl);
 
 		this.funcCruz.setFuncionFitness(this.funcFit);
 		this.funcMuta.setFuncionFitness(this.funcFit);
