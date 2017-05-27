@@ -13,13 +13,13 @@ import util.Utiles;
 public class BloatControl {
 	public enum AntibloatingMethod { 
 		NONE {
-			public void inicialization(ArrayList<Individuo> poblacion) { /*Do nothing*/ }
+			public void inicialization(List<Individuo> poblacion) { /*Do nothing*/ }
 			public void adjustFitness(Individuo individuo) { /*Do nothing*/ }
 		
 		}, NAIVE {
 			private final double k = 0.1; //worsened fitness for each node
 
-			public void inicialization(ArrayList<Individuo> poblacion) { /*Do nothing*/ }
+			public void inicialization(List<Individuo> poblacion) { /*Do nothing*/ }
 			
 			public void adjustFitness(Individuo individuo) {
 				Double adjustedFitness;
@@ -33,9 +33,9 @@ public class BloatControl {
 			private final double chambers = 3; //russian roulette chambers
 			private double avgNodes;
 
-			public void inicialization(ArrayList<Individuo> poblacion) {
+			public void inicialization(List<Individuo> poblacion) {
 				avgNodes = 0;
-				for (Iterator iterator = poblacion.iterator(); iterator.hasNext();) {
+				for (Iterator<Individuo> iterator = poblacion.iterator(); iterator.hasNext();) {
 					Individuo individuo = (Individuo) iterator.next();
 					avgNodes += ((CromosomaPG) individuo.getCromosoma()).getArbol().getNumNodos();
 				}
@@ -52,7 +52,7 @@ public class BloatControl {
 		}, CPP { 				//Covariant Parsimony Pressure
 			private double k;
 
-			public void inicialization(ArrayList<Individuo> poblacion) {
+			public void inicialization(List<Individuo> poblacion) {
 
 				List<Double> fitnessList = poblacion.stream().map(ind -> ind.getFitnessAdaptado()).collect(Collectors.toList());
 				List<Double> nodeNumberList = poblacion.stream().map(ind -> ((double)((CromosomaPG)ind.getCromosoma()).getArbol().getNumNodos())).collect(Collectors.toList());
@@ -74,7 +74,7 @@ public class BloatControl {
 			private double maxNodes = -1;
 			private final double pow = 2;	//strength
 
-			public void inicialization(ArrayList<Individuo> poblacion) { 
+			public void inicialization(List<Individuo> poblacion) { 
 				maxNodes = Math.pow(Pr3MuxN.maxEntsPorNodo, Pr3MuxN.profundidadMax) - 1;
 			}
 			
@@ -95,7 +95,7 @@ public class BloatControl {
 				name = name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase();
 			return name;
 		}
-		public abstract void inicialization(ArrayList<Individuo> poblacion);
+		public abstract void inicialization(List<Individuo> poblacion);
 		public abstract void adjustFitness(Individuo individuo);
 	};
 	
@@ -113,12 +113,12 @@ public class BloatControl {
 		return currentMethod != AntibloatingMethod.NONE;
 	}
 
-	public void adjustFitness(ArrayList<Individuo> poblacion) {
+	public void adjustFitness(List<Individuo> poblacion) {
 		
 		currentMethod.inicialization(poblacion);
 		
 		double worseFitness = Double.MAX_VALUE;
-		for (Iterator iterator = poblacion.iterator(); iterator.hasNext();) {
+		for (Iterator<Individuo> iterator = poblacion.iterator(); iterator.hasNext();) {
 			Individuo individuo = (Individuo) iterator.next();
 			currentMethod.adjustFitness(individuo);
 			if((currentMethod == AntibloatingMethod.NAIVE || currentMethod == AntibloatingMethod.CPP) && individuo.getFitnessAdaptado() < worseFitness)
@@ -126,7 +126,7 @@ public class BloatControl {
 		}
 		
 		if((currentMethod == AntibloatingMethod.NAIVE || currentMethod == AntibloatingMethod.CPP) && worseFitness < 0) {
-			for (Iterator iterator = poblacion.iterator(); iterator.hasNext();) {
+			for (Iterator<Individuo> iterator = poblacion.iterator(); iterator.hasNext();) {
 				Individuo individuo = (Individuo) iterator.next();
 				individuo.setFitnessAdaptado(individuo.getFitnessAdaptado() - worseFitness);			
 			}

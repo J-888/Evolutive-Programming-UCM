@@ -6,6 +6,7 @@ import geneticos.Poblacion;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 import javax.swing.JFrame;
 import javax.swing.SwingWorker;
@@ -52,6 +53,7 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 	protected boolean stop;
 	protected boolean escalado;
 	protected boolean invEspActivada;
+	
 	protected BloatControl bloatControl;
 	
 	protected boolean irradiarActivado;

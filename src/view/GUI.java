@@ -92,6 +92,7 @@ public class GUI extends JFrame{
 	private int[] gateSelected = {0, 1, 2};
 	private JComboBox<String> problemCombobox;
 	private JComboBox<String> contractividadCombobox; 
+	private JPanel bloatingPanel;
 	private JComboBox<String> bloatingCombobox; 
 	private GraficaPanel chartPanel;
 	private final ConfigPanel<Settings> settingsPanel;
@@ -183,7 +184,7 @@ public class GUI extends JFrame{
 		problemPanel.add(changeGatesBtn);
 		
 
-		JPanel bloatingPanel = new JPanel();
+		bloatingPanel = new JPanel();
 		JLabel bloatingLabel = new JLabel("Antibloating");
 		bloatingPanel.add(bloatingLabel);
 		bloatingCombobox = new JComboBox(AntibloatingMethod.values());
@@ -299,6 +300,9 @@ public class GUI extends JFrame{
 					
 					if(popSize*elite < 1 && elite != 0)
 						JOptionPane.showMessageDialog(null, "Población / elite < 1 individuo!","Ojo!!!",JOptionPane.WARNING_MESSAGE);
+					
+					if(elite != 0 && opt.equals("Pr3.MuxN") && bloatingCombobox.getSelectedItem() != AntibloatingMethod.NONE)
+						JOptionPane.showMessageDialog(null, "No se garantiza la preservacion de la elite con antibloating","Ojo!!!",JOptionPane.WARNING_MESSAGE);
 					
 					int npass;
 					
@@ -541,7 +545,7 @@ public class GUI extends JFrame{
 			maxProfLab.setVisible(false);
 			initPopPG.setVisible(false);
 			changeGatesBtn.setVisible(false);
-			bloatingCombobox.setVisible(false);
+			bloatingPanel.setVisible(false);
 		}
 		else if(opt == "Pr3.MuxN"){
 			nLab.setVisible(true);
@@ -552,7 +556,7 @@ public class GUI extends JFrame{
 			maxProfLab.setVisible(true);
 			initPopPG.setVisible(true);
 			changeGatesBtn.setVisible(true);
-			bloatingCombobox.setVisible(true);
+			bloatingPanel.setVisible(true);
 		}
 		else{
 			nLab.setVisible(false);
@@ -563,7 +567,7 @@ public class GUI extends JFrame{
 			maxProfLab.setVisible(false);
 			initPopPG.setVisible(false);
 			changeGatesBtn.setVisible(false);
-			bloatingCombobox.setVisible(false);
+			bloatingPanel.setVisible(false);
 		}
 
 		if(tipoCromosoma == TipoCromosoma.REAL) {	//cromosoma real
