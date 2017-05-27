@@ -2,6 +2,8 @@ package operadores.fitness;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import geneticos.Individuo;
 import geneticos.cromosomas.CromosomaPG;
@@ -49,6 +51,30 @@ public class BloatControl {
 					else
 						individuo.setFitness(Double.NEGATIVE_INFINITY);
 				}
+			}
+			
+		}, CPP { 				//Covariant Parsimony Pressure
+			private double k;
+
+			public void inicialization(ArrayList<Individuo> poblacion) {
+
+				List<Double> fitnessList = poblacion.stream().map(ind -> ind.getFitness()).collect(Collectors.toList());
+				List<Double> nodeNumberList = poblacion.stream().map(ind -> ((double)((CromosomaPG)ind.getCromosoma()).getArbol().getNumNodos())).collect(Collectors.toList());
+				
+				double nodeAvg = Utiles.mean(nodeNumberList);
+				double cov_Leng_Fit = Utiles.covariance(nodeNumberList, nodeAvg, fitnessList);
+				double var_Leng = Utiles.variance(nodeNumberList, nodeAvg);
+				k = cov_Leng_Fit/var_Leng;
+			}
+			
+			public void adjustFitness(Individuo individuo, boolean isMinimizacion) {
+				double adjustedFitness;
+				if(isMinimizacion)
+					adjustedFitness = individuo.getFitness() + this.k * ((CromosomaPG) individuo.getCromosoma()).getArbol().getNumNodos();
+				else
+					adjustedFitness = individuo.getFitness() - this.k * ((CromosomaPG) individuo.getCromosoma()).getArbol().getNumNodos();
+
+				individuo.setFitness(adjustedFitness);
 			}
 			
 		},	ADVANCED {
