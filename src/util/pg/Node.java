@@ -32,6 +32,10 @@ public abstract class Node {
 		return this.parent;
 	}
 
+	public TipoNodo getTipo(){
+		return this.tipo;
+	}
+
 	public void setTipo(TipoNodo tipo){
 		this.tipo = tipo;
 	}
@@ -85,8 +89,12 @@ public abstract class Node {
 	public abstract Node clone();
 	public abstract boolean resolve();
 	public abstract boolean isLeaf();
-	//Devuelve todos los nodos del arbol con n puertas. Si puertas es -1, devuelve todos los del arbol. Detalle: Las entradas(terminales) se interpretan como 0 puertas,
-	//Para no confundir con el not que tiene una.
+	/*
+	 * Devuelve todos los nodos del arbol con n puertas. 
+	 * Si puertas es -1, devuelve todos los del arbol. 
+	 * Si puertas es -2, devuelve todos los no terminales del arbol.
+	 * Detalle: Las entradas(terminales) se interpretan como 0 puertas, para no confundir con el not que tiene una.
+	 */
 	public abstract void nodificar(HashSet<Node> nodosh1, int puertas);
 	public abstract int getNumEntradas();
 	
