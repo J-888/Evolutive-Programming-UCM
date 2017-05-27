@@ -70,7 +70,7 @@ public class NonLeafNode extends Node {
 
 	public void nodificar(HashSet<Node> nodosh1, int puertas) {
 		if(esRaiz == false){ //La raiz no se nodifica por conveniencia para el cruce
-			if(puertas == -1 || puertas == children.size()) // add si todos o si se buscan con las puertas que tiene este nodo
+			if(puertas == -1 || puertas == -2 || puertas == children.size()) // add si todos o solo no terminales o si se buscan con las puertas que tiene este nodo
 				nodosh1.add(this);
 		}
 		
