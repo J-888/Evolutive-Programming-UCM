@@ -34,6 +34,8 @@ public class Terminal extends FuncionMutacion{
 			((LeafNode) selectednode).setEntrada(nuevaEntrada);
 			
 		}
+		
+		crom.getArbol().actualizarArbol();
 	}
 
 	public String toString() {

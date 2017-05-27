@@ -46,9 +46,11 @@ public class Funcion extends FuncionMutacion{
 			if(tiposPosibles.isEmpty() && (nuevoTipo.getMinEnts() > entradasActual || entradasActual > nuevoTipo.getMaxEnts()))
 				nuevoTipo = tipoActual;
 			
-			selectednode.setTipo(nuevoTipo);
-			
+			selectednode.setTipo(nuevoTipo);	
 		}
+		
+		crom.getArbol().actualizarArbol();
+		
 	}
 
 	public String toString() {

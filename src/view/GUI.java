@@ -90,7 +90,7 @@ public class GUI extends JFrame{
 	private FuncionMutacion[] mutationOptionsBin = {new BaseABase()}; 
 	private FuncionMutacion[] mutationOptionsReal = {new BaseABase()}; 
 	private FuncionMutacion[] mutationOptionsPermInt = {new Inversion(), new Intercambio(), new IntercambioAgresivo(0.2), new Insercion(), new Heuristica(5)}; 
-	private FuncionMutacion[] mutationOptionsPG = {new Terminal(), new Funcion(), new Subarbol(), new Multiple(), new OPM()}; 
+	private FuncionMutacion[] mutationOptionsPG = {new Terminal(), new Funcion(), new Subarbol(), new Multiple(false), new OPM()}; 
 	private String[] gateNames = {"AND", "OR", "NOT", "IF", "XOR"};
 	private int[] gateSelected = {0, 1, 2};
 	private JComboBox<String> problemCombobox;
@@ -118,6 +118,7 @@ public class GUI extends JFrame{
 	private JCheckBox visuals;
 	private JButton runButton;
 	private JButton stopButton;
+	private String nombreProblema;
 	
 	public GUI() {
 		
@@ -311,44 +312,57 @@ public class GUI extends JFrame{
 					
 					switch (opt) {
 						case "Pr1.1":
+							nombreProblema = "Pr1.1"; 
 							pf = new Pr1Func1(fcross, fmut, fselec, elite, genNum, popSize, gui);
 							break;
 						case "Pr1.2":
+							nombreProblema = "Pr1.2"; 
 							pf = new Pr1Func2(fcross, fmut, fselec, elite, genNum, popSize, gui);				
 							break;
 						case "Pr1.3":
+							nombreProblema = "Pr1.3"; 
 							pf = new Pr1Func3(fcross, fmut, fselec, elite, genNum, popSize, gui);
 							break;
 						case "Pr1.4":
+							nombreProblema = "Pr1.4"; 
 							npass = Integer.parseInt(ntf.getText());
 							pf = new Pr1Func4(fcross, fmut, fselec, elite, genNum, popSize, gui, npass);
 							break;
 						case "Pr1.4Xtra":
+							nombreProblema = "Pr1.4Xtra"; 
 							npass = Integer.parseInt(ntf.getText());
 							pf = new Pr1Func4Xtra(fcross, fmut, fselec, elite, genNum, popSize, gui, npass);
 							break;
 						case "Pr1.5":
+							nombreProblema = "Pr1.5"; 
 							pf = new Pr1Func5(fcross, fmut, fselec, elite, genNum, popSize, gui);
 							break;
 						case "Pr2.Ajuste":
+							nombreProblema = "Pr2.Ajuste"; 
 							pf = new Pr2Ajuste(fcross, fmut, fselec, elite, genNum, popSize, gui);
 							break;
 						case "Pr2.Datos12":
+							nombreProblema = "Pr2.Datos12"; 
 							pf = new Pr2Datos12(fcross, fmut, fselec, elite, genNum, popSize, gui);
 							break;
 						case "Pr2.Datos15":
+							nombreProblema = "Pr2.Datos15"; 
 							pf = new Pr2Datos15(fcross, fmut, fselec, elite, genNum, popSize, gui);
 							break;
 						case "Pr2.Datos30":
+							nombreProblema = "Pr2.Datos30";
 							pf = new Pr2Datos30(fcross, fmut, fselec, elite, genNum, popSize, gui);
 							break;
 						case "Pr2.tai100a":
+							nombreProblema = "Pr2.tai100a";
 							pf = new Pr2tai100a(fcross, fmut, fselec, elite, genNum, popSize, gui);
 							break;
 						case "Pr2.tai256c":
+							nombreProblema = "Pr2.tai256c"; 
 							pf = new Pr2tai256c(fcross, fmut, fselec, elite, genNum, popSize, gui);
 							break;
 						case "Pr3.MuxN":
+							nombreProblema = "Pr3.MuxN"; 
 							pf = new Pr3MuxN(fcross, fmut, fselec, elite, genNum, popSize, (GUI)gui);
 							break;
 						default:
@@ -768,6 +782,10 @@ public class GUI extends JFrame{
 
 	public AntibloatingMethod getDesiredBloating() {
 		return (AntibloatingMethod) this.bloatingCombobox.getSelectedItem();
+	}
+	
+	public String getNombreProblema(){
+		return nombreProblema;
 	}
 	
 }

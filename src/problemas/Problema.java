@@ -17,6 +17,7 @@ import operadores.fitness.FuncionFitness;
 import operadores.mutacion.FuncionMutacion;
 import operadores.mutacion.IntercambioAgresivo;
 import operadores.mutacion.Inversion;
+import operadores.mutacion.Multiple;
 import operadores.seleccion.FuncionSeleccion;
 import util.Contractividad;
 import util.EscaladoLineal;
@@ -36,7 +37,7 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 	protected FuncionCruce funcCruz;
 	protected FuncionMutacion funcMuta;
 	protected Inversion invEspecial;
-	protected IntercambioAgresivo irradiateFunct;
+	protected FuncionMutacion irradiateFunct;
 	protected FuncionSeleccion funcSelec;
 	protected int tamElite;
 	protected String contracString;
@@ -60,6 +61,7 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 	protected boolean irradiating;
 	protected ArrayList<Double> bestFitnessReg;
 	
+	protected String nombreProblema;
 	protected boolean debug = true;
 	
 
@@ -68,6 +70,7 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 		this.funcSelec = funcSelec;
 		this.funcMuta = funcMuta;
 		this.funcCruz = funcCruz;
+		this.nombreProblema = ((GUI) guiExt).getNombreProblema();
 
 		this.tamPob = tamPob;
 		this.numGenerations = numGenerations;
@@ -106,8 +109,10 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 			rellenarPobCruce();
 			funcMuta.mutar(poblacionNueva);
 			
-			if(irradiating) //Puede empeorar, ha de hacerse antes de insertar la elite
+			if(irradiating){ //Puede empeorar, ha de hacerse antes de insertar la elite
 				irradiar();
+			//	irradiating = false;
+			}
 			
 			insertElite();
 			
@@ -141,14 +146,14 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 	private void registrarEstadisticasYActualizar(int currentIter) {
 		bestFitnessReg.add(mejorAbsoluto.getFitness());
 		//Actualizacion de la irradiacion//////
-		if(currentIter > 10 && irradiarActivado){ //Irradia si no ha habido una mejora de 0.1% en las ultimas 50 generaciones
+		if(currentIter > 80 && irradiarActivado){ //Irradia si no ha habido una mejora de 0.1% en las ultimas 50 generaciones
 			if(minimizacion){
-				if(mejorAbsoluto.getFitness() > bestFitnessReg.get(currentIter-10)*0.999){
+				if(mejorAbsoluto.getFitness() > bestFitnessReg.get(currentIter-80)*0.999){
 					irradiating = true;
 				}
 			}
 			else{
-				if(mejorAbsoluto.getFitness() < bestFitnessReg.get(currentIter-10)*1.001){
+				if(mejorAbsoluto.getFitness() < bestFitnessReg.get(currentIter-80)*1.001){
 					irradiating = true;
 				}
 			}
@@ -338,7 +343,10 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 		}
 		
 		if(irradiarActivado){
-			irradiateFunct = new IntercambioAgresivo(0.75);
+			if (nombreProblema.equals("Pr3.MuxN"))
+				irradiateFunct = new Multiple(true);
+			else
+				irradiateFunct = new IntercambioAgresivo(0.75);
 		}
 
 	}
