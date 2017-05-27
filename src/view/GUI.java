@@ -47,6 +47,7 @@ import operadores.mutacion.IntercambioAgresivo;
 import operadores.mutacion.BaseABase;
 import operadores.mutacion.Funcion;
 import operadores.mutacion.Inversion;
+import operadores.mutacion.Subarbol;
 import operadores.mutacion.Terminal;
 import operadores.seleccion.EstocasticoUniversal;
 import operadores.seleccion.FuncionSeleccion;
@@ -86,7 +87,7 @@ public class GUI extends JFrame{
 	private FuncionMutacion[] mutationOptionsBin = {new BaseABase()}; 
 	private FuncionMutacion[] mutationOptionsReal = {new BaseABase()}; 
 	private FuncionMutacion[] mutationOptionsPermInt = {new Inversion(), new Intercambio(), new IntercambioAgresivo(0.2), new Insercion(), new Heuristica(5)}; 
-	private FuncionMutacion[] mutationOptionsPG = {new Terminal(), new Funcion()}; 
+	private FuncionMutacion[] mutationOptionsPG = {new Terminal(), new Funcion(), new Subarbol()}; 
 	private String[] gateNames = {"AND", "OR", "NOT", "IF", "XOR"};
 	private int[] gateSelected = {0, 1, 2};
 	private JComboBox<String> problemCombobox;
