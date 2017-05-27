@@ -41,23 +41,12 @@ public class Permutacion extends FuncionCruce {
 				for(int i = 0; i <= select2; i++)
 					selected2 = (Node) it2.next();
 				
-				//Cruzar
-				if(selected1 == null || selected2 == null){
-					System.out.println("!");
-				}
-				
-				if(selected1.getEsRaiz() || selected2.getEsRaiz()){
-					System.out.println("!");
-				}
-				
+				//Cruzar		
 				NonLeafNode padreh1 = (NonLeafNode) selected1.getParent();
 				int numHijoh1 = selected1.getNumHijo();
 				NonLeafNode padreh2 = (NonLeafNode) selected2.getParent();
 				int numHijoh2 = selected2.getNumHijo();
 				
-				if(padreh1 == null || padreh2 == null){
-					System.out.println("!");
-				}
 				padreh1.getChildren().set(numHijoh1, selected2);
 				padreh2.getChildren().set(numHijoh2, selected1);
 				selected2.setParent(padreh1);
