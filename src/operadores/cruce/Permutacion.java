@@ -50,7 +50,9 @@ public class Permutacion extends FuncionCruce {
 				padreh1.getChildren().set(numHijoh1, selected2);
 				padreh2.getChildren().set(numHijoh2, selected1);
 				selected2.setParent(padreh1);
+				selected2.setNumHijo(numHijoh1);
 				selected1.setParent(padreh2);
+				selected1.setNumHijo(numHijoh2);
 				
 				h1.getArbol().actualizarArbol();
 				h2.getArbol().actualizarArbol();
