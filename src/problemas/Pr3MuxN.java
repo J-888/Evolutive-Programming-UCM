@@ -51,7 +51,7 @@ public class Pr3MuxN extends Problema {
 				nSelects++;
 		}
 
-		BloatControl bloatControl = new BloatControl(AntibloatingMethod.ADVANCED);
+		BloatControl bloatControl = new BloatControl(AntibloatingMethod.TARPEIAN);
 		this.funcFit = new FitnessPr3MuxN(this.minimizacion, tamMux, nSelects, bloatControl);
 
 		this.funcCruz.setFuncionFitness(this.funcFit);
