@@ -26,7 +26,7 @@ import view.GUI;
 public class Pr3MuxN extends Problema {
 	
 	String pobIniGenMethod = null;
-	private int profundidadMax;
+	public static int profundidadMax;
 	public static List<TipoNodo> NTDisponibles;
 	public static int maxEntsPorNodo;
 	public static int tamMux;
@@ -51,8 +51,9 @@ public class Pr3MuxN extends Problema {
 				nSelects++;
 		}
 
-		BloatControl bloatControl = new BloatControl(AntibloatingMethod.CPP);
-		this.funcFit = new FitnessPr3MuxN(this.minimizacion, tamMux, nSelects, bloatControl);
+		this.bloatControl = new BloatControl(AntibloatingMethod.ADVANCED);
+		
+		this.funcFit = new FitnessPr3MuxN(this.minimizacion, tamMux, nSelects);
 
 		this.funcCruz.setFuncionFitness(this.funcFit);
 		this.funcMuta.setFuncionFitness(this.funcFit);

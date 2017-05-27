@@ -30,7 +30,7 @@ public class IndividuoPG extends Individuo {
 	}
 
 	public String toString(){
-		return "hola";
+		return String.valueOf(this.fitnessAdaptado);
 	}
 
 }

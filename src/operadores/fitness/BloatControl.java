@@ -7,27 +7,26 @@ import java.util.stream.Collectors;
 
 import geneticos.Individuo;
 import geneticos.cromosomas.CromosomaPG;
+import problemas.Pr3MuxN;
 import util.Utiles;
 
 public class BloatControl {
 	public enum AntibloatingMethod { 
 		NONE {
-			public void inicialization(ArrayList<Individuo> poblacion) { /*Do nothing*/	}
-			public void adjustFitness(Individuo individuo, boolean isMinimizacion) { /*Do nothing*/	}
+			public void inicialization(ArrayList<Individuo> poblacion) { /*Do nothing*/ }
+			public void adjustFitness(Individuo individuo) { /*Do nothing*/ }
 		
 		}, NAIVE {
 			private final double k = 0.1; //worsened fitness for each node
 
-			public void inicialization(ArrayList<Individuo> poblacion) { /*Do nothing*/	}
+			public void inicialization(ArrayList<Individuo> poblacion) { /*Do nothing*/ }
 			
-			public void adjustFitness(Individuo individuo, boolean isMinimizacion) {
+			public void adjustFitness(Individuo individuo) {
 				double adjustedFitness;
-				if(isMinimizacion)
-					adjustedFitness = individuo.getFitness() + this.k * ((CromosomaPG) individuo.getCromosoma()).getArbol().getNumNodos();
-				else
-					adjustedFitness = individuo.getFitness() - this.k * ((CromosomaPG) individuo.getCromosoma()).getArbol().getNumNodos();
 
-				individuo.setFitness(adjustedFitness);
+				adjustedFitness = individuo.getFitnessAdaptado() - this.k * ((CromosomaPG) individuo.getCromosoma()).getArbol().getNumNodos();
+
+				individuo.setFitnessAdaptado(adjustedFitness);
 			}
 			
 		}, TARPEIAN {
@@ -43,13 +42,10 @@ public class BloatControl {
 				avgNodes = avgNodes / poblacion.size();
 			}
 			
-			public void adjustFitness(Individuo individuo, boolean isMinimizacion) {
+			public void adjustFitness(Individuo individuo) {
 				int numNodes = ((CromosomaPG) individuo.getCromosoma()).getArbol().getNumNodos();
 				if(numNodes > avgNodes && (Utiles.randomIntNO()%chambers == 0)) {
-					if(isMinimizacion)
-						individuo.setFitness(Double.POSITIVE_INFINITY);
-					else
-						individuo.setFitness(Double.NEGATIVE_INFINITY);
+					individuo.setFitnessAdaptado(Double.NEGATIVE_INFINITY);
 				}
 			}
 			
@@ -58,7 +54,7 @@ public class BloatControl {
 
 			public void inicialization(ArrayList<Individuo> poblacion) {
 
-				List<Double> fitnessList = poblacion.stream().map(ind -> ind.getFitness()).collect(Collectors.toList());
+				List<Double> fitnessList = poblacion.stream().map(ind -> ind.getFitnessAdaptado()).collect(Collectors.toList());
 				List<Double> nodeNumberList = poblacion.stream().map(ind -> ((double)((CromosomaPG)ind.getCromosoma()).getArbol().getNumNodos())).collect(Collectors.toList());
 				
 				double nodeAvg = Utiles.mean(nodeNumberList);
@@ -67,38 +63,34 @@ public class BloatControl {
 				k = cov_Leng_Fit/var_Leng;
 			}
 			
-			public void adjustFitness(Individuo individuo, boolean isMinimizacion) {
+			public void adjustFitness(Individuo individuo) {
 				double adjustedFitness;
-				if(isMinimizacion)
-					adjustedFitness = individuo.getFitness() + this.k * ((CromosomaPG) individuo.getCromosoma()).getArbol().getNumNodos();
-				else
-					adjustedFitness = individuo.getFitness() - this.k * ((CromosomaPG) individuo.getCromosoma()).getArbol().getNumNodos();
+				adjustedFitness = individuo.getFitnessAdaptado() - this.k * ((CromosomaPG) individuo.getCromosoma()).getArbol().getNumNodos();
 
-				individuo.setFitness(adjustedFitness);
+				individuo.setFitnessAdaptado(adjustedFitness);
 			}
 			
 		},	ADVANCED {
-			private final double maxNodes = 35;
+			private double maxNodes = -1;
 			private final double pow = 2;	//strength
 
-			public void inicialization(ArrayList<Individuo> poblacion) { /*Do nothing*/	}
+			public void inicialization(ArrayList<Individuo> poblacion) { 
+				maxNodes = Math.pow(Pr3MuxN.maxEntsPorNodo, Pr3MuxN.profundidadMax) - 1;
+			}
 			
-			public void adjustFitness(Individuo individuo, boolean isMinimizacion) {
+			public void adjustFitness(Individuo individuo) {
 				int numNodos = ((CromosomaPG) individuo.getCromosoma()).getArbol().getNumNodos();
 				if(numNodos > maxNodes) {
 					double ratio = numNodos/maxNodes;
 					ratio = Math.pow(ratio, pow);
-					if(isMinimizacion)
-						individuo.setFitness(ratio/individuo.getFitness());
-					else
-						individuo.setFitness(individuo.getFitness()/ratio);
+					individuo.setFitnessAdaptado(individuo.getFitnessAdaptado()/ratio);
 				}			
 			}
 			
 		};
 
 		public abstract void inicialization(ArrayList<Individuo> poblacion);
-		public abstract void adjustFitness(Individuo individuo, boolean isMinimizacion);
+		public abstract void adjustFitness(Individuo individuo);
 	};
 	
 	private AntibloatingMethod currentMethod;
@@ -115,13 +107,13 @@ public class BloatControl {
 		return currentMethod != AntibloatingMethod.NONE;
 	}
 
-	public void adjustFitness(ArrayList<Individuo> poblacion, boolean isMinimizacion) {
+	public void adjustFitness(ArrayList<Individuo> poblacion) {
 		
 		currentMethod.inicialization(poblacion);
 		
 		for (Iterator iterator = poblacion.iterator(); iterator.hasNext();) {
 			Individuo individuo = (Individuo) iterator.next();
-			currentMethod.adjustFitness(individuo, isMinimizacion);
+			currentMethod.adjustFitness(individuo);
 		}
 	}
 	

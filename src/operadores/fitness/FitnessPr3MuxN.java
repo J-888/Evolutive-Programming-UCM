@@ -17,12 +17,10 @@ public class FitnessPr3MuxN extends FuncionFitness {
 	private int nPosib;
 	public static List<Integer> valoresSelectsYEnts;
 	
-	public FitnessPr3MuxN (boolean isMinimizacion, int nSoloEnts, int nSelects, BloatControl bloatControl){
+	public FitnessPr3MuxN (boolean isMinimizacion, int nSoloEnts, int nSelects){
 		super(isMinimizacion);
 		this.nSelect = nSelects;
 		this.nPosib = (int) Math.pow(2,(nSoloEnts + nSelect));
-		
-		this.bloatControl = bloatControl;
 		
 		valoresSelectsYEnts = new ArrayList<Integer>(Arrays.asList(new Integer[nSoloEnts + nSelect]));
 		Collections.fill(valoresSelectsYEnts, 0);

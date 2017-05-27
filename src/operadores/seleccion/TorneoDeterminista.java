@@ -24,14 +24,14 @@ public class TorneoDeterminista extends FuncionSeleccion {
 		for(int i = 0; i < nElems; i++)
 			inds.add(orderedPob.get(Utiles.randomIntNO()%orderedPob.size()));
 		Individuo best = new IndividuoStd();
-		best.setFitnessAdaptado(-1);
+		best.setFitnessAdaptado(Double.NEGATIVE_INFINITY);
 		for(int i = 0; i < nElems; i++){
 			if(!this.escalado) {
-				if(inds.get(i).getFitnessAdaptado() > best.getFitnessAdaptado())
+				if(inds.get(i).getFitnessAdaptado() >= best.getFitnessAdaptado())
 					best = inds.get(i);
 			}
 			else {
-				if(inds.get(i).getFitnessEscalado() > best.getFitnessEscalado())
+				if(inds.get(i).getFitnessEscalado() >= best.getFitnessEscalado())
 					best = inds.get(i);
 			}
 		}

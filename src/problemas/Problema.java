@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingWorker;
 
 import operadores.cruce.FuncionCruce;
+import operadores.fitness.BloatControl;
 import operadores.fitness.FuncionFitness;
 import operadores.mutacion.FuncionMutacion;
 import operadores.mutacion.IntercambioAgresivo;
@@ -51,12 +52,14 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 	protected boolean stop;
 	protected boolean escalado;
 	protected boolean invEspActivada;
+	protected BloatControl bloatControl;
 	
 	protected boolean irradiarActivado;
 	protected boolean irradiating;
 	protected ArrayList<Double> bestFitnessReg;
 	
 	protected boolean debug = true;
+	
 
 	public Problema(FuncionCruce funcCruz, FuncionMutacion funcMuta, FuncionSeleccion funcSelec, double elite0to1,
 			int numGenerations, int tamPob, int rangoSize, JFrame guiExt) {
@@ -263,6 +266,10 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 
 	private void adaptPoblacion() {
 		funcSelec.adapt(poblacion, peorIndividuo.getFitness(), minimizacion);
+		
+		if(this.bloatControl != null && this.bloatControl.isActive()) {
+			bloatControl.adjustFitness(poblacion);
+		}
 	}
 
 	private void scalePoblacion(EscaladoLineal escalado) {
