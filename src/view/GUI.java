@@ -39,6 +39,7 @@ import operadores.cruce.PMX;
 import operadores.cruce.Permutacion;
 import operadores.cruce.SX;
 import operadores.cruce.Uniforme;
+import operadores.fitness.BloatControl.AntibloatingMethod;
 import operadores.mutacion.FuncionMutacion;
 import operadores.mutacion.Heuristica;
 import operadores.mutacion.Insercion;
@@ -91,6 +92,7 @@ public class GUI extends JFrame{
 	private int[] gateSelected = {0, 1, 2};
 	private JComboBox<String> problemCombobox;
 	private JComboBox<String> contractividadCombobox; 
+	private JComboBox<String> bloatingCombobox; 
 	private GraficaPanel chartPanel;
 	private final ConfigPanel<Settings> settingsPanel;
 	private JLabel nLab;
@@ -179,7 +181,14 @@ public class GUI extends JFrame{
 			}
 		});
 		problemPanel.add(changeGatesBtn);
-				
+		
+
+		JPanel bloatingPanel = new JPanel();
+		JLabel bloatingLabel = new JLabel("Antibloating");
+		bloatingPanel.add(bloatingLabel);
+		bloatingCombobox = new JComboBox(AntibloatingMethod.values());
+		bloatingPanel.add(bloatingCombobox);
+		problemPanel.add(bloatingPanel);				
 		
 		visuals = new JCheckBox("Enable popups", true);
 		problemPanel.add(visuals);
@@ -212,7 +221,7 @@ public class GUI extends JFrame{
 		contractividadCombobox = new JComboBox(new String[]{"No", "Actualizando población", "Sin actualizar población"});
 		contractividadPanel.add(contractividadCombobox);
 		tricksPanel.add(contractividadPanel);
-		
+				
 		escaladoCheckBox = new JCheckBox("Escalado lineal");
 		escaladoCheckBox.setMaximumSize(new Dimension(111, 23));
 		escaladoCheckBox.setAlignmentX(Component.RIGHT_ALIGNMENT);
@@ -532,6 +541,7 @@ public class GUI extends JFrame{
 			maxProfLab.setVisible(false);
 			initPopPG.setVisible(false);
 			changeGatesBtn.setVisible(false);
+			bloatingCombobox.setVisible(false);
 		}
 		else if(opt == "Pr3.MuxN"){
 			nLab.setVisible(true);
@@ -542,6 +552,7 @@ public class GUI extends JFrame{
 			maxProfLab.setVisible(true);
 			initPopPG.setVisible(true);
 			changeGatesBtn.setVisible(true);
+			bloatingCombobox.setVisible(true);
 		}
 		else{
 			nLab.setVisible(false);
@@ -552,6 +563,7 @@ public class GUI extends JFrame{
 			maxProfLab.setVisible(false);
 			initPopPG.setVisible(false);
 			changeGatesBtn.setVisible(false);
+			bloatingCombobox.setVisible(false);
 		}
 
 		if(tipoCromosoma == TipoCromosoma.REAL) {	//cromosoma real
@@ -745,6 +757,10 @@ public class GUI extends JFrame{
 		}
 			
 		return ents;
+	}
+
+	public AntibloatingMethod getDesiredBloating() {
+		return (AntibloatingMethod) this.bloatingCombobox.getSelectedItem();
 	}
 	
 }

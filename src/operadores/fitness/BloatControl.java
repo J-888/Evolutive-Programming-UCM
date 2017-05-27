@@ -22,7 +22,7 @@ public class BloatControl {
 			public void inicialization(ArrayList<Individuo> poblacion) { /*Do nothing*/ }
 			
 			public void adjustFitness(Individuo individuo) {
-				double adjustedFitness;
+				Double adjustedFitness;
 
 				adjustedFitness = individuo.getFitnessAdaptado() - this.k * ((CromosomaPG) individuo.getCromosoma()).getArbol().getNumNodos();
 
@@ -45,7 +45,7 @@ public class BloatControl {
 			public void adjustFitness(Individuo individuo) {
 				int numNodes = ((CromosomaPG) individuo.getCromosoma()).getArbol().getNumNodos();
 				if(numNodes > avgNodes && (Utiles.randomIntNO()%chambers == 0)) {
-					individuo.setFitnessAdaptado(Double.NEGATIVE_INFINITY);
+					individuo.setFitnessAdaptado(0);
 				}
 			}
 			
@@ -88,7 +88,13 @@ public class BloatControl {
 			}
 			
 		};
-
+		
+		public String toString() {
+			String name = this.name();
+			if(name.length() > 3)
+				name = name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase();
+			return name;
+		}
 		public abstract void inicialization(ArrayList<Individuo> poblacion);
 		public abstract void adjustFitness(Individuo individuo);
 	};
@@ -111,9 +117,19 @@ public class BloatControl {
 		
 		currentMethod.inicialization(poblacion);
 		
+		double worseFitness = Double.MAX_VALUE;
 		for (Iterator iterator = poblacion.iterator(); iterator.hasNext();) {
 			Individuo individuo = (Individuo) iterator.next();
 			currentMethod.adjustFitness(individuo);
+			if((currentMethod == AntibloatingMethod.NAIVE || currentMethod == AntibloatingMethod.CPP) && individuo.getFitnessAdaptado() < worseFitness)
+				worseFitness = individuo.getFitnessAdaptado();				
+		}
+		
+		if((currentMethod == AntibloatingMethod.NAIVE || currentMethod == AntibloatingMethod.CPP) && worseFitness < 0) {
+			for (Iterator iterator = poblacion.iterator(); iterator.hasNext();) {
+				Individuo individuo = (Individuo) iterator.next();
+				individuo.setFitnessAdaptado(individuo.getFitnessAdaptado() - worseFitness);			
+			}
 		}
 	}
 	

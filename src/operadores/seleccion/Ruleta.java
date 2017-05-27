@@ -18,6 +18,9 @@ public class Ruleta extends FuncionSeleccion {
 		if(idx < 0)
 			idx = Math.abs(idx+1);
 		
+		if(idx == 100)
+			System.err.println();
+		
 		return orderedPob.get(idx);
 	}
 
