@@ -31,6 +31,70 @@ public enum TipoNodo {
 			return "IF";
 		}
 		
+	}, DC3e {
+		public boolean resolve(ArrayList<Node> children) { //Los dos primeros conds, los 3 siguientes entradas
+			if(children.get(0).resolve() == true){
+				if(children.get(1).resolve() == true){
+					return children.get(2).resolve();
+				}
+				else{
+					return children.get(4).resolve();
+				}
+			}
+			else{
+				if(children.get(1).resolve() == true){
+					return children.get(3).resolve();
+				}
+				else{
+					return children.get(4).resolve();
+				}
+			}
+		}
+
+		public int getMinEnts() {
+			return 5;
+		}
+
+		public int getMaxEnts() {
+			return 5;
+		}
+
+		public String toString() {
+			return "DC3e";
+		}
+	
+	}, DC4e {
+		public boolean resolve(ArrayList<Node> children) { //Los dos primeros conds, los 3 siguientes entradas
+			if(children.get(0).resolve() == true){
+				if(children.get(1).resolve() == true){
+					return children.get(2).resolve();
+				}
+				else{
+					return children.get(4).resolve();
+				}
+			}
+			else{
+				if(children.get(1).resolve() == true){
+					return children.get(3).resolve();
+				}
+				else{
+					return children.get(5).resolve();
+				}
+			}
+		}
+
+		public int getMinEnts() {
+			return 6;
+		}
+
+		public int getMaxEnts() {
+			return 6;
+		}
+
+		public String toString() {
+			return "DC4e";
+		}
+	
 	}, AND {
 		public boolean resolve(ArrayList<Node> children) {
 			boolean ret = true;

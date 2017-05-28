@@ -91,7 +91,7 @@ public class GUI extends JFrame{
 	private FuncionMutacion[] mutationOptionsReal = {new BaseABase()}; 
 	private FuncionMutacion[] mutationOptionsPermInt = {new Inversion(), new Intercambio(), new IntercambioAgresivo(0.2), new Insercion(), new Heuristica(5)}; 
 	private FuncionMutacion[] mutationOptionsPG = {new Terminal(), new Funcion(), new Subarbol(), new Multiple(false), new OPM()}; 
-	private String[] gateNames = {"AND", "OR", "NOT", "IF", "XOR"};
+	private String[] gateNames = {"AND", "OR", "NOT", "IF", "DC3e", "DC4e", "XOR"};
 	private int[] gateSelected = {0, 1, 2};
 	private JComboBox<String> problemCombobox;
 	private JComboBox<String> contractividadCombobox; 
@@ -745,6 +745,10 @@ public class GUI extends JFrame{
 		if(aux.contains(3))
 			ret.add(TipoNodo.IF);
 		if(aux.contains(4))
+			ret.add(TipoNodo.DC3e);
+		if(aux.contains(5))
+			ret.add(TipoNodo.DC4e);
+		if(aux.contains(6))
 			ret.add(TipoNodo.XOR);		
 		return ret;
 	}
