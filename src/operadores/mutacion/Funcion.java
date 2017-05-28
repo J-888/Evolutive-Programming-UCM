@@ -8,6 +8,8 @@ import java.util.List;
 
 import geneticos.Individuo;
 import geneticos.cromosomas.CromosomaPG;
+import problemas.Pr3MuxN;
+import problemas.Problema;
 import util.Utiles;
 import util.pg.Node;
 import util.pg.TipoNodo;
@@ -20,9 +22,9 @@ public class Funcion extends FuncionMutacion{
 
 		HashSet<Node> nodos = new HashSet<Node>();
 		crom.getArbol().nodificar(nodos, -2);
-		nodos.add(crom.getArbol());
 		
 		if(!nodos.isEmpty()){
+			nodos.add(crom.getArbol());
 			int rand = Utiles.randomIntNO() % (nodos.size());
 			Iterator it = nodos.iterator();
 			Node selectednode = null;
@@ -33,6 +35,14 @@ public class Funcion extends FuncionMutacion{
 			List<TipoNodo> tiposPosibles = new ArrayList<>(Arrays.asList(TipoNodo.values()));
 			tiposPosibles.remove(TipoNodo.ENTRADA);
 			tiposPosibles.remove(tipoActual);
+			
+			List<TipoNodo> tiposPosiblesAux = new ArrayList<>(tiposPosibles.size());
+			for (int i = 0; i < tiposPosibles.size(); i++) {
+				if(Pr3MuxN.NTDisponibles.contains(tiposPosibles.get(i))) {
+					tiposPosiblesAux.add(tiposPosibles.get(i));
+				}
+			}
+			tiposPosibles = tiposPosiblesAux;
 			
 			TipoNodo nuevoTipo;
 			int selectedIndex;
