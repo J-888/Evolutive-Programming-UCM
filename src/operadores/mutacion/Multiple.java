@@ -23,7 +23,7 @@ public class Multiple extends FuncionMutacion{
 			mutations[selectedMut].mutarInd(ind2);
 		}
 		else{
-			for(int i = 0; i < crompg.getArbol().getNumNodos()/20; i++){
+			for(int i = 0; i < crompg.getArbol().getNumNodos()/10; i++){
 				int selectedMut = Utiles.randomIntNO()%mutations.length;
 				mutations[selectedMut].mutarInd(ind2);
 			}

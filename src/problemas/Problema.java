@@ -59,6 +59,7 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 	
 	protected boolean irradiarActivado;
 	protected boolean irradiating;
+	protected int lastIrradiationGen;
 	protected ArrayList<Double> bestFitnessReg;
 	
 	protected String nombreProblema;
@@ -90,6 +91,7 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 		cheapMutations();
 
 		this.irradiating = false;
+		lastIrradiationGen = -1;
 		this.stop = false;
 	}
 
@@ -111,7 +113,9 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 			
 			if(irradiating){ //Puede empeorar, ha de hacerse antes de insertar la elite
 				irradiar();
-			//	irradiating = false;
+				irradiating = false;
+				lastIrradiationGen = currentIter;
+				System.err.println("irradiating on gen: " + currentIter);
 			}
 			
 			insertElite();
@@ -146,14 +150,15 @@ public abstract class Problema extends SwingWorker<Individuo, String> {
 	private void registrarEstadisticasYActualizar(int currentIter) {
 		bestFitnessReg.add(mejorAbsoluto.getFitness());
 		//Actualizacion de la irradiacion//////
-		if(currentIter > 80 && irradiarActivado){ //Irradia si no ha habido una mejora de 0.1% en las ultimas 50 generaciones
+		int irradiatePeriod = 50;
+		if(irradiarActivado && currentIter > irradiatePeriod && (currentIter - lastIrradiationGen) > irradiatePeriod){ //Irradia si no ha habido una mejora de 0.1% en las ultimas 50 generaciones
 			if(minimizacion){
-				if(mejorAbsoluto.getFitness() > bestFitnessReg.get(currentIter-80)*0.999){
+				if(mejorAbsoluto.getFitness() > bestFitnessReg.get(currentIter-irradiatePeriod)*0.999){
 					irradiating = true;
 				}
 			}
 			else{
-				if(mejorAbsoluto.getFitness() < bestFitnessReg.get(currentIter-80)*1.001){
+				if(mejorAbsoluto.getFitness() < bestFitnessReg.get(currentIter-irradiatePeriod)*1.001){
 					irradiating = true;
 				}
 			}
